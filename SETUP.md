@@ -25,6 +25,29 @@ There are several ways to run a local instance of CircuitVerse:
 | Windows | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
 
 
+## JavaScript package manager
+
+CircuitVerse uses **Yarn** as its single JavaScript package manager.
+`yarn.lock` is the only committed lockfile, and the expected Yarn version is
+declared once in the `packageManager` field of `package.json`
+(`yarn@1.22.22`), mirrored in `.tool-versions` for `asdf` users.
+
+- Install dependencies with `yarn install --frozen-lockfile`.
+- Do not commit a second lockfile (`package-lock.json`, `bun.lock`, `pnpm-lock.yaml`).
+- Node.js 22 (LTS) is required; CI and the Docker images all build on Node 22.
+
+`cv-frontend-vue` is a separate git submodule with its own `package-lock.json`,
+installed with `npm install`. It is not part of the root lockfile.
+
+
+## Mail catcher
+
+The Docker Compose stack runs [Mailpit](https://mailpit.axllent.org/) as the local
+mail catcher (SMTP on port `1025`, web UI on port `8025`).
+The Compose service is still named `mailcatcher` so that
+`config/environments/development.rb` keeps working unchanged.
+
+
 ## Tools Setup
 | Tool | Documentation Link |
 | --- | --- |

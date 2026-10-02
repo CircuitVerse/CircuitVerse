@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'json'
 require 'pathname'
 require 'fileutils'
 include FileUtils
@@ -52,15 +53,22 @@ def check_dependencies
     end
   end
 
-  # Check Yarn version specifically
+  # Check Yarn version specifically.
+  # The expected version lives in package.json's "packageManager" field so that
+  # there is exactly one place declaring it (see also .tool-versions).
   if check_command('yarn')
     yarn_version = `yarn --version`.strip
-    required_yarn = "1.22.19"
-    print_substep "Yarn version: #{yarn_version} (required: #{required_yarn})"
+    required_yarn = JSON.parse(File.read(APP_ROOT.join('package.json')))['packageManager']&.split('@')&.last
 
-    if yarn_version != required_yarn
-      puts "\n⚠️  Consider updating Yarn to version #{required_yarn}"
-      puts "Current version #{yarn_version} may work but #{required_yarn} is recommended"
+    if required_yarn.nil?
+      print_substep "⚠ Yarn version #{yarn_version} (could not read expected version from package.json)"
+    else
+      print_substep "Yarn version: #{yarn_version} (required: #{required_yarn})"
+
+      if yarn_version != required_yarn
+        puts "\n⚠️  Consider updating Yarn to version #{required_yarn}"
+        puts "Current version #{yarn_version} may work but #{required_yarn} is recommended"
+      end
     end
   end
 

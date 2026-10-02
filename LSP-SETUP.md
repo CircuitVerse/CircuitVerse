@@ -7,6 +7,12 @@
 
 2. **Docker based Installation**
 
+    Solargraph runs behind the optional `tools` Compose profile, so start it explicitly:
+
+    ```bash
+    docker compose --profile tools up solargraph
+    ```
+
     - Go to Settings
     - Search "solargraph"
     - Look for "Solargraph: External Server"
@@ -46,6 +52,12 @@ Go to `Preferences > Package Settings > LSP > Settings` and paste this configura
 
 2. **Docker based Installation**
 
+Solargraph runs behind the optional `tools` Compose profile, so start it explicitly:
+
+```bash
+docker compose --profile tools up solargraph
+```
+
 Go to `Preferences > Package Settings > LSP > Settings` and paste this configuration
 
 ```json
@@ -82,6 +94,12 @@ Go to `Preferences > Package Settings > LSP > Settings` and paste this configura
    ```
 
 2. Docker Based Installation
+
+    Solargraph runs behind the optional `tools` Compose profile, so start it explicitly:
+
+    ```bash
+    docker compose --profile tools up solargraph
+    ```
 
     a. Install [coc-nvim](https://github.com/neoclide/coc.nvim)
 
