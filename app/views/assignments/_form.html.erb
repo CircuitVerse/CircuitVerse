@@ -30,7 +30,7 @@
   </div>
   <div id="description" class="field mb-3">
     <h6><%= form.label :description %></h6>
-    <%= render partial: "editor/index", locals: { content: @assignment.description } %>
+    <%= render FormComponents::RichTextEditorComponent.new(editor_content: @assignment.description) %>
   </div>
   <div id="deadline-field" class="field form-group projects-tag-mb-3">
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
