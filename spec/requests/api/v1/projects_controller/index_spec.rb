@@ -91,5 +91,19 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         expect(response.parsed_body["data"].length).to eq(2)
       end
     end
+
+    context "when filter parameter is malformed" do
+      before do
+        FactoryBot.create_list(:project, 2, project_access_type: "Public")
+      end
+
+      it "does not raise an exception when filter is an array" do
+        expect do
+          get "/api/v1/projects",
+              params: { filter: ["digital"] },
+              as: :json
+        end.not_to raise_error
+      end
+    end
   end
 end
