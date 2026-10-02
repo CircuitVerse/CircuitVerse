@@ -110,7 +110,7 @@ function setupElementLists() {
     window.renderOrder = [...(moduleList.slice().reverse()), 'wires', 'allNodes']; // Order of render
 
     function createIcon(element) {
-        return `<div class="icon logixModules" id="${element.name}" title="${element.label}">
+        return `<div class="icon logixModules" id="${element.name}" data-title="${element.label}">
             <img src= "/img/${element.name}.svg" alt="element's image" >
         </div>`;
     }
