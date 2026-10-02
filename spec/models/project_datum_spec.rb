@@ -39,13 +39,25 @@ RSpec.describe ProjectDatum, type: :model do
       expect(described_class.cached_data(empty_project.id)).to be_nil
     end
 
-    it "caches the absence of circuit data rather than re-querying" do
+    it "does not cache the absence of circuit data" do
+      empty_project = FactoryBot.create(:project)
+
+      described_class.cached_data(empty_project.id)
+
+      # `read` would return nil either way; `exist?` distinguishes "never
+      # written" from "written as an explicit nil".
+      expect(Rails.cache.exist?(described_class.cache_key(empty_project.id))).to be(false)
+    end
+
+    it "re-queries for a project that has no circuit data" do
       empty_project = FactoryBot.create(:project)
       described_class.cached_data(empty_project.id)
       allow(described_class).to receive(:find_by).and_call_original
 
       expect(described_class.cached_data(empty_project.id)).to be_nil
-      expect(described_class).not_to have_received(:find_by)
+      # The spy only records calls made after it was installed, so this is the
+      # second read: it must reach the database, unlike a cached hit above.
+      expect(described_class).to have_received(:find_by).at_least(:once)
     end
 
     context "when the cache is unavailable" do
@@ -56,6 +68,20 @@ RSpec.describe ProjectDatum, type: :model do
 
       it "falls back to the database rather than failing the request" do
         expect(described_class.cached_data(project.id)).to eq(datum.data)
+      end
+    end
+
+    context "when the database read itself fails" do
+      it "does not swallow the error and retry the query" do
+        call_count = 0
+        allow(described_class).to receive(:find_by) do
+          call_count += 1
+          raise ActiveRecord::QueryCanceled, "canceling statement due to statement timeout"
+        end
+
+        expect { described_class.cached_data(project.id) }
+          .to raise_error(ActiveRecord::QueryCanceled)
+        expect(call_count).to eq(1)
       end
     end
   end

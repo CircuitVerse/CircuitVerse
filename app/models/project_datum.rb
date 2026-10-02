@@ -24,11 +24,24 @@ class ProjectDatum < ApplicationRecord
   #
   # Falls back to the database if the cache is unavailable: Redis being down
   # must not take a public read endpoint with it.
+  #
+  # The rescue is deliberately limited to Redis. On a miss, `Rails.cache.fetch`
+  # runs the block first and propagates whatever it raises, so a `StandardError`
+  # here would also catch a database timeout from `find_by` and run that same
+  # timed-out query a second time -- adding load exactly when Postgres is
+  # already struggling, which is the failure this cache exists to prevent.
+  #
+  # `skip_nil: true` keeps an absent datum out of the cache. Every creation
+  # path currently goes through this model, but a read that observes the
+  # pre-commit state can write its nil *after* the creating row's
+  # `after_commit` has already expired the key -- leaving a nil pinned for the
+  # full TTL. A stale nil is also the one bad hit here: 404 for a project that
+  # does have data, where a stale non-nil is merely an out-of-date circuit.
   def self.cached_data(project_id)
-    Rails.cache.fetch(cache_key(project_id), expires_in: CACHE_TTL) do
+    Rails.cache.fetch(cache_key(project_id), expires_in: CACHE_TTL, skip_nil: true) do
       find_by(project_id: project_id)&.data
     end
-  rescue StandardError => e
+  rescue Redis::BaseError => e
     Rails.logger.warn("[ProjectDatum] circuit data cache unavailable, falling back to DB: #{e.class}: #{e.message}")
     find_by(project_id: project_id)&.data
   end
