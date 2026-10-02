@@ -1,12 +1,16 @@
+<script>
+  window.circuitverseConfig = {
+    imgurClientId: <%= ENV.fetch('IMGUR_CLIENT_ID', '').to_json %>
+  };
+</script>
 <textarea id="trumbowyg"> <%= content %> </textarea>
-
 <script type="text/javascript">
   $(document).ready(function() {
     $('#trumbowyg').trumbowyg({
-      svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg",
+      svgPath: 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg',
       btnsDef: {
         image: {
-          dropdown: ['insertImage', 'upload'],
+          dropdown: window.circuitverseConfig.imgurClientId ? ['insertImage', 'upload'] : ['insertImage'],
           ico: 'insertImage'
         }
       },
@@ -26,14 +30,14 @@
         ['fullscreen']
       ],
       plugins: {
-        upload: {
+        upload: window.circuitverseConfig.imgurClientId ? {
           serverPath: 'https://api.imgur.com/3/image',
           fileFieldName: 'image',
           headers: {
-            'Authorization': 'Client-ID 9a33b3b370f1054'
+            'Authorization': 'Client-ID ' + window.circuitverseConfig.imgurClientId
           },
           urlPropertyName: 'data.link',
-        },
+        } : undefined,
         resizimg: {
           minSize: 64,
           step: 16,
@@ -41,6 +45,8 @@
       }
     });
   });
+</script>
+<script type="text/javascript">
   $.fn.cleanHtml = function () {
       var html = $('#trumbowyg').trumbowyg('html');
       return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');
