@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Kamal 2.0 — Post-app-boot Hook
+# ===============================
+# Runs after the app container has booted successfully
+# (via `kamal app boot` or `kamal deploy`).
+# With grouped boot strategy, this runs once per group.
+#
+# Available KAMAL_* environment variables:
+#   KAMAL_RECORDED_AT, KAMAL_PERFORMER, KAMAL_SERVICE, KAMAL_VERSION,
+#   KAMAL_SERVICE_VERSION, KAMAL_HOSTS, KAMAL_COMMAND, KAMAL_DESTINATION, KAMAL_ROLE
+
+set -e
+
+echo "[post-app-boot] App container booted successfully!"
+echo "[post-app-boot] Service: ${KAMAL_SERVICE_VERSION}"
+echo "[post-app-boot] Hosts: ${KAMAL_HOSTS}"
+echo "[post-app-boot] Role: ${KAMAL_ROLE:-all}"
+
+# Add any post-boot actions here. For example:
+# - Warm up caches
+# - Verify health check endpoint
+# - Send boot confirmation to monitoring
+
+echo "[post-app-boot] Post-boot actions complete."
