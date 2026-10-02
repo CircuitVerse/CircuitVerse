@@ -3,7 +3,7 @@ name: Qlty Checks
 on:
   pull_request:
     branches:
-      - main
+      - master
 
 permissions: 
   contents: read
@@ -16,19 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Qlty CLI
+        uses: qltysh/qlty-action/install@main
 
       - name: Run qlty check
-        run: npx qlty check
+        run: qlty check
 
       - name: Run qlty fmt
-        run: npx qlty fmt --check
+        run: qlty fmt --check
 
-      - name: Run qlty coverage
-        run: npx qlty coverage
