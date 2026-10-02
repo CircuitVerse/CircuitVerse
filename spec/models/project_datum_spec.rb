@@ -3,10 +3,6 @@
 require "rails_helper"
 
 RSpec.describe ProjectDatum, type: :model do
-  it "Has valid spec" do
-    expect(FactoryBot.create(:project)).to be_valid
-  end
-
   # The test environment uses a :null_store, which never caches anything, so
   # swap in a real store to exercise the caching behaviour.
   around do |example|
@@ -19,6 +15,10 @@ RSpec.describe ProjectDatum, type: :model do
 
   let!(:project) { FactoryBot.create(:project) }
   let!(:datum) { FactoryBot.create(:project_datum, project: project) }
+
+  it "Has valid spec" do
+    expect(FactoryBot.create(:project)).to be_valid
+  end
 
   describe ".cached_data" do
     it "returns the circuit data for the project" do
