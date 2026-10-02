@@ -183,7 +183,7 @@ export function moveTo(ctx, x1, y1, xx, yy, dir, bypass = false) {
     newY *= globalScope.scale;
     xx *= globalScope.scale;
     yy *= globalScope.scale;
-    if (bypass) { ctx.moveTo(xx + globalScope.ox + newX, yy + globalScope.oy + newY); } else { ctx.moveTo(Math.round(xx + globalScope.ox + newX - correction) + correction, Math.round(yy + globalScope.oy + newY - correction) + correction); }
+    if (bypass) { ctx.moveTo(Math.round(xx + globalScope.ox + newX), Math.round(yy + globalScope.oy + newY)); } else { ctx.moveTo(Math.round(xx + globalScope.ox + newX - correction) + correction, Math.round(yy + globalScope.oy + newY - correction) + correction); }
 }
 
 export function lineTo(ctx, x1, y1, xx, yy, dir) {
