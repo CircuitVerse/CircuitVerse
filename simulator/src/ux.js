@@ -405,14 +405,14 @@ export function showProperties(obj) {
     // typing 200000 into the Delay field (max 100000) reaches
     // changePropagationDelay(), which guards only the lower bound.
     //
-    // Applied before checkValidBitWidth() so BitWidth behaves as it did under
-    // the spinner: an over-max entry is clamped to 32 and accepted, rather
-    // than reverted to the previous value.
-    function coerceNumberInput(input) {
-        if (input.type !== 'number') return;
-
-        const value = parseFloat(input.value);
-        if (isNaN(value)) return;
+    // Returns the value the field should hold, or null when it needs no
+    // coercion (a non-number field, an empty one, or one already in range and
+    // whole). Returning rather than mutating keeps the caller in charge of
+    // writing to the DOM, so a keystroke that needs no change does not touch
+    // the input at all.
+    function coercedNumberValue(raw, minAttr, maxAttr) {
+        const value = parseFloat(raw);
+        if (Number.isNaN(value)) return null;
 
         // A bound the field does not declare parses to NaN and is simply not
         // applied. The spinner defaulted a missing max to Infinity (so, no
@@ -421,12 +421,12 @@ export function showProperties(obj) {
         // legitimate value to 0. The two bounds are applied in sequence rather
         // than as else-if, so a malformed min > max resolves to max -- which is
         // what Math.min(Math.max(value, min), max) did.
-        const min = parseFloat(input.min);
-        const max = parseFloat(input.max);
+        const min = parseFloat(minAttr);
+        const max = parseFloat(maxAttr);
 
         let next = value;
-        if (!isNaN(min) && next < min) next = min;
-        if (!isNaN(max) && next > max) next = max;
+        if (!Number.isNaN(min) && next < min) next = min;
+        if (!Number.isNaN(max) && next > max) next = max;
 
         // Every number field in this panel is a whole number -- bit width,
         // propagation delay, input size, font size, pin length, row/column
@@ -435,9 +435,7 @@ export function showProperties(obj) {
         // 3.7 cannot reach a setter as a fractional bit width.
         next = Math.round(next);
 
-        // Only write when something actually changed, so a valid keystroke
-        // does not churn the DOM (and does not move the caret).
-        if (next !== value) input.value = next;
+        return next === value ? null : next;
     }
 
     function checkValidBitWidth() {
@@ -454,7 +452,14 @@ export function showProperties(obj) {
     }
 
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
-        coerceNumberInput(this);
+        // Restore the coercion bootstrap-input-spinner used to apply. This runs
+        // before checkValidBitWidth() so BitWidth keeps the spinner's
+        // semantics: an over-max entry is clamped to 32 and accepted, rather
+        // than reverted to the previous value.
+        if (this.type === 'number') {
+            const coerced = coercedNumberValue(this.value, this.min, this.max);
+            if (coerced !== null) $(this).val(coerced);
+        }
         checkValidBitWidth();
         scheduleUpdate();
         updateCanvasSet(true);
