@@ -128,7 +128,7 @@ export default class RAM extends CircuitElement {
         }
         this.prevCoreDumpValue = this.coreDump.value;
 
-        if (this.load.value && this.prevLoadValue != this.load.value) {
+        if (this.load.value && this.prevLoadValue !== this.load.value) {
             this.promptData();
         }
         this.prevLoadValue = this.load.value;
