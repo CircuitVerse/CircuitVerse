@@ -397,6 +397,49 @@ export function showProperties(obj) {
         });
     }
 
+    // `bootstrap-input-spinner` used to coerce every number field on each
+    // keystroke -- clamping to the min/max attributes and rounding to an
+    // integer -- then write the result back into the input. A native
+    // `input[type=number]` only marks an out-of-range value as invalid, it
+    // still accepts it, so that coercion has to be restored here. Without it,
+    // typing 200000 into the Delay field (max 100000) reaches
+    // changePropagationDelay(), which guards only the lower bound.
+    //
+    // Applied before checkValidBitWidth() so BitWidth behaves as it did under
+    // the spinner: an over-max entry is clamped to 32 and accepted, rather
+    // than reverted to the previous value.
+    function coerceNumberInput(input) {
+        if (input.type !== 'number') return;
+
+        const value = parseFloat(input.value);
+        if (isNaN(value)) return;
+
+        // A bound the field does not declare parses to NaN and is simply not
+        // applied. The spinner defaulted a missing max to Infinity (so, no
+        // upper clamp) but a missing min to 0; skipping the clamp rather than
+        // forcing 0 is the safer difference, since it never rewrites a
+        // legitimate value to 0. The two bounds are applied in sequence rather
+        // than as else-if, so a malformed min > max resolves to max -- which is
+        // what Math.min(Math.max(value, min), max) did.
+        const min = parseFloat(input.min);
+        const max = parseFloat(input.max);
+
+        let next = value;
+        if (!isNaN(min) && next < min) next = min;
+        if (!isNaN(max) && next > max) next = max;
+
+        // Every number field in this panel is a whole number -- bit width,
+        // propagation delay, input size, font size, pin length, row/column
+        // size, address width -- and no field set `data-decimals`, so the
+        // spinner's rounding was to an integer as well. Round here so a typed
+        // 3.7 cannot reach a setter as a fractional bit width.
+        next = Math.round(next);
+
+        // Only write when something actually changed, so a valid keystroke
+        // does not churn the DOM (and does not move the caret).
+        if (next !== value) input.value = next;
+    }
+
     function checkValidBitWidth() {
         const selector = $("[name='newBitWidth']");
         if (selector === undefined
@@ -411,6 +454,7 @@ export function showProperties(obj) {
     }
 
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
+        coerceNumberInput(this);
         checkValidBitWidth();
         scheduleUpdate();
         updateCanvasSet(true);
