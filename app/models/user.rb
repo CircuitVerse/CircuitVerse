@@ -120,6 +120,12 @@ class User < ApplicationRecord
     SubmissionVote.where(user_id: id, contest_id: contest).count
   end
 
+  # Memoized so that serializing a list of projects issues a single query on
+  # stars instead of one EXISTS query per project (N+1).
+  def starred_project_ids
+    @starred_project_ids ||= stars.pluck(:project_id)
+  end
+
   private
 
     def send_welcome_mail

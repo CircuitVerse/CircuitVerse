@@ -64,6 +64,32 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#starred_project_ids" do
+    it "returns the ids of the projects starred by the user" do
+      user = FactoryBot.create(:user)
+      project = FactoryBot.create(:project, author: user, project_access_type: "Public")
+      FactoryBot.create(:star, user: user, project: project)
+
+      expect(user.starred_project_ids).to eq([project.id])
+    end
+
+    it "queries the stars table only once across repeated calls" do
+      user = FactoryBot.create(:user)
+      queries = []
+      callback = lambda do |*args|
+        payload = args.last
+        sql = payload[:sql].to_s
+        queries << sql if payload[:name] != "SCHEMA" && sql.include?('FROM "stars"')
+      end
+
+      ActiveSupport::Notifications.subscribed(callback, "sql.active_record") do
+        2.times { user.starred_project_ids }
+      end
+
+      expect(queries.length).to eq(1)
+    end
+  end
+
   describe "public methods" do
     before do
       primary_mentor = FactoryBot.create(:user)

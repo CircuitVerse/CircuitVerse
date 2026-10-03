@@ -91,5 +91,34 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         expect(response.parsed_body["data"].length).to eq(2)
       end
     end
+
+    context "when the signed-in user has starred the listed projects" do
+      let!(:starred_projects) { FactoryBot.create_list(:project, 5, project_access_type: "Public") }
+
+      before do
+        starred_projects.each do |project|
+          FactoryBot.create(:star, user: user, project: project)
+        end
+      end
+
+      it "queries the stars table once for the entire page" do
+        queries = []
+        callback = lambda do |*args|
+          payload = args.last
+          sql = payload[:sql].to_s
+          queries << sql if payload[:name] != "SCHEMA" && sql.include?('FROM "stars"')
+        end
+
+        token = get_auth_token(user)
+        ActiveSupport::Notifications.subscribed(callback, "sql.active_record") do
+          get "/api/v1/projects", headers: { Authorization: "Token #{token}" }, as: :json
+        end
+
+        expect(response).to have_http_status(:ok)
+        expect(queries.length).to eq(1)
+        starred = response.parsed_body["data"].count { |proj| proj.dig("attributes", "is_starred") }
+        expect(starred).to eq(5)
+      end
+    end
   end
 end

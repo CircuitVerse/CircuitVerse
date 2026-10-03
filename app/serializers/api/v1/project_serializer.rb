@@ -11,7 +11,7 @@ class Api::V1::ProjectSerializer
     if params[:current_user].nil?
       nil
     else
-      Star.exists?(user_id: params[:current_user].id, project_id: project.id)
+      params[:current_user].starred_project_ids.include?(project.id)
     end
   end
 
