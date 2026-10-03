@@ -62,8 +62,10 @@ export default class RAM extends CircuitElement {
         this.write = new Node(-this.leftDimensionX, 20, 0, this, 1, 'WRITE');
         this.reset = new Node(0, this.downDimensionY, 0, this, 1, 'RESET');
         this.coreDump = new Node(-20, this.downDimensionY, 0, this, 1, 'CORE DUMP');
+        this.load = new Node(20, this.downDimensionY, 0, this, 1, 'LOAD');
         this.dataOut = new Node(this.rightDimensionX, 0, 1, this, this.bitWidth, 'DATA OUT');
         this.prevCoreDumpValue = undefined;
+        this.prevLoadValue = undefined;
 
         this.clearData();
     }
@@ -78,6 +80,7 @@ export default class RAM extends CircuitElement {
                 write: findNode(this.write),
                 reset: findNode(this.reset),
                 coreDump: findNode(this.coreDump),
+                load: findNode(this.load),
                 dataOut: findNode(this.dataOut),
             },
         };
@@ -108,7 +111,7 @@ export default class RAM extends CircuitElement {
     }
 
     isResolvable() {
-        return this.address.value !== undefined || this.reset.value !== undefined || this.coreDump.value !== undefined;
+        return this.address.value !== undefined || this.reset.value !== undefined || this.coreDump.value !== undefined || this.load.value !== undefined;
     }
 
     resolve() {
@@ -124,6 +127,11 @@ export default class RAM extends CircuitElement {
             this.dump();
         }
         this.prevCoreDumpValue = this.coreDump.value;
+
+        if (this.load.value && this.prevLoadValue !== this.load.value) {
+            this.promptData();
+        }
+        this.prevLoadValue = this.load.value;
 
         this.dataOut.value = this.data[this.address.value] || 0;
         simulationArea.simulationQueue.add(this.dataOut);
@@ -154,6 +162,9 @@ export default class RAM extends CircuitElement {
         fillText2(ctx, 'DI', this.dataIn.x + 12, this.dataIn.y, xx, yy, this.direction);
         fillText2(ctx, 'W', this.write.x + 12, this.write.y, xx, yy, this.direction);
         fillText2(ctx, 'DO', this.dataOut.x - 15, this.dataOut.y, xx, yy, this.direction);
+        fillText2(ctx, 'D', this.coreDump.x, this.coreDump.y - 8, xx, yy, this.direction);
+        fillText2(ctx, 'R', this.reset.x, this.reset.y - 8, xx, yy, this.direction);
+        fillText2(ctx, 'L', this.load.x, this.load.y - 8, xx, yy, this.direction);
         ctx.fill();
     }
 
