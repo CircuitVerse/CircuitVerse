@@ -60,6 +60,39 @@ RSpec.describe ProjectDatum, type: :model do
       expect(described_class).to have_received(:find_by).at_least(:once)
     end
 
+    it "keeps a fill when the row has not changed during it" do
+      described_class.cached_data(project.id)
+
+      expect(Rails.cache.read(described_class.cache_key(project.id))).to eq(datum.data)
+    end
+
+    # A save that commits between the block's read and the cache write runs
+    # `after_commit` first, so `fetch` then repopulates the key with the
+    # pre-save value. The post-fill version check must notice and evict it.
+    it "evicts a fill whose row changed between the read and the cache write" do
+      allow(described_class).to receive(:current_version).and_return(datum.updated_at + 1.second)
+
+      described_class.cached_data(project.id)
+
+      expect(Rails.cache.read(described_class.cache_key(project.id))).to be_nil
+    end
+
+    it "does not re-read the row on a cache hit" do
+      described_class.cached_data(project.id)
+      allow(described_class).to receive(:current_version)
+
+      described_class.cached_data(project.id)
+
+      expect(described_class).not_to have_received(:current_version)
+    end
+
+    it "still returns the value when the post-fill verification itself fails" do
+      allow(described_class).to receive(:current_version).and_raise(ActiveRecord::StatementInvalid, "boom")
+      allow(Rails.logger).to receive(:warn)
+
+      expect(described_class.cached_data(project.id)).to eq(datum.data)
+    end
+
     context "when the cache is unavailable" do
       before do
         allow(Rails.cache).to receive(:fetch).and_raise(Redis::CannotConnectError, "boom")

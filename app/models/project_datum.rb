@@ -20,6 +20,12 @@ class ProjectDatum < ApplicationRecord
     "project_datum/#{project_id}"
   end
 
+  # Reads only the timestamp column -- never `data` -- so this stays a cheap
+  # index lookup rather than the blob read that caused the original alert.
+  def self.current_version(project_id)
+    where(project_id: project_id).pick(:updated_at)
+  end
+
   # Returns the raw JSON string, or nil when the project has no circuit data.
   #
   # Falls back to the database if the cache is unavailable: Redis being down
@@ -37,13 +43,41 @@ class ProjectDatum < ApplicationRecord
   # `after_commit` has already expired the key -- leaving a nil pinned for the
   # full TTL. A stale nil is also the one bad hit here: 404 for a project that
   # does have data, where a stale non-nil is merely an out-of-date circuit.
+  #
+  # A fill is validated against `updated_at` once it has landed. `fetch` writes
+  # its block result as soon as the block returns, so a save committing between
+  # the read and that write has already run `after_commit` and deleted the key:
+  # without this check the pre-save value would go straight back into the cache
+  # and be served for the rest of the TTL. The check costs one indexed read and
+  # only ever runs on a miss -- a hit does not run the block, so there is no
+  # fill to validate.
   def self.cached_data(project_id)
-    Rails.cache.fetch(cache_key(project_id), expires_in: CACHE_TTL, skip_nil: true) do
-      find_by(project_id: project_id)&.data
+    version = nil
+
+    value = Rails.cache.fetch(cache_key(project_id), expires_in: CACHE_TTL, skip_nil: true) do
+      row = find_by(project_id: project_id)
+      version = row&.updated_at
+      row&.data
     end
+
+    evict_stale_fill(project_id, version)
+
+    value
   rescue Redis::BaseError => e
     Rails.logger.warn("[ProjectDatum] circuit data cache unavailable, falling back to DB: #{e.class}: #{e.message}")
     find_by(project_id: project_id)&.data
+  end
+
+  # Drops a fill that a concurrent save raced past. Deliberately swallows its
+  # own failures: by the time this runs we already hold a usable value, so a
+  # failed verification must not turn a successful read into a 500.
+  def self.evict_stale_fill(project_id, version)
+    return if version.nil?
+    return if current_version(project_id) == version
+
+    Rails.cache.delete(cache_key(project_id))
+  rescue StandardError => e
+    Rails.logger.warn("[ProjectDatum] could not verify circuit data fill: #{e.class}: #{e.message}")
   end
 
   after_commit :expire_circuit_data_cache
