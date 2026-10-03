@@ -86,9 +86,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id/circuit_data
   def circuit_data
     authorize @project, :check_view_access?
-    circuit_data = ProjectDatum.find_by(project: @project)
-    if circuit_data
-      render json: circuit_data.data
+    data = ProjectDatum.cached_data(@project.id)
+    if data
+      render json: data
     else
       render json: { error: "Circuit data unavailabe for the project!" }, status: :not_found
     end

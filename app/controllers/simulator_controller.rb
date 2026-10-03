@@ -66,7 +66,7 @@ class SimulatorController < ApplicationController
   end
 
   def get_data
-    render json: ProjectDatum.find_by(project: @project)&.data
+    render json: ProjectDatum.cached_data(@project.id)
   end
 
   def create
