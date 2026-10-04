@@ -1,3 +1,17 @@
+const loadCustomTheme = (defaultTheme) => {
+    const storedTheme = localStorage.getItem('Custom Theme');
+
+    if (!storedTheme) return defaultTheme;
+
+    try {
+        return JSON.parse(storedTheme) || defaultTheme;
+    } catch (error) {
+        console.warn('Ignoring invalid stored custom theme:', error);
+        localStorage.removeItem('Custom Theme');
+        return defaultTheme;
+    }
+};
+
 export default {
     "Default Theme": {
         "--text-navbar--alt": "#000",
@@ -328,7 +342,7 @@ export default {
         "--touch-menu": "#A0937D",
         "--table-head-dark": "#2e2b21",
     },
-    "Custom Theme": JSON.parse(localStorage.getItem('Custom Theme')) || {
+    "Custom Theme": loadCustomTheme({
         "--text-navbar--alt": "#000",
         "--br-secondary": "#7d7d7d",
         "--br-circuit-cur": "#ffffff",
@@ -381,5 +395,5 @@ export default {
         "--splitter": "#000",
         "--output-rect": "#0000ff",
         "--touch-menu": "#A0937D",
-    },
+    }),
 };

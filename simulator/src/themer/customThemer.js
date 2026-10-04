@@ -49,8 +49,14 @@ export const CustomColorThemes = () => {
     $('#CustomColorThemesDialog').dialog({
         resizable: false,
         close() {
-            themeOptions['Custom Theme'] = JSON.parse(localStorage.getItem('Custom Theme'))
-                || themeOptions['Default Theme']; // hack for closing dialog box without saving
+            try {
+                themeOptions['Custom Theme'] = JSON.parse(localStorage.getItem('Custom Theme'))
+                    || themeOptions['Default Theme'];
+            } catch (error) {
+                console.warn('Ignoring invalid stored custom theme:', error);
+                localStorage.removeItem('Custom Theme');
+                themeOptions['Custom Theme'] = themeOptions['Default Theme'];
+            } // hack for closing dialog box without saving
             // Rollback to previous theme
             updateThemeForStyle(localStorage.getItem('theme'));
             updateBG();
