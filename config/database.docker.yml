@@ -4,7 +4,7 @@ development:
   password: postgres
   database: circuitverse_development
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("DB_POOL") { ENV.fetch("RAILS_MAX_THREADS", 5) } %>
   host: db
   port: 5432
 
@@ -14,6 +14,6 @@ test:
   password: postgres
   database: circuitverse_test
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("DB_POOL") { ENV.fetch("RAILS_MAX_THREADS", 5) } %>
   host: db
   port: 5432
