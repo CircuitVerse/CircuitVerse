@@ -49,11 +49,13 @@ module Adapters
       end
 
       def base_project_results(relation, query_params)
-        query_params[:q].present? ? relation.text_search(query_params[:q]) : Project.public_and_not_forked
+        query = query_params[:q].to_s.delete("\u0000")
+        query.present? ? relation.text_search(query) : Project.public_and_not_forked
       end
 
       def base_user_results(relation, query_params)
-        query_params[:q].present? ? relation.text_search(query_params[:q]) : User.all
+        query = query_params[:q].to_s.delete("\u0000")
+        query.present? ? relation.text_search(query) : User.all
       end
 
       def apply_sorting(relation, query_params, type)

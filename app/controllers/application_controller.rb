@@ -15,6 +15,18 @@ class ApplicationController < ActionController::Base
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
+  rescue_from ArgumentError do |exception|
+    if exception.message.include?("null byte")
+      respond_to do |format|
+        format.html { render plain: "Bad Request: Invalid character in request input", status: :bad_request }
+        format.json { render json: { error: "Bad Request: Invalid character in request input" }, status: :bad_request }
+        format.all { head :bad_request }
+      end
+    else
+      raise exception
+    end
+  end
+
   def auth_error
     render plain: "You are not authorized to do the requested operation", status: :forbidden
   end

@@ -40,6 +40,14 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "resource invalid!")
   end
 
+  rescue_from ArgumentError do |exception|
+    if exception.message.include?("null byte")
+      api_error(status: 400, errors: "invalid character in input")
+    else
+      raise exception
+    end
+  end
+
   rescue_from Commontator::SecurityTransgression do
     api_error(status: 403, errors: "not authorized for this action")
   end
