@@ -10,6 +10,11 @@ describe ErrorsController, type: :controller do
       get :not_found
       expect(response).to have_http_status(:not_found)
     end
+
+    it "handles xml format without missing template" do
+      get :not_found, format: :xml
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe "#internal_error" do
@@ -17,11 +22,21 @@ describe ErrorsController, type: :controller do
       get :internal_error
       expect(response).to have_http_status(:internal_server_error)
     end
+
+    it "handles xml format without missing template" do
+      get :internal_error, format: :xml
+      expect(response).to have_http_status(:internal_server_error)
+    end
   end
 
   describe "#unacceptable" do
     it "returns 422" do
       get :unacceptable
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it "handles xml format without missing template" do
+      get :unacceptable, format: :xml
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end

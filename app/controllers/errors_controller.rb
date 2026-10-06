@@ -5,6 +5,7 @@ class ErrorsController < ApplicationController
     respond_to do |format|
       format.html { render status: :not_found }
       format.json { render json: { error: "Resource not found" }, status: :not_found }
+      format.all { head :not_found }
     end
   end
 
@@ -12,6 +13,7 @@ class ErrorsController < ApplicationController
     respond_to do |format|
       format.html { render status: :unprocessable_content }
       format.json { render json: { error: "Params unacceptable" }, status: :unprocessable_content }
+      format.all { head :unprocessable_content }
     end
   end
 
@@ -21,6 +23,7 @@ class ErrorsController < ApplicationController
       format.json do
         render json: { error: "Internal server error" }, status: :internal_server_error
       end
+      format.all { head :internal_server_error }
     end
   end
 end
