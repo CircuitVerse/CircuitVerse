@@ -164,6 +164,13 @@ describe SimulatorController, type: :request do
           check_project_access_error(response)
         end
       end
+
+      context "when requested with unsupported format (e.g. SVG)" do
+        it "returns not acceptable" do
+          get simulator_embed_path(@project, format: :svg)
+          expect(response).to have_http_status(:not_acceptable)
+        end
+      end
     end
 
     describe "#redirect_to_vue_simulator_if_enabled" do

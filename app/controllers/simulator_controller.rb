@@ -55,10 +55,15 @@ class SimulatorController < ApplicationController
     @project = Project.friendly.find(params.expect(:id))
     @author = @project.author_id
     @external_embed = true
-    if Flipper.enabled?(:vuesim, current_user)
-      render :embed_vue, layout: false
-    else
-      render :embed
+    respond_to do |format|
+      format.html do
+        if Flipper.enabled?(:vuesim, current_user)
+          render :embed_vue, layout: false
+        else
+          render :embed
+        end
+      end
+      format.all { head :not_acceptable }
     end
   end
 
