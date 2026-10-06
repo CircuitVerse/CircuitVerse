@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActiveRecord::QueryCanceled, with: :query_timeout
 
   def auth_error
     render plain: "You are not authorized to do the requested operation", status: :forbidden
@@ -25,6 +26,14 @@ class ApplicationController < ActionController::Base
 
   def not_found
     render "errors/not_found", status: :not_found
+  end
+
+  def query_timeout
+    respond_to do |format|
+      format.html { render plain: "Database query timed out. Please try again later.", status: :gateway_timeout }
+      format.json { render json: { error: "Database query timed out" }, status: :gateway_timeout }
+      format.all { head :gateway_timeout }
+    end
   end
 
   def switch_locale(&)

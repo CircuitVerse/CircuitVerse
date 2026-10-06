@@ -20,5 +20,15 @@ describe TagsController, type: :request do
         expect(response.body).to include(project.name)
       end
     end
+
+    context "when database statement timeout occurs" do
+      it "returns gateway timeout status" do
+        allow_any_instance_of(ActiveRecordCursorPaginate::Paginator).to receive(:fetch)
+          .and_raise(ActiveRecord::QueryCanceled.new("canceling statement due to statement timeout"))
+
+        get tag_path(@tag.name)
+        expect(response).to have_http_status(:gateway_timeout)
+      end
+    end
   end
 end
