@@ -34,7 +34,14 @@ describe CollaborationsController, type: :request do
       end
     end
 
-    context "author is not logged in" do
+    context "user is not authenticated" do
+      it "redirects to login" do
+        post collaborations_path, params: create_params
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context "user other than author is logged in" do
       it "throws unauthorized error" do
         sign_in_random_user
         post collaborations_path(@project), params: create_params
@@ -55,6 +62,13 @@ describe CollaborationsController, type: :request do
         expect do
           delete collaboration_path(@collaboration)
         end.to change(Collaboration, :count).by(-1)
+      end
+    end
+
+    context "user is not authenticated" do
+      it "redirects to login" do
+        delete collaboration_path(@collaboration)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
@@ -88,6 +102,13 @@ describe CollaborationsController, type: :request do
         put collaboration_path(@collaboration), params: update_params
         @collaboration.reload
         expect(@collaboration.project_id).to eq(@new_project.id)
+      end
+    end
+
+    context "user is not authenticated" do
+      it "redirects to login" do
+        put collaboration_path(@collaboration), params: update_params
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
