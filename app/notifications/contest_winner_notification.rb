@@ -4,7 +4,7 @@ class ContestWinnerNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
 
   def message
-    project = params[:project]
+    project = params.is_a?(Hash) ? params[:project] : nil
     return "Congratulations, your circuit got featured in CircuitVerse." unless project
 
     "Congratulations, your circuit #{project.name} got featured in CircuitVerse."
