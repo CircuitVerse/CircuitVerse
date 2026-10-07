@@ -49,5 +49,17 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
         expect(response.parsed_body["data"].length).to eq(0)
       end
     end
+
+    context "when pagination is not provided" do
+      before do
+        get "/api/v1/projects/search?q=adder", as: :json
+      end
+
+      it "returns the first page of projects" do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(3)
+      end
+    end
   end
 end
