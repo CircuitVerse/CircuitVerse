@@ -110,6 +110,13 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(2)
       end
+
+      it "handles strings with numeric prefixes by safely falling back to defaults" do
+        get "/api/v1/projects", params: { page: { number: "2abc", size: "100invalid" } }, as: :json
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
     end
   end
 end
