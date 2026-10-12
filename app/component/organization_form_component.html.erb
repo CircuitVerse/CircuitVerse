@@ -122,7 +122,7 @@
   </div>
   <%# Actions %>
   <div class="d-flex justify-content-end gap-2 border-top pt-3 mt-4">
-    <%= link_to t("cancel"), cancel_path, class: "btn primary-button org-form-cancel-button" %>
+    <%= link_to t("organizations.form.cancel"), cancel_path, class: "btn primary-button org-form-cancel-button" %>
     <%= form.submit organization.persisted? ? t("organizations.form.update") : t("organizations.form.submit"), class: "btn primary-button" %>
   </div>
 <% end %>

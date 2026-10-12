@@ -50,6 +50,7 @@ es:
       modal_confirm_btn: "Comprendo las consecuencias, eliminar esta organización"
       modal_confirm_label: "Escriba el nombre de la organización para confirmar la eliminación"
     form:
+      cancel: "Cancelar"
       details_heading: "Detalles de la organización"
       details_subheading: "Información básica sobre su organización."
       name_label: "Nombre"

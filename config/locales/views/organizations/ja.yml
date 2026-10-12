@@ -48,6 +48,7 @@ ja:
       modal_confirm_btn: "結果を理解し、この組織を削除します"
       modal_confirm_label: "削除を確認するには組織名を入力してください"
     form:
+      cancel: "キャンセル"
       details_heading: "組織の詳細"
       details_subheading: "組織に関する基本的な情報。"
       name_label: "名前"

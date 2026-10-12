@@ -58,6 +58,7 @@ ar:
       modal_confirm_btn: "أنا أفهم العواقب ، احذف هذه المنظمة"
       modal_confirm_label: "اكتب اسم المؤسسة لتأكيد الحذف"
     form:
+      cancel: "إلغاء"
       details_heading: "تفاصيل المنظمة"
       details_subheading: "معلومات أساسية عن مؤسستك."
       name_label: "الاسم"
