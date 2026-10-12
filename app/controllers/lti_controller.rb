@@ -12,8 +12,9 @@ class LtiController < ApplicationController
 
   def deep_link
     @projects = current_user.projects.order(updated_at: :desc).limit(PICKER_LIMIT)
-    @assignments = Assignment.joins(:group)
-                             .where(groups: { primary_mentor_id: current_user.id })
+    mentored_group_ids = current_user.groups_owned.pluck(:id) +
+                         current_user.group_members.mentor.pluck(:group_id)
+    @assignments = Assignment.where(group_id: mentored_group_ids.uniq)
                              .reorder(updated_at: :desc).limit(PICKER_LIMIT)
     @templates = Project.joins(:featured_circuit).where.not(author: current_user)
                         .order(updated_at: :desc).limit(PICKER_LIMIT)

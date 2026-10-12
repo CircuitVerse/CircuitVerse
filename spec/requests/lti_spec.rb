@@ -223,6 +223,17 @@ describe LtiController, type: :request do
       expect(response.body).to include("Week 1 Lab", "assignment:#{assignment.id}")
     end
 
+    it "lists assignments from groups where the instructor is a secondary mentor" do
+      owner = FactoryBot.create(:user)
+      group = FactoryBot.create(:group, primary_mentor: owner)
+      FactoryBot.create(:group_member, group: group, user: instructor, mentor: true)
+      assignment = FactoryBot.create(:assignment, group: group, name: "Co-Mentored Lab")
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).to include("Co-Mentored Lab", "assignment:#{assignment.id}")
+    end
+
     it "offers the most recently updated assignments first" do
       group = FactoryBot.create(:group, primary_mentor: instructor)
       FactoryBot.create(:assignment, group: group, name: "Older", deadline: 1.day.from_now,
