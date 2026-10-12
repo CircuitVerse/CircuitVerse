@@ -41,6 +41,14 @@ RSpec.describe AutogradeJob, type: :job do
       expect(GradingResult.last.score).to be_nil
     end
 
+    it "zeroes the score when partial credit is disallowed" do
+      assignment.update!(partial_credit: false)
+      stub_request(:post, endpoint).to_return(body: results.to_json)
+      described_class.perform_now(project.id)
+
+      expect(GradingResult.last.score).to eq(0.0)
+    end
+
     it "stops once max_attempts is reached" do
       assignment.update!(max_attempts: 1)
       FactoryBot.create(:grading_result, project: project)

@@ -16,6 +16,7 @@ class AutogradeJob < ApplicationJob
       result = Autograder::Runner.call(project: project, testbench: testbench)
       breakdown = result.groups
       score = (result.score * 100).round(2)
+      score = result.passed == result.total ? 100.0 : 0.0 if assignment.partial_credit == false
     rescue Autograder::Runner::RunnerError
       breakdown = []
       score = nil
