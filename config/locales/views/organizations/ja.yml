@@ -27,6 +27,7 @@ ja:
       page_title: "組織 / %{organization} - %{tab}"
     overview:
       groups_heading: "グループ"
+      no_groups: "まだグループはありません"
       group_locked: "メンバーのみ"
       new_group_button: "新しいグループ"
       logo_alt: "%{organization} ロゴ"

@@ -28,6 +28,7 @@ fr:
       page_title: "Organisations / %{organization} - %{tab}"
     overview:
       groups_heading: "Groupes"
+      no_groups: "Aucun groupe pour le moment"
       group_locked: "Membres seulement"
       new_group_button: "Nouveau groupe"
       logo_alt: "Logo %{organization}"
