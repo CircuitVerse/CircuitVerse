@@ -73,5 +73,17 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
         expect(response.parsed_body["data"].length).to eq(2)
       end
     end
+
+    context "when page parameter is provided as nested hash with number and size" do
+      before do
+        get "/api/v1/projects/search?q=full&page[number]=1&page[size]=10", as: :json
+      end
+
+      it "returns projects list properly" do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
   end
 end
