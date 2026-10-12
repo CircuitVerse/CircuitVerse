@@ -3,7 +3,7 @@
 
 <%= form_with(model: [group, @assignment], local: true, multipart: true, id: "assignmentForm",
               html: {
-                onsubmit: "beforeSubmit()",
+                onsubmit: "return beforeSubmit()",
                 data: {
                   controller: "assignment test-cases",
                   action: "submit->test-cases#serialize",
@@ -180,10 +180,20 @@
     return formatDate(pickerUnixWithTimezone,"dd/MM/yyyy HH:mm");
   }
   function beforeSubmit() {
+      // Runs before the test-cases controller's own submit listener, so an
+      // invalid suite must be caught here too, before the deadline below is
+      // rewritten to iso - otherwise fixing the suite and resubmitting would
+      // convert an already-converted deadline.
+      const testCases = Stimulus.getControllerForElementAndIdentifier(
+        document.getElementById('assignmentForm'), 'test-cases'
+      );
+      if (testCases && !testCases.validate()) return false;
+
       cleanEditor();
       generateRestrictions();
       generateDate();
       generateFeatureRestrictions();
+      return true;
   }
   function generateFeatureRestrictions() {
     let new_feature_restriction = [];

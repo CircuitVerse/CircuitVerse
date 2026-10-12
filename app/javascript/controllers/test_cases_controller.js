@@ -29,23 +29,32 @@ export default class extends Controller {
     }
 
     serialize(event) {
-        this.toggleError(false);
-        const rows = Array.from(this.listTarget.querySelectorAll('tr'));
-
-        if (rows.some((row) => this.rowState(row) === 'partial')) {
+        if (!this.validate()) {
             this.blockSubmit(event);
             return;
         }
 
-        const groups = rows.map((row) => this.rowToGroup(row)).filter((group) => group !== null);
-        if (!this.sameShape(groups)) {
-            this.blockSubmit(event);
-            return;
-        }
-
+        const groups = this.rows().map((row) => this.rowToGroup(row)).filter((group) => group !== null);
         this.outputTarget.value = groups.length > 0
             ? JSON.stringify({ type: this.typeValue || 'comb', groups })
             : '';
+    }
+
+    // Exposed so the form's onsubmit handler can block the deadline-to-iso
+    // conversion on an invalid suite, since that handler runs before this
+    // controller's own submit listener.
+    validate() {
+        this.toggleError(false);
+        const rows = this.rows();
+
+        if (rows.some((row) => this.rowState(row) === 'partial')) return false;
+
+        const groups = rows.map((row) => this.rowToGroup(row)).filter((group) => group !== null);
+        return this.sameShape(groups);
+    }
+
+    rows() {
+        return Array.from(this.listTarget.querySelectorAll('tr'));
     }
 
     blockSubmit(event) {
