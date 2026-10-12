@@ -1,7 +1,15 @@
 name: Greetings
 
 on:
-  pull_request:
+  # pull_request_target (not pull_request) so that PRs opened from forks
+  # get a write-capable GITHUB_TOKEN. With `pull_request`, GitHub
+  # downgrades the token to read-only for fork PRs and the greeting fails
+  # with "403 Resource not accessible by integration".
+  #
+  # This is safe here because actions/first-interaction only reads the
+  # event payload and posts a comment -- it never checks out or executes
+  # code from the pull request.
+  pull_request_target:
     types:
       - opened
   issues:
@@ -21,7 +29,7 @@ jobs:
       - name: Welcome new contributors
         uses: actions/first-interaction@v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           issue_message: |
             ## 🚀 Welcome to CircuitVerse! 
             
