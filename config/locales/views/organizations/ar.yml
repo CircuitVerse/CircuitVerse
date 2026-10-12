@@ -90,6 +90,7 @@ ar:
       link_aria_label: "الرابط الخارجي"
       submit: "إنشاء منظمة"
       update: "حفظ التغييرات"
+      cancel: "إلغاء"
     new:
       page_title: "إنشاء منظمة"
       heading: "إنشاء منظمة جديدة"

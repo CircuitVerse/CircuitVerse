@@ -80,6 +80,7 @@ ja:
       link_aria_label: "外部リンク"
       submit: "組織を作成"
       update: "変更を保存"
+      cancel: "キャンセル"
     new:
       page_title: "組織を作成"
       heading: "新しい組織を作成"

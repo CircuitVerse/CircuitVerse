@@ -82,6 +82,7 @@ pt:
       link_aria_label: "Link externo"
       submit: "Criar Organização"
       update: "Salvar as alterações"
+      cancel: "Cancelar"
     new:
       page_title: "Criar Organização"
       heading: "Criar uma nova organização"
