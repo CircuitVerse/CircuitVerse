@@ -28,6 +28,12 @@ describe CircuitverseController, type: :request do
     expect(response.status).to eq(200)
   end
 
+  it "renders the translated Open Collective donation text on contribute page" do
+    get contribute_path
+    expect(response.body).to include(I18n.t("circuitverse.contribute.donate_via_opencollective"))
+    expect(response.body).not_to include("translation missing: en.circuitverse.contribute")
+  end
+
   context "with invalid cursor parameters" do
     it "falls back to the initial page with an invalid after parameter" do
       get root_path(after: "invalid_base64_cursor$$$")
