@@ -13,6 +13,10 @@ RSpec.describe Assignment, type: :model do
     it { is_expected.to have_many(:projects) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:deadline) }
+  end
+
   describe "callbacks" do
     it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_new_assignment_mail)

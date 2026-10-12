@@ -79,6 +79,21 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
     end
 
+    context "when authorized but submits a blank deadline" do
+      before do
+        token = get_auth_token(primary_mentor)
+        patch "/api/v1/assignments/#{assignment.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: update_params.merge(deadline: ""), as: :json
+      end
+
+      it "returns status unprocessable content" do
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to have_jsonapi_errors
+        expect(assignment.reload.deadline).to be_present
+      end
+    end
+
     def update_params
       {
         name: "test updated", deadline: Time.zone.now,

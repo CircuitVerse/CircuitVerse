@@ -168,6 +168,19 @@ describe AssignmentsController, type: :request do
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
     end
+
+    context "when the deadline is submitted blank" do
+      it "re-renders the form and keeps the stored deadline" do
+        sign_in @primary_mentor
+        stored_deadline = @assignment.deadline
+
+        put group_assignment_path(@group, @assignment), params: { assignment: { name: "renamed", deadline: "" } }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include("error-message")
+        expect(@assignment.reload.deadline).to eq(stored_deadline)
+      end
+    end
   end
 
   describe "#check_reopening_status" do
