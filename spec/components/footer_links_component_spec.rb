@@ -56,12 +56,10 @@ RSpec.describe FooterLinksComponent, type: :component do
     expect(direct_anchors).not_to be_empty
 
     # Every anchor the CSS `> a` rule matches wraps a block-level <h6>.
-    direct_anchors.each do |anchor|
-      expect(anchor).to have_css("h6", visible: :all)
-    end
+    expect(direct_anchors).to all(have_css("h6", visible: :all))
 
     # The links the maintainer listed as affected are all in that set.
-    hrefs = direct_anchors.map { |a| a[:href] }
+    hrefs = direct_anchors.pluck(:href)
     expect(hrefs).to include(
       "/simulator",
       "/docs",
