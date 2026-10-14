@@ -71,6 +71,23 @@ describe SimulatorController, type: :request do
             expect(response.status).to eq(403)
           end
         end
+
+        context "author is signed in but the name is blank" do
+          it "returns unprocessable_content, keeps the name, and does not purge the preview" do
+            sign_in @user
+            @project.circuit_preview.attach(
+              io: StringIO.new(""), filename: "preview.jpeg", content_type: "image/jpeg"
+            )
+
+            post "/simulator/update_data", params: { id: @project.id, name: "", image: "" }
+
+            expect(response).to have_http_status(:unprocessable_content)
+            expect(response.parsed_body["errors"].to_s).to include("Name is too short")
+            @project.reload
+            expect(@project.name).to eq("Test Name")
+            expect(@project.circuit_preview).to be_attached
+          end
+        end
       end
     end
 

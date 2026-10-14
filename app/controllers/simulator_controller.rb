@@ -89,6 +89,9 @@ class SimulatorController < ApplicationController
   end
 
   def update
+    @project.name = sanitize(params[:name])
+    return render json: { errors: @project.errors.full_messages }, status: :unprocessable_content if @project.invalid?
+
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
     # ActiveStorage
@@ -100,7 +103,6 @@ class SimulatorController < ApplicationController
     @project.image_preview = image_file
     image_file.close
     File.delete(image_file) if check_to_delete(params[:image])
-    @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
     render plain: "success"
