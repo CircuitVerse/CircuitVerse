@@ -28,7 +28,6 @@ es:
       page_title: "Organizaciones / %{organization} - %{tab}"
     overview:
       groups_heading: "Grupos"
-      no_groups: "Aún no hay grupos"
       group_locked: "Sólo miembros"
       new_group_button: "Nuevo grupo"
       logo_alt: "Logotipo %{organization}"
@@ -83,7 +82,6 @@ es:
       link_aria_label: "Enlace externo"
       submit: "Crear organización"
       update: "Guardar cambios"
-      cancel: "Cancelar"
     new:
       page_title: "Crear organización"
       heading: "Crear una nueva organización"

@@ -28,7 +28,6 @@ fr:
       page_title: "Organisations / %{organization} - %{tab}"
     overview:
       groups_heading: "Groupes"
-      no_groups: "Aucun groupe pour le moment"
       group_locked: "Membres seulement"
       new_group_button: "Nouveau groupe"
       logo_alt: "Logo %{organization}"
@@ -83,7 +82,6 @@ fr:
       link_aria_label: "Lien externe"
       submit: "Créer une organisation"
       update: "Enregistrer les modifications"
-      cancel: "Annuler"
     new:
       page_title: "Créer une organisation"
       heading: "Créer une nouvelle organisation"
