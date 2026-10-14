@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -313,12 +313,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.datetime "created_at", precision: nil, null: false
     t.integer "group_members_count"
     t.string "group_token"
+    t.datetime "last_synced_at"
+    t.bigint "lti_resource_link_id"
     t.string "name"
     t.bigint "organization_id"
     t.bigint "primary_mentor_id"
     t.datetime "token_expires_at", precision: nil
     t.datetime "updated_at", precision: nil, null: false
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
+    t.index ["lti_resource_link_id"], name: "index_groups_on_lti_resource_link_id"
     t.index ["organization_id"], name: "index_groups_on_organization_id"
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end
@@ -653,6 +656,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "lti_resource_links"
   add_foreign_key "groups", "organizations", on_delete: :nullify
   add_foreign_key "groups", "users", column: "primary_mentor_id"
   add_foreign_key "lti_resource_links", "lti_deployments"

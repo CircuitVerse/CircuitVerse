@@ -39,6 +39,16 @@
         <strong><%= t("groups.show.primary_mentor_heading") %></strong>
         <%= @group.primary_mentor.name %>
       </h4>
+      <% if @group.organization.blank? && @group.lti_resource_link.present? && Flipper.enabled?(:lti_advantage) &&
+            policy(@group).sync_roster? %>
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <%= button_to t("groups.show.sync_roster_btn"), sync_roster_group_path(@group), method: :put,
+                        class: "btn primary-button groups-primary-button" %>
+          <span class="null-text">
+            <%= @group.last_synced_at.present? ? t("groups.show.last_synced_html", time: l(@group.last_synced_at, format: :long)) : t("groups.show.never_synced") %>
+          </span>
+        </div>
+      <% end %>
     </div>
   </div>
   <!-- Mentor Section -->

@@ -266,4 +266,60 @@ describe GroupsController, type: :request do
       end
     end
   end
+
+  describe "#sync_roster" do
+    before do
+      Flipper.enable(:lti_advantage)
+      @link = FactoryBot.create(:lti_resource_link)
+      @group.update!(lti_resource_link: @link)
+    end
+
+    after { Flipper.disable(:lti_advantage) }
+
+    context "when the primary mentor is signed in" do
+      it "imports the roster and records when it last synced" do
+        sign_in @primary_mentor
+        allow(Lti::AccessToken).to receive(:fetch).and_return("tok-1")
+        allow(Lti::Membership).to receive(:fetch).and_return([])
+
+        put sync_roster_group_path(@group)
+
+        expect(@group.reload.last_synced_at).to be_present
+        expect(response).to redirect_to(group_path(@group))
+      end
+    end
+
+    context "when the group has no LMS course linked" do
+      it "redirects without attempting a sync" do
+        @group.update!(lti_resource_link: nil)
+        sign_in @primary_mentor
+        allow(Lti::AccessToken).to receive(:fetch)
+
+        put sync_roster_group_path(@group)
+
+        expect(Lti::AccessToken).not_to have_received(:fetch)
+        expect(@group.reload.last_synced_at).to be_nil
+      end
+    end
+
+    context "when the LMS roster request fails" do
+      it "redirects without raising" do
+        sign_in @primary_mentor
+        allow(Lti::AccessToken).to receive(:fetch).and_raise(Lti::AccessToken::Error, "boom")
+
+        put sync_roster_group_path(@group)
+
+        expect(response).to redirect_to(group_path(@group))
+        expect(@group.reload.last_synced_at).to be_nil
+      end
+    end
+
+    context "when a user other than a mentor is signed in" do
+      it "throws not authorized error" do
+        sign_in @user
+        put sync_roster_group_path(@group)
+        check_not_authorized(response)
+      end
+    end
+  end
 end

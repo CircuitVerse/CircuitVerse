@@ -16,6 +16,7 @@ describe GroupPolicy do
 
     it { is_expected.to permit(:show_access) }
     it { is_expected.to permit(:admin_access) }
+    it { is_expected.to permit(:sync_roster) }
   end
 
   context "when the user is a mentor" do
@@ -30,6 +31,7 @@ describe GroupPolicy do
     it { is_expected.to permit(:show_access) }
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.to permit(:mentor_access) }
+    it { is_expected.to permit(:sync_roster) }
   end
 
   context "when the user is a group_member" do
@@ -44,6 +46,7 @@ describe GroupPolicy do
     it { is_expected.to permit(:show_access) }
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.not_to permit(:mentor_access) }
+    it { is_expected.not_to permit(:sync_roster) }
   end
 
   context "when the user is not a group_member" do
@@ -53,6 +56,7 @@ describe GroupPolicy do
     it { is_expected.not_to permit(:show_access) }
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.not_to permit(:mentor_access) }
+    it { is_expected.not_to permit(:sync_roster) }
   end
 
   context "when the user is a site admin" do
@@ -62,6 +66,7 @@ describe GroupPolicy do
     it { is_expected.to permit(:show_access) }
     it { is_expected.to permit(:admin_access) }
     it { is_expected.to permit(:mentor_access) }
+    it { is_expected.to permit(:sync_roster) }
   end
 
   context "when the user is not logged in" do

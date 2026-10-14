@@ -10,6 +10,13 @@ en:
     remove_member_message: "Are you sure, you want to remove this member?"
     make_member: "Make member"
     make_mentor: "Make mentor"
+    sync_roster_btn: "Sync Roster"
+    last_synced_html: "Last synced: %{time}"
+    never_synced: "Never synced"
+    sync_roster:
+      success: "Group roster synced with the LMS."
+      failure: "Could not sync the roster: %{message}"
+      no_resource_link: "This group is not linked to an LMS course."
     edit:
       title: "%{name} - Edit Group Name"
       main_heading: "EDIT GROUP NAME"

@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
 
   skip_after_action :verify_authorized, only: %i[new create group_invite]
 
-  before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
+  before_action :set_group, only: %i[show edit update destroy group_invite generate_token sync_roster]
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag,
                 only: %i[new create show edit update destroy group_invite generate_token],
@@ -14,6 +14,7 @@ class GroupsController < ApplicationController
                 }
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
+  before_action :check_sync_roster_access, only: %i[sync_roster]
 
   # GET /groups/1
   # GET /groups/1.json
@@ -30,6 +31,20 @@ class GroupsController < ApplicationController
   def generate_token
     @group = Group.find(params.expect(:id))
     @group.reset_group_token unless @group.has_valid_token?
+  end
+
+  def sync_roster
+    link = @group.lti_resource_link
+    return redirect_to(group_path(@group), alert: t(".no_resource_link")) if link.blank?
+
+    token = Lti::AccessToken.fetch(link.lti_deployment, [Lti::Membership::SCOPE], signing_key: Lti::KeyManager.private_key)
+    members = Lti::Membership.fetch(link.context_memberships_url, token)
+    Lti::RosterImport.call(@group, members, link.lti_deployment)
+    Lti::RosterDrop.call(@group, members, link.lti_deployment)
+    @group.update!(last_synced_at: Time.current)
+    redirect_to group_path(@group), notice: t(".success")
+  rescue Lti::AccessToken::Error, Lti::Membership::Error => e
+    redirect_to group_path(@group), alert: t(".failure", message: e.message)
   end
 
   def group_invite
@@ -139,6 +154,10 @@ class GroupsController < ApplicationController
       else
         authorize @group, :admin_access?
       end
+    end
+
+    def check_sync_roster_access
+      authorize @group, :sync_roster?
     end
 
     def organization_from_params
