@@ -7,6 +7,7 @@ class Assignment < ApplicationRecord
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"
   }, if: :lti_integrated?
   belongs_to :group
+  belongs_to :lti_resource_link, optional: true
   has_many :projects, class_name: "Project", dependent: :nullify
 
   after_commit :send_new_assignment_mail, on: :create
