@@ -52,11 +52,10 @@ export const checkRestricted = (key) => {
         "Ctrl + Num.",
         "Ctrl + Num0",
     ];
-    if (getOS == "macOS") {
+    if (getOS() === "MacOS") {
         restrictedKeys.forEach((value, i) => {
-            if (value.split(" + ")[0] == "Ctrl");
             restrictedKeys[i] =
-                value.split(" + ")[0] == "Ctrl"
+                value.split(" + ")[0] === "Ctrl"
                     ? value.replace("Ctrl", "Meta")
                     : value;
         });

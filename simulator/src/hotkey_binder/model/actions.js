@@ -83,13 +83,12 @@ export const setDefault = () => {
     if (getOS() === "MacOS") {
         const macDefaultKeys = {};
         for (let [key, value] of Object.entries(defaultKeys)) {
-            if (value.split(" + ")[0] == "Ctrl");
             macDefaultKeys[key] =
-                value.split(" + ")[0] == "Ctrl"
+                value.split(" + ")[0] === "Ctrl"
                     ? value.replace("Ctrl", "Meta")
                     : value;
-            localStorage.set("defaultKeys", macDefaultKeys);
         }
+        localStorage.set("defaultKeys", macDefaultKeys);
     } else {
         localStorage.set("defaultKeys", defaultKeys); //TODO add a confirmation alert
     }
