@@ -124,6 +124,27 @@ describe AssignmentsController, type: :request do
           expect(@assignment.status).to eq("closed")
         end
       end
+
+      context "when assignment has student submissions" do
+        before do
+          @project = FactoryBot.create(:project, author: @member, assignment: @assignment,
+                                                 project_submission: false)
+        end
+
+        it "freezes student submissions" do
+          put close_group_assignment_path(@group, @assignment)
+          @assignment.reload
+          @project.reload
+          expect(@assignment.status).to eq("closed")
+          expect(@project.assignment_id).to be_nil
+          expect(@project.project_submission).to be(false)
+
+          submission = @assignment.projects.find_by(author: @member)
+          expect(submission).to be_present
+          expect(submission.project_submission).to be(true)
+          expect(submission.forked_project_id).to eq(@project.id)
+        end
+      end
     end
   end
 

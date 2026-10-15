@@ -64,5 +64,32 @@ RSpec.describe Assignment, type: :model do
           .to eq(@projects.map { |p| p.author.name }.sort)
       end
     end
+
+    describe "#freeze_submissions" do
+      before do
+        @student = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, assignment: @assignment, author: @student,
+                                               project_submission: false)
+      end
+
+      it "forks projects into frozen submissions and unlinks original projects" do
+        @assignment.freeze_submissions
+        @project.reload
+        expect(@project.assignment_id).to be_nil
+        expect(@project.project_submission).to be(false)
+
+        submission = @assignment.projects.find_by(author: @student)
+        expect(submission).to be_present
+        expect(submission.project_submission).to be(true)
+        expect(submission.forked_project_id).to eq(@project.id)
+      end
+
+      it "skips projects that are already submitted" do
+        @assignment.freeze_submissions
+        expect do
+          @assignment.freeze_submissions
+        end.not_to change(Project, :count)
+      end
+    end
   end
 end

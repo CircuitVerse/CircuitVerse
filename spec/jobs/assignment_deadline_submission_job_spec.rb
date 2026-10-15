@@ -37,6 +37,24 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
         @assignment.reload
         expect(@assignment.status).to eq("closed")
       end
+
+      it "if deadline has passed freeze student submissions" do
+        @assignment.status = "open"
+        @assignment.deadline = Time.zone.now - 10
+        @assignment.save!
+        student = FactoryBot.create(:user)
+        project = FactoryBot.create(:project, assignment: @assignment, author: student,
+                                              project_submission: false)
+
+        expect(described_class.perform_now(@assignment.id)).to be_truthy
+        @assignment.reload
+        project.reload
+        expect(@assignment.status).to eq("closed")
+        expect(project.assignment_id).to be_nil
+        submission = @assignment.projects.find_by(author: student)
+        expect(submission).to be_present
+        expect(submission.project_submission).to be(true)
+      end
     end
   end
 end

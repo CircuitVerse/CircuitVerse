@@ -71,6 +71,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       @assignment.status = "closed"
       @assignment.deadline = Time.zone.now
       @assignment.save!
+      @assignment.freeze_submissions
       render json: { message: "Assignment has been closed!" }, status: :accepted
     end
   end

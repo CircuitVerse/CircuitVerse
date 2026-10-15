@@ -86,4 +86,16 @@ class Assignment < ApplicationRecord
       end
     end
   end
+
+  def freeze_submissions
+    projects.each do |proj|
+      next unless proj.project_submission == false
+
+      submission = proj.fork(proj.author)
+      submission.project_submission = true
+      proj.assignment_id = nil
+      proj.save!
+      submission.save!
+    end
+  end
 end
