@@ -48,7 +48,7 @@
         <%= @group.primary_mentor.name %>
       </h4>
       <% if @group.organization.blank? && @group.lti_resource_link.present? && Flipper.enabled?(:lti_advantage) &&
-            policy(@group).sync_roster? %>
+            roster_services_loaded? && policy(@group).sync_roster? %>
         <div class="d-flex align-items-center gap-2 mb-2">
           <%= button_to t("groups.show.sync_roster_btn"), sync_roster_group_path(@group), method: :put,
                         class: "btn primary-button groups-primary-button" %>

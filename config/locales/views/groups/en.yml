@@ -14,6 +14,7 @@ en:
       success: "Group roster synced with the LMS."
       failure: "Could not sync the roster: %{message}"
       no_resource_link: "This group is not linked to an LMS course."
+      not_available: "Roster sync is not available yet."
     edit:
       title: "%{name} - Edit Group Name"
       main_heading: "EDIT GROUP NAME"

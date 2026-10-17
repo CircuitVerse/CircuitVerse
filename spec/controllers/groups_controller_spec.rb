@@ -276,16 +276,51 @@ describe GroupsController, type: :request do
 
     after { Flipper.disable(:lti_advantage) }
 
-    context "when the primary mentor is signed in" do
+    context "when the roster services are not loaded yet" do
+      it "redirects without raising" do
+        sign_in @primary_mentor
+
+        put sync_roster_group_path(@group)
+
+        expect(response).to redirect_to(group_path(@group))
+        expect(flash[:alert]).to eq(I18n.t("groups.sync_roster.not_available"))
+        expect(@group.reload.last_synced_at).to be_nil
+      end
+    end
+
+    context "when the roster services are loaded" do
+      before do
+        membership_stub = Class.new { def self.fetch(*) = [] }
+        membership_stub.const_set(:SCOPE, "https://purl.imsglobal.org/spec/lti-nrps/scope/contextmembership.readonly")
+        stub_const("Lti::Membership", membership_stub)
+        stub_const("Lti::RosterImport", Class.new { def self.call(*); end })
+        stub_const("Lti::RosterDrop", Class.new { def self.call(*); end })
+      end
+
       it "imports the roster and records when it last synced" do
         sign_in @primary_mentor
         allow(Lti::AccessToken).to receive(:fetch).and_return("tok-1")
-        allow(Lti::Membership).to receive(:fetch).and_return([])
 
         put sync_roster_group_path(@group)
 
         expect(@group.reload.last_synced_at).to be_present
         expect(response).to redirect_to(group_path(@group))
+      end
+
+      context "when the LMS roster request fails" do
+        it "redirects without raising and shows the failure to the mentor" do
+          sign_in @primary_mentor
+          allow(Lti::AccessToken).to receive(:fetch).and_raise(Lti::AccessToken::Error, "boom")
+
+          put sync_roster_group_path(@group)
+
+          expect(response).to redirect_to(group_path(@group))
+          expect(@group.reload.last_synced_at).to be_nil
+          expect(flash[:alert]).to include("boom")
+
+          follow_redirect!
+          expect(response.body).to include("boom")
+        end
       end
     end
 
@@ -299,22 +334,6 @@ describe GroupsController, type: :request do
 
         expect(Lti::AccessToken).not_to have_received(:fetch)
         expect(@group.reload.last_synced_at).to be_nil
-      end
-    end
-
-    context "when the LMS roster request fails" do
-      it "redirects without raising and shows the failure to the mentor" do
-        sign_in @primary_mentor
-        allow(Lti::AccessToken).to receive(:fetch).and_raise(Lti::AccessToken::Error, "boom")
-
-        put sync_roster_group_path(@group)
-
-        expect(response).to redirect_to(group_path(@group))
-        expect(@group.reload.last_synced_at).to be_nil
-        expect(flash[:alert]).to include("boom")
-
-        follow_redirect!
-        expect(response.body).to include("boom")
       end
     end
 
