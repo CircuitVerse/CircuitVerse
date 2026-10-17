@@ -94,5 +94,33 @@ RSpec.describe Group, type: :model do
       expect(described_class.top_level).to include(@parent)
       expect(described_class.top_level).not_to include(subgroup)
     end
+
+    it "re-inherits the parent's primary mentor if a subgroup's mentor is directly updated" do
+      subgroup = described_class.create!(name: "Team A", parent_group: @parent)
+      other_mentor = FactoryBot.create(:user)
+
+      subgroup.update!(primary_mentor: other_mentor)
+
+      expect(subgroup.reload.primary_mentor).to eq(@primary_mentor)
+    end
+
+    it "propagates a parent's new primary mentor to its existing subgroups" do
+      subgroup = described_class.create!(name: "Team A", parent_group: @parent)
+      new_mentor = FactoryBot.create(:user)
+
+      @parent.update!(primary_mentor: new_mentor)
+
+      expect(subgroup.reload.primary_mentor).to eq(new_mentor)
+    end
+
+    it "rejects reparenting a group that already has its own subgroups" do
+      group_with_subgroup = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+      described_class.create!(name: "Team A", parent_group: group_with_subgroup)
+
+      group_with_subgroup.parent_group = @parent
+
+      expect(group_with_subgroup).not_to be_valid
+      expect(group_with_subgroup.errors[:parent_group]).to be_present
+    end
   end
 end

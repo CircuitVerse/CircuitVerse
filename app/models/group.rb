@@ -14,10 +14,12 @@ class Group < ApplicationRecord
   has_many :assignments, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
 
-  before_validation :inherit_primary_mentor_from_parent, on: :create, if: :subgroup?
+  before_validation :inherit_primary_mentor_from_parent, if: :subgroup?
   validates :name, uniqueness: { scope: :parent_group_id, case_sensitive: false }, if: :subgroup?
   validate :parent_group_must_be_top_level, if: :subgroup?
+  validate :cannot_become_a_subgroup_with_its_own_subgroups, if: :subgroup?
 
+  after_update :sync_subgroup_mentors, if: -> { !subgroup? && saved_change_to_primary_mentor_id? }
   after_commit :send_creation_mail, on: :create, unless: :subgroup?
   scope :with_valid_token, -> { where(token_expires_at: Time.zone.now..) }
   scope :top_level, -> { where(parent_group_id: nil) }
@@ -58,5 +60,15 @@ class Group < ApplicationRecord
 
     def parent_group_must_be_top_level
       errors.add(:parent_group, "cannot itself be a subgroup") if parent_group&.subgroup?
+    end
+
+    def cannot_become_a_subgroup_with_its_own_subgroups
+      errors.add(:parent_group, "cannot be set on a group that already has subgroups") if subgroups.exists?
+    end
+
+    # Subgroups always mirror the parent's primary mentor, so a mentor
+    # change on the parent has to propagate rather than leaving them stale.
+    def sync_subgroup_mentors
+      subgroups.find_each { |subgroup| subgroup.update!(primary_mentor_id: primary_mentor_id) }
     end
 end
