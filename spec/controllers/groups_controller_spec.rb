@@ -266,4 +266,83 @@ describe GroupsController, type: :request do
       end
     end
   end
+
+  describe "#sync_roster" do
+    before do
+      Flipper.enable(:lti_advantage)
+      @link = FactoryBot.create(:lti_resource_link)
+      @group.update!(lti_resource_link: @link)
+    end
+
+    after { Flipper.disable(:lti_advantage) }
+
+    context "when the roster services are not loaded yet" do
+      it "redirects without raising" do
+        sign_in @primary_mentor
+
+        put sync_roster_group_path(@group)
+
+        expect(response).to redirect_to(group_path(@group))
+        expect(flash[:alert]).to eq(I18n.t("groups.sync_roster.not_available"))
+        expect(@group.reload.last_synced_at).to be_nil
+      end
+    end
+
+    context "when the roster services are loaded" do
+      before do
+        membership_stub = Class.new { def self.fetch(*) = [] }
+        membership_stub.const_set(:SCOPE, "https://purl.imsglobal.org/spec/lti-nrps/scope/contextmembership.readonly")
+        stub_const("Lti::Membership", membership_stub)
+        stub_const("Lti::RosterImport", Class.new { def self.call(*); end })
+        stub_const("Lti::RosterDrop", Class.new { def self.call(*); end })
+      end
+
+      it "imports the roster and records when it last synced" do
+        sign_in @primary_mentor
+        allow(Lti::AccessToken).to receive(:fetch).and_return("tok-1")
+
+        put sync_roster_group_path(@group)
+
+        expect(@group.reload.last_synced_at).to be_present
+        expect(response).to redirect_to(group_path(@group))
+      end
+
+      context "when the LMS roster request fails" do
+        it "redirects without raising and shows the failure to the mentor" do
+          sign_in @primary_mentor
+          allow(Lti::AccessToken).to receive(:fetch).and_raise(Lti::AccessToken::Error, "boom")
+
+          put sync_roster_group_path(@group)
+
+          expect(response).to redirect_to(group_path(@group))
+          expect(@group.reload.last_synced_at).to be_nil
+          expect(flash[:alert]).to include("boom")
+
+          follow_redirect!
+          expect(response.body).to include("boom")
+        end
+      end
+    end
+
+    context "when the group has no LMS course linked" do
+      it "redirects without attempting a sync" do
+        @group.update!(lti_resource_link: nil)
+        sign_in @primary_mentor
+        allow(Lti::AccessToken).to receive(:fetch)
+
+        put sync_roster_group_path(@group)
+
+        expect(Lti::AccessToken).not_to have_received(:fetch)
+        expect(@group.reload.last_synced_at).to be_nil
+      end
+    end
+
+    context "when a user other than a mentor is signed in" do
+      it "throws not authorized error" do
+        sign_in @user
+        put sync_roster_group_path(@group)
+        check_not_authorized(response)
+      end
+    end
+  end
 end

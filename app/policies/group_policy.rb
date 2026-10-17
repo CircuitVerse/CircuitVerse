@@ -21,4 +21,8 @@ class GroupPolicy < ApplicationPolicy
   def mentor_access?
     admin_access? || group.group_members.exists?(user_id: user.id, mentor: true)
   end
+
+  def sync_roster?
+    mentor_access?
+  end
 end
