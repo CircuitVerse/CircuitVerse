@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_14_120100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -100,8 +100,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
     t.bigint "group_id"
     t.string "lti_consumer_key"
     t.string "lti_shared_secret"
+    t.integer "max_attempts"
     t.string "name"
+    t.boolean "partial_credit", default: false
     t.json "restrictions", default: "[]"
+    t.boolean "reveal_test_cases", default: false
     t.string "status"
     t.datetime "updated_at", precision: nil, null: false
     t.index ["group_id"], name: "index_assignments_on_group_id"
@@ -656,7 +659,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "lti_resource_links"
+  add_foreign_key "groups", "lti_resource_links", validate: false
   add_foreign_key "groups", "organizations", on_delete: :nullify
   add_foreign_key "groups", "users", column: "primary_mentor_id"
   add_foreign_key "lti_resource_links", "lti_deployments"
