@@ -1,0 +1,6 @@
+en:
+  subgroups:
+    create:
+      success: "Subgroup created."
+    destroy:
+      success: "Subgroup removed."
