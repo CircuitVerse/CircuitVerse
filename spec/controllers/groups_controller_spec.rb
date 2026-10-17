@@ -303,7 +303,7 @@ describe GroupsController, type: :request do
     end
 
     context "when the LMS roster request fails" do
-      it "redirects without raising" do
+      it "redirects without raising and shows the failure to the mentor" do
         sign_in @primary_mentor
         allow(Lti::AccessToken).to receive(:fetch).and_raise(Lti::AccessToken::Error, "boom")
 
@@ -311,6 +311,10 @@ describe GroupsController, type: :request do
 
         expect(response).to redirect_to(group_path(@group))
         expect(@group.reload.last_synced_at).to be_nil
+        expect(flash[:alert]).to include("boom")
+
+        follow_redirect!
+        expect(response.body).to include("boom")
       end
     end
 

@@ -11,6 +11,14 @@
     </div>
   </div>
   <% end %>
+  <% if alert %>
+  <div class="row" id='alertdiv'>
+    <div class="alert alert-danger alert-dismissible container text-center">
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+      <h6><%= alert %></h6>
+    </div>
+  </div>
+  <% end %>
   <% if organization_scoped_group?(@group) %>
     <div class="row">
       <div class="col">
