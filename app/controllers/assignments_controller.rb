@@ -58,6 +58,7 @@ class AssignmentsController < ApplicationController
   # Close assignment
   def close
     authorize @assignment
+    @assignment.freeze_submissions
     @assignment.status = "closed"
     @assignment.deadline = Time.zone.now
     @assignment.save

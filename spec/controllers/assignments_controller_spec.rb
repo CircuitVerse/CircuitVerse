@@ -111,6 +111,16 @@ describe AssignmentsController, type: :request do
           @assignment.reload
           expect(@assignment.status).to eq("closed")
         end
+
+        it "freezes student projects as submissions" do
+          project = create(:project, assignment: @assignment, author: @member)
+          put close_group_assignment_path(@group, @assignment)
+
+          submission = @assignment.reload.projects.find_by(author: @member)
+          expect(submission.project_submission).to be(true)
+          expect(submission.forked_project_id).to eq(project.id)
+          expect(project.reload.assignment_id).to be_nil
+        end
       end
 
       context "when assignment is closed" do
