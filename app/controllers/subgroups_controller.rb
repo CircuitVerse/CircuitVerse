@@ -4,6 +4,7 @@ class SubgroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_group
   before_action :check_manage_access
+  before_action :check_subgroups_available
 
   def create
     @subgroup = @group.subgroups.new(subgroup_params)
@@ -27,6 +28,15 @@ class SubgroupsController < ApplicationController
 
     def check_manage_access
       authorize @group, :manage_subgroups?
+    end
+
+    # The subgroups data layer (Group#subgroups, parent_group_id) ships in a
+    # separate, still-unmerged PR; this keeps that gap from surfacing as an
+    # unhandled NoMethodError/500.
+    def check_subgroups_available
+      return if @group.respond_to?(:subgroups)
+
+      redirect_to group_path(@group), alert: t("subgroups.not_available")
     end
 
     def subgroup_params
