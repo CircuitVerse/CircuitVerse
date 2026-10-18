@@ -9,12 +9,12 @@ ENV RAILS_ENV=production
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips yosys
 
-RUN npm install --global yarn
+RUN npm install --global bun
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
 COPY Gemfile* ./
 COPY vendor/gems/ vendor/gems/
