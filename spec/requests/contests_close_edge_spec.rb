@@ -27,14 +27,14 @@ RSpec.describe "Admin::Contests#update edge-cases", type: :request do
 
       allow(Admin::ContestsController).to receive(:new).and_wrap_original do |m, *args, **kwargs|
         controller = m.call(*args, **kwargs)
-        allow(controller).to receive(:render) { controller.head :unprocessable_entity }
+        allow(controller).to receive(:render) { controller.head :unprocessable_content }
         controller
       end
     end
 
     it "responds with 422" do
       patch admin_contest_path(contest), params: { contest: { status: :completed } }
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end
