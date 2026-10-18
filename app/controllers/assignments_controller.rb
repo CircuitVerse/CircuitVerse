@@ -58,10 +58,14 @@ class AssignmentsController < ApplicationController
   # Close assignment
   def close
     authorize @assignment
-    @assignment.freeze_submissions
-    @assignment.status = "closed"
-    @assignment.deadline = Time.zone.now
-    @assignment.save
+    @assignment.with_lock do
+      next if @assignment.status == "closed"
+
+      @assignment.freeze_submissions
+      @assignment.status = "closed"
+      @assignment.deadline = Time.zone.now
+      @assignment.save!
+    end
 
     redirect_to group_assignment_redirect_path(@group, @assignment)
   end
