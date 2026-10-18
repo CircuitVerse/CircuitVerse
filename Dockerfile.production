@@ -33,8 +33,7 @@ RUN RAILS_ENV=production \
     SECRET_KEY_BASE=1 \
     DATABASE_URL=postgres://nulldb \
 	DISABLE_FLIPPER=true \
-    bundle exec rails assets:precompile && \
-	yarn cache clean
+    bundle exec rails assets:precompile
 
 RUN rm -rf node_modules spec
 
