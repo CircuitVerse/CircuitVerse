@@ -94,6 +94,7 @@ en:
       voting_closed: "Voting is closed."
       all_votes_used: "You have used all your votes!"
       already_voted: "You have already cast a vote for this submission!"
+      cannot_vote_own: "You cannot vote for your own submission."
       success: "You have successfully voted the submission, Thanks! Votes remaining: %{votes_remaining}"
     submissions:
       create:
@@ -108,6 +109,7 @@ en:
           voting_closed: "Voting is closed."
           all_votes_used: "You have used all your votes!"
           already_voted: "You have already cast a vote for this submission!"
+          cannot_vote_own: "You cannot vote for your own submission."
           success: "You have successfully voted the submission, Thanks! Votes remaining: %{votes_remaining}"
   admin:
     contests:

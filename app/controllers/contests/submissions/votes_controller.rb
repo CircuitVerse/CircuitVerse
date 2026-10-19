@@ -8,6 +8,7 @@ class Contests::Submissions::VotesController < ApplicationController
 
   def create
     redirect_to contest_path(@contest), alert: t(".voting_closed") and return if @contest.completed?
+    redirect_to contest_path(@contest), alert: t(".cannot_vote_own") and return if user_owns_submission?
 
     user_votes = current_user.votes_for_contest(@contest.id)
 
@@ -24,6 +25,10 @@ class Contests::Submissions::VotesController < ApplicationController
   end
 
   private
+
+    def user_owns_submission?
+      @submission.user_id == current_user.id || @submission.project&.author_id == current_user.id
+    end
 
     def set_contest_and_submission
       @contest = Contest.find(params.expect(:contest_id))
