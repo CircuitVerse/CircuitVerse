@@ -94,5 +94,16 @@ RSpec.describe Group, type: :model do
       expect(described_class.top_level).to include(@parent)
       expect(described_class.top_level).not_to include(subgroup)
     end
+
+    it "rolls up assignments, submissions and grades for a subgroup" do
+      subgroup = described_class.create!(name: "Team A", parent_group: @parent)
+      assignment = FactoryBot.create(:assignment, group: subgroup, grading_scale: :percent)
+      student = FactoryBot.create(:user)
+      submitted = FactoryBot.create(:project, author: student, assignment: assignment, project_submission: true)
+      FactoryBot.create(:project, author: student, assignment: assignment, project_submission: false)
+      Grade.create!(project: submitted, assignment: assignment, grader: @primary_mentor, grade: "90")
+
+      expect(subgroup.progress).to eq(assignments: 1, submissions: 1, graded: 1)
+    end
   end
 end

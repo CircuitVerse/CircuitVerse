@@ -37,6 +37,7 @@ en:
         manage_btn: "Manage Members"
         manage_heading: "Members of %{name}"
         save_btn: "Update Members"
+        progress: "%{assignments} assignments, %{submissions} submitted, %{graded} graded"
         delete_message: "Are you sure, you want to delete this subgroup?"
         none_html: "There are no subgroups, click <strong>+ Add Subgroup</strong> to create one."
       assignment:

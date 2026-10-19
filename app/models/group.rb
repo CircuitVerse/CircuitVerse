@@ -27,6 +27,15 @@ class Group < ApplicationRecord
     parent_group_id.present?
   end
 
+  def progress
+    submitted = Project.where(assignment_id: assignments.select(:id), project_submission: true)
+    {
+      assignments: assignments.count,
+      submissions: submitted.count,
+      graded: Grade.where(project_id: submitted.select(:id)).count
+    }
+  end
+
   def send_creation_mail
     GroupMailer.new_group_email(primary_mentor, self).deliver_later
   end

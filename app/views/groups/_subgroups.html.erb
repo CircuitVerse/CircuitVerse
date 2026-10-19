@@ -10,7 +10,11 @@
 <ul class="list-unstyled">
   <% group.subgroups.includes(:group_members).each do |subgroup| %>
     <li class="d-flex justify-content-between align-items-center py-2">
-      <%= link_to subgroup.name, group_path(subgroup) %>
+      <% progress = subgroup.progress %>
+      <span>
+        <%= link_to subgroup.name, group_path(subgroup) %>
+        <small class="text-muted"><%= t("groups.show.subgroups.progress", **progress) %></small>
+      </span>
       <span>
         <button type="button" class="btn primary-button" data-bs-toggle="modal" data-bs-target="#manage-subgroup-<%= subgroup.id %>">
           <%= t("groups.show.subgroups.manage_btn") %>
