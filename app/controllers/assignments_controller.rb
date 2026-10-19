@@ -55,17 +55,10 @@ class AssignmentsController < ApplicationController
     redirect_to edit_group_assignment_redirect_path(@group, @assignment)
   end
 
-  # Close assignment
+  # Closes the assignment manually and freezes student submissions.
   def close
     authorize @assignment
-    @assignment.with_lock do
-      next if @assignment.status == "closed"
-
-      @assignment.freeze_submissions
-      @assignment.status = "closed"
-      @assignment.deadline = Time.zone.now
-      @assignment.save!
-    end
+    @assignment.close!
 
     redirect_to group_assignment_redirect_path(@group, @assignment)
   end

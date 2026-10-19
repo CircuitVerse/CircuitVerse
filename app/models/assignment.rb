@@ -73,6 +73,8 @@ class Assignment < ApplicationRecord
                                       .map { |project| ProjectDecorator.new(project) }
   end
 
+  # Snapshots all student projects into assignment submissions and detaches
+  # the editable originals so further edits are not reflected in submissions.
   def freeze_submissions
     projects.each do |proj|
       next unless proj.project_submission == false
@@ -82,6 +84,17 @@ class Assignment < ApplicationRecord
       proj.assignment_id = nil
       proj.save!
       submission.save!
+    end
+  end
+
+  # Atomically freezes submissions and updates status to closed.
+  # Returns false if the assignment was already closed.
+  def close!(deadline: Time.zone.now)
+    with_lock do
+      next false if status == "closed"
+
+      freeze_submissions
+      update!(status: "closed", deadline: deadline)
     end
   end
 
