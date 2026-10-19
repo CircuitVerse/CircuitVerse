@@ -84,9 +84,6 @@ class ApplicationController < ActionController::Base
       end.sort_by { |_lang, q, index| [-q, index] }.find do |lang, _q, _index|
         I18n.available_locales.include?(lang)
       end&.first
-    end.sort_by { |_lang, q, index| [-q, index] }.find do |lang, _q, _index|
-        I18n.available_locales.include?(lang)
-      end&.first
     end
 
     def set_notifications
