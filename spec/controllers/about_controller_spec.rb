@@ -15,6 +15,18 @@ describe AboutController, type: :request do
       expect(response.body).to include("lang=fr")
     end
 
+    it "handles mixed-case language tags" do
+      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "FR-fr" }
+      expect(response.status).to eq(200)
+      expect(response.body).to include("lang=fr")
+    end
+
+    it "selects supported locale when an unsupported preference precedes it" do
+      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "zz, fr;q=0.8" }
+      expect(response.status).to eq(200)
+      expect(response.body).to include("lang=fr")
+    end
+
     it "falls back to default locale for an unsupported header language" do
       get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "xx" }
       expect(response.status).to eq(200)

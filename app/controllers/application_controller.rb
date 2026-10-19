@@ -29,6 +29,12 @@ class ApplicationController < ActionController::Base
     render "errors/not_found", status: :not_found
   end
 
+  # Around action to set the current I18n locale for the request.
+  # Checks params[:locale], current_user.locale, or the Accept-Language header,
+  # falling back to I18n.default_locale if none match an available locale.
+  #
+  # @yield Block executed in the context of the determined locale.
+  # @return [Object] Result of yielding to the block.
   def switch_locale(&)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     locale = params.permit(:locale)[:locale]&.to_sym || current_user&.locale&.to_sym ||
@@ -53,14 +59,29 @@ class ApplicationController < ActionController::Base
 
     # Engine controllers and Devise inherit from ApplicationController but
     # manage their own access control.
+    #
+    # @return [Boolean] true if current controller is a Devise controller, false otherwise.
     def skip_authorization_verification?
       devise_controller?
     end
 
-    # Extracts the preferred 2-character locale from the Accept-Language HTTP request header.
-    # @return [Symbol, nil] The parsed locale symbol, or nil if header is missing or unparseable.
+    # Extracts the highest-priority supported locale from the Accept-Language HTTP request header.
+    # Parses language tags case-insensitively, accounts for optional quality values,
+    # and returns the first matching available locale symbol.
+    #
+    # @return [Symbol, nil] The matched locale symbol, or nil if missing or unsupported.
     def extract_locale_from_accept_language_header
-      request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first&.to_sym
+      header = request.env["HTTP_ACCEPT_LANGUAGE"]
+      return if header.blank?
+
+      header.downcase.split(",").each_with_index.map do |entry, index|
+        tag, q_part = entry.split(";")
+        lang = tag.strip[0, 2]&.to_sym
+        q = q_part.to_s[/q=([\d.]+)/, 1]&.to_f || 1.0
+        [lang, q, index]
+      end.sort_by { |_lang, q, index| [-q, index] }.find do |lang, _q, _index|
+        I18n.available_locales.include?(lang)
+      end&.first
     end
 
     def set_notifications
