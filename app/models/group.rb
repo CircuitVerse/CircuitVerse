@@ -27,6 +27,14 @@ class Group < ApplicationRecord
     parent_group_id.present?
   end
 
+  def sync_subgroup_members(user_ids)
+    target_ids = Array(user_ids).map(&:to_i) & parent_group.group_members.pluck(:user_id)
+    stale_ids = group_members.member.pluck(:user_id) - target_ids
+
+    group_members.member.where(user_id: stale_ids).destroy_all
+    (target_ids - group_members.pluck(:user_id)).each { |user_id| group_members.create(user_id: user_id) }
+  end
+
   def send_creation_mail
     GroupMailer.new_group_email(primary_mentor, self).deliver_later
   end
