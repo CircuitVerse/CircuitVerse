@@ -78,5 +78,21 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
         expect(response.parsed_body["message"]).to eq("Assignment has been reopened!")
       end
     end
+
+    context "when reopening an assignment that was closed with submissions" do
+      let!(:project) { FactoryBot.create(:project, assignment: open_assignment) }
+
+      before do
+        open_assignment.close!
+        token = get_auth_token(primary_mentor)
+        patch "/api/v1/assignments/#{open_assignment.id}/reopen",
+              headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "restores the original projects" do
+        expect(project.reload.assignment_id).to eq(open_assignment.id)
+        expect(open_assignment.projects.where(project_submission: true)).to be_empty
+      end
+    end
   end
 end
