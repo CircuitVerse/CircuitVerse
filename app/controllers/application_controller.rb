@@ -75,8 +75,12 @@ class ApplicationController < ActionController::Base
       return if header.blank?
 
       header.downcase.split(",").each_with_index.filter_map do |entry, index|
-        tag, q_part = entry.split(";")
+        tag, q_part = entry.split(";", 2)
+        next if tag.blank?
+
         primary_tag = tag.strip.split(/[-_]/).first&.to_sym
+        next if primary_tag.blank?
+
         q = q_part.to_s[/q=([\d.]+)/, 1]&.to_f || 1.0
         next if q <= 0
 

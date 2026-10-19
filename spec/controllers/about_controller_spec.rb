@@ -27,6 +27,18 @@ describe AboutController, type: :request do
       expect(response.body).to include("lang=fr")
     end
 
+    it "prefers a later supported language with a higher quality value" do
+      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "fr;q=0.4, en;q=0.8" }
+      expect(response.status).to eq(200)
+      expect(response.body).to include("lang=en")
+    end
+
+    it "skips malformed entries without a language tag" do
+      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => ";, fr;q=0.8" }
+      expect(response.status).to eq(200)
+      expect(response.body).to include("lang=fr")
+    end
+
     it "falls back to default locale for an unsupported header language" do
       get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "xx" }
       expect(response.status).to eq(200)
