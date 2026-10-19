@@ -230,6 +230,16 @@ describe AssignmentsController, type: :request do
         @closed_assignment.reload
         expect(@closed_assignment.status).to eq("open")
       end
+
+      it "restores projects frozen on close" do
+        sign_in @primary_mentor
+        project = create(:project, assignment: @assignment, author: @member)
+        @assignment.close!
+        get reopen_group_assignment_path(@group, @assignment)
+
+        expect(project.reload.assignment_id).to eq(@assignment.id)
+        expect(@assignment.projects.where(project_submission: true)).to be_empty
+      end
     end
 
     context "when a mentor is signed in" do

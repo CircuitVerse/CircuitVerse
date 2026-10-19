@@ -58,6 +58,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       @assignment.status = "open"
       @assignment.deadline = 1.day.from_now
       @assignment.save!
+      @assignment.check_reopening_status
       render json: { message: "Assignment has been reopened!" }, status: :accepted
     end
   end

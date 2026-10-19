@@ -51,6 +51,7 @@ class AssignmentsController < ApplicationController
     @assignment.status = "open"
     @assignment.deadline = 1.day.from_now
     @assignment.save
+    @assignment.check_reopening_status
 
     redirect_to edit_group_assignment_redirect_path(@group, @assignment)
   end
