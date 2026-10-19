@@ -19,6 +19,17 @@ class SubgroupsController < ApplicationController
     redirect_to group_path(@group), notice: t(".success")
   end
 
+  def update_members
+    subgroup = @group.subgroups.find(params.expect(:id))
+    target_ids = Array(params[:user_ids]).map(&:to_i) & @group.group_members.pluck(:user_id)
+    existing_ids = subgroup.group_members.pluck(:user_id)
+    stale_ids = subgroup.group_members.member.pluck(:user_id) - target_ids
+
+    subgroup.group_members.member.where(user_id: stale_ids).destroy_all
+    (target_ids - existing_ids).each { |user_id| subgroup.group_members.create(user_id: user_id) }
+    redirect_to group_path(subgroup), notice: t(".success")
+  end
+
   private
 
     def set_group
