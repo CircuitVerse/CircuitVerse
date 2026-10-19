@@ -84,6 +84,24 @@ RSpec.describe Assignment, type: :model do
         expect(@assignment.close!).to be(false)
       end
 
+      it "keeps submission data unchanged when the original project is edited" do
+        FactoryBot.create(:project_datum, project: project, data: "original")
+        @assignment.close!
+        project.project_datum.update!(data: "edited")
+
+        submission = @assignment.projects.find_by(author: member)
+        expect(submission.project_datum.reload.data).to eq("original")
+      end
+
+      it "does nothing when closed a second time" do
+        @assignment.close!
+        deadline = @assignment.reload.deadline
+
+        expect(@assignment.close!).to be(false)
+        expect(@assignment.projects.where(project_submission: true).count).to eq(1)
+        expect(@assignment.reload.deadline).to eq(deadline)
+      end
+
       it "rolls back if a submission fails to save" do
         other_project = FactoryBot.create(:project, assignment: @assignment, author: FactoryBot.create(:user))
         forks = 0

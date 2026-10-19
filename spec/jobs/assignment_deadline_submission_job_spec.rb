@@ -15,7 +15,7 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
     end
 
     it "when the assignment is closed" do
-      @assignment.status = "closed"
+      @assignment.update!(status: "closed")
       expect(described_class.perform_now(@assignment.id)).to be_nil
     end
 
