@@ -11,12 +11,14 @@ class Group < ApplicationRecord
   has_many :subgroups, class_name: "Group", foreign_key: :parent_group_id,
                        inverse_of: :parent_group, dependent: :destroy
 
+  belongs_to :team_project, class_name: "Project", optional: true
   has_many :assignments, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
 
   before_validation :inherit_primary_mentor_from_parent, on: :create, if: :subgroup?
   validates :name, uniqueness: { scope: :parent_group_id, case_sensitive: false }, if: :subgroup?
   validate :parent_group_must_be_top_level, if: :subgroup?
+  validate :team_project_author_must_be_member, if: :team_project_id?
 
   after_commit :send_creation_mail, on: :create, unless: :subgroup?
   scope :with_valid_token, -> { where(token_expires_at: Time.zone.now..) }
@@ -25,6 +27,14 @@ class Group < ApplicationRecord
 
   def subgroup?
     parent_group_id.present?
+  end
+
+  def share_team_project
+    return unless team_project
+
+    group_members.where.not(user_id: team_project.author_id).pluck(:user_id).each do |user_id|
+      Collaboration.find_or_create_by!(project_id: team_project_id, user_id: user_id)
+    end
   end
 
   def send_creation_mail
@@ -54,6 +64,12 @@ class Group < ApplicationRecord
 
     def inherit_primary_mentor_from_parent
       self.primary_mentor = parent_group.primary_mentor if parent_group
+    end
+
+    def team_project_author_must_be_member
+      return if subgroup? && group_members.exists?(user_id: team_project.author_id)
+
+      errors.add(:team_project, "must belong to a member of the subgroup")
     end
 
     def parent_group_must_be_top_level

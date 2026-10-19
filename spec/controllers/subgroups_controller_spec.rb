@@ -131,4 +131,60 @@ describe SubgroupsController, type: :request do
       end
     end
   end
+
+  describe "#update_team_project" do
+    before do
+      @subgroup = FactoryBot.create(:group, name: "Team A", parent_group: @group)
+      @student = FactoryBot.create(:user)
+      @teammate = FactoryBot.create(:user)
+      [@student, @teammate].each do |user|
+        FactoryBot.create(:group_member, group: @group, user: user)
+        FactoryBot.create(:group_member, group: @subgroup, user: user)
+      end
+      @project = FactoryBot.create(:project, author: @student)
+    end
+
+    def designate(project)
+      patch update_team_project_group_subgroup_path(@group, @subgroup), params: { project_id: project.id }
+    end
+
+    context "when the primary mentor is signed in" do
+      before { sign_in @primary_mentor }
+
+      it "designates the project and adds the other members as collaborators" do
+        designate(@project)
+        expect(@subgroup.reload.team_project).to eq(@project)
+        expect(@project.collaborators).to contain_exactly(@teammate)
+      end
+
+      it "does not duplicate collaborators when run twice" do
+        2.times { designate(@project) }
+        expect(@project.collaborations.count).to eq(1)
+      end
+
+      it "adds new subgroup members as collaborators on the next sync" do
+        designate(@project)
+        newcomer = FactoryBot.create(:user)
+        FactoryBot.create(:group_member, group: @group, user: newcomer)
+        patch update_members_group_subgroup_path(@group, @subgroup),
+              params: { user_ids: [@student.id, @teammate.id, newcomer.id] }
+        expect(@project.collaborators).to contain_exactly(@teammate, newcomer)
+      end
+
+      it "rejects a project whose author is not in the subgroup" do
+        designate(FactoryBot.create(:project, author: FactoryBot.create(:user)))
+        expect(@subgroup.reload.team_project).to be_nil
+        expect(Collaboration.count).to eq(0)
+      end
+    end
+
+    context "when a random user is signed in" do
+      it "throws not authorized error" do
+        sign_in_random_user
+        designate(@project)
+        check_not_authorized(response)
+        expect(@subgroup.reload.team_project).to be_nil
+      end
+    end
+  end
 end

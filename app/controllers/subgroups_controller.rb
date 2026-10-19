@@ -27,7 +27,18 @@ class SubgroupsController < ApplicationController
 
     subgroup.group_members.member.where(user_id: stale_ids).destroy_all
     (target_ids - existing_ids).each { |user_id| subgroup.group_members.create(user_id: user_id) }
+    subgroup.share_team_project
     redirect_to group_path(subgroup), notice: t(".success")
+  end
+
+  def update_team_project
+    subgroup = @group.subgroups.find(params.expect(:id))
+    if subgroup.update(team_project: Project.find(params.expect(:project_id)))
+      subgroup.share_team_project
+      redirect_to group_path(subgroup), notice: t(".success")
+    else
+      redirect_to group_path(subgroup), alert: subgroup.errors.full_messages.to_sentence
+    end
   end
 
   private
