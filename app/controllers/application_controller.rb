@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     end
 
     def extract_locale_from_accept_language_header
-      request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first
+      request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first&.to_sym
     end
 
     def set_notifications
