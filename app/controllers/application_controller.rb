@@ -57,6 +57,8 @@ class ApplicationController < ActionController::Base
       devise_controller?
     end
 
+    # Extracts the preferred 2-character locale from the Accept-Language HTTP request header.
+    # @return [Symbol, nil] The parsed locale symbol, or nil if header is missing or unparseable.
     def extract_locale_from_accept_language_header
       request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first&.to_sym
     end

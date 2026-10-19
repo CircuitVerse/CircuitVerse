@@ -12,13 +12,19 @@ describe AboutController, type: :request do
     it "sets locale to the supported header language" do
       get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "fr" }
       expect(response.status).to eq(200)
-      expect(I18n.locale).to eq(:fr)
+      expect(response.body).to include("lang=fr")
     end
 
     it "falls back to default locale for an unsupported header language" do
-      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "zh" }
+      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "xx" }
       expect(response.status).to eq(200)
-      expect(I18n.locale).to eq(:en)
+      expect(response.body).to include("lang=en")
+    end
+
+    it "falls back to default locale when Accept-Language header is missing" do
+      get about_index_path
+      expect(response.status).to eq(200)
+      expect(response.body).to include("lang=en")
     end
   end
 end
