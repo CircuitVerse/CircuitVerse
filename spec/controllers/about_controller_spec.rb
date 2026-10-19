@@ -33,6 +33,18 @@ describe AboutController, type: :request do
       expect(response.body).to include("lang=en")
     end
 
+    it "does not match an unsupported language that shares a prefix with a supported one" do
+      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "frx" }
+      expect(response.status).to eq(200)
+      expect(response.body).to include("lang=en")
+    end
+
+    it "ignores supported languages with q=0 and falls back to default locale" do
+      get about_index_path, headers: { "HTTP_ACCEPT_LANGUAGE" => "fr;q=0" }
+      expect(response.status).to eq(200)
+      expect(response.body).to include("lang=en")
+    end
+
     it "falls back to default locale when Accept-Language header is missing" do
       get about_index_path
       expect(response.status).to eq(200)

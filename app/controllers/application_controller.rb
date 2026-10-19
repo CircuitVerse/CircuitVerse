@@ -74,12 +74,17 @@ class ApplicationController < ActionController::Base
       header = request.env["HTTP_ACCEPT_LANGUAGE"]
       return if header.blank?
 
-      header.downcase.split(",").each_with_index.map do |entry, index|
+      header.downcase.split(",").each_with_index.filter_map do |entry, index|
         tag, q_part = entry.split(";")
-        lang = tag.strip[0, 2]&.to_sym
+        primary_tag = tag.strip.split(/[-_]/).first&.to_sym
         q = q_part.to_s[/q=([\d.]+)/, 1]&.to_f || 1.0
-        [lang, q, index]
+        next if q <= 0
+
+        [primary_tag, q, index]
       end.sort_by { |_lang, q, index| [-q, index] }.find do |lang, _q, _index|
+        I18n.available_locales.include?(lang)
+      end&.first
+    end.sort_by { |_lang, q, index| [-q, index] }.find do |lang, _q, _index|
         I18n.available_locales.include?(lang)
       end&.first
     end
