@@ -13,6 +13,9 @@ class SubmissionVote < ApplicationRecord
 
   private
 
+    # Validates that a user cannot vote on their own submission or project.
+    #
+    # @return [void]
     def cannot_vote_for_own_submission
       return if submission.blank? || user_id.blank?
 

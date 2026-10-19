@@ -43,4 +43,18 @@ RSpec.describe "Contests::Submissions::Votes#create edge cases", type: :request 
     expect(response).to redirect_to(contest_path(live_contest))
     expect(flash[:alert]).to eq("You cannot vote for your own submission.")
   end
+
+  it "rejects when the project author tries to vote for a submission" do
+    live_contest = Contest.find_by(status: :live) || create(:contest, status: :live)
+    submission_owner = create(:user)
+    own_proj = create(:project, author: user)
+    own_sub = create(:submission, contest: live_contest, project: own_proj, user: submission_owner)
+
+    expect do
+      post contest_submission_votes_path(live_contest, own_sub)
+    end.not_to change(SubmissionVote, :count)
+
+    expect(response).to redirect_to(contest_path(live_contest))
+    expect(flash[:alert]).to eq("You cannot vote for your own submission.")
+  end
 end

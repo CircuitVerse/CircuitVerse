@@ -22,6 +22,13 @@ RSpec.describe SubmissionVote, type: :model do
       expect(vote.errors[:base]).to include("You cannot vote for your own submission")
     end
 
+    it "is invalid if project author votes for another user's submission" do
+      submission_by_other_user = create(:submission, contest: contest, project: project, user: other_user)
+      vote = build(:submission_vote, user: user, submission: submission_by_other_user, contest: contest)
+      expect(vote).not_to be_valid
+      expect(vote.errors[:base]).to include("You cannot vote for your own submission")
+    end
+
     it "is valid when voting for another user's submission" do
       vote = build(:submission_vote, user: other_user, submission: submission, contest: contest)
       expect(vote).to be_valid
