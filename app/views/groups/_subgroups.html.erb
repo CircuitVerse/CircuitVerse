@@ -13,7 +13,7 @@
       <% progress = subgroup.progress %>
       <span>
         <%= link_to subgroup.name, group_path(subgroup) %>
-        <small class="text-muted"><%= t("groups.show.subgroups.progress", **progress) %></small>
+        <small class="text-muted"><%= t("groups.show.subgroups.progress", assignments: t("groups.show.subgroups.assignments_count", count: progress[:assignments]), **progress.slice(:submissions, :graded)) %></small>
       </span>
       <span>
         <button type="button" class="btn primary-button" data-bs-toggle="modal" data-bs-target="#manage-subgroup-<%= subgroup.id %>">

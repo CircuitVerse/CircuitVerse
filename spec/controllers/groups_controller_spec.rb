@@ -218,6 +218,15 @@ describe GroupsController, type: :request do
       expect(response.body).to include("Team A", "SUBGROUPS:")
     end
 
+    it "pluralizes the progress summary" do
+      FactoryBot.create(:assignment, group: @subgroup, grading_scale: :percent)
+      empty = FactoryBot.create(:group, name: "Team B", parent_group: @group)
+      FactoryBot.create_list(:assignment, 2, group: empty, grading_scale: :percent)
+      sign_in @primary_mentor
+      get group_path(@group)
+      expect(response.body).to include("1 assignment, 0 submitted, 0 graded", "2 assignments, 0 submitted, 0 graded")
+    end
+
     it "hides the subgroups section from a plain member" do
       sign_in get_group_member(@group)
       get group_path(@group)
