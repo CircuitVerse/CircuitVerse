@@ -275,6 +275,7 @@ Rails.application.routes.draw do
         member do
           patch "reopen"
           patch "start"
+          put "close"
         end
       end
       resources :threads do

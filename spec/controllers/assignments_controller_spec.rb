@@ -131,9 +131,9 @@ describe AssignmentsController, type: :request do
                                                  project_submission: false)
         end
 
-        it "closes assignment, freezes submissions and returns accepted" do # rubocop:disable RSpec/MultipleExpectations
+        it "closes assignment, freezes submissions and redirects" do # rubocop:disable RSpec/MultipleExpectations
           put close_group_assignment_path(@group, @assignment)
-          expect(response).to have_http_status(:accepted)
+          expect(response).to have_http_status(:found)
           expect(@assignment.reload.status).to eq("closed")
           expect(@project.reload.assignment_id).to be_nil
           expect(@project.project_submission).to be(false)
