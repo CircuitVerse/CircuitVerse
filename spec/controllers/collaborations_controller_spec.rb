@@ -32,6 +32,13 @@ describe CollaborationsController, type: :request do
           post collaborations_path, params: create_params
         end.to change(Collaboration, :count).by(1)
       end
+
+      it "creates collaboration when email has uppercase letters" do
+        params = { collaboration: { project_id: @project.id, emails: [@new_collaboration.email.upcase] } }
+        expect do
+          post collaborations_path, params: params
+        end.to change(Collaboration, :count).by(1)
+      end
     end
 
     context "author is not logged in" do
