@@ -134,10 +134,8 @@ describe AssignmentsController, type: :request do
         it "freezes student submissions and returns accepted" do
           put close_group_assignment_path(@group, @assignment)
           expect(response).to have_http_status(:accepted)
-          @assignment.reload
-          @project.reload
-          expect(@assignment.status).to eq("closed")
-          expect(@project.assignment_id).to be_nil
+          expect(@assignment.reload.status).to eq("closed")
+          expect(@project.reload.assignment_id).to be_nil
           expect(@project.project_submission).to be(false)
 
           submission = @assignment.projects.find_by(author: @member)
