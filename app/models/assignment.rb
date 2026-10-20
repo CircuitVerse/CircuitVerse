@@ -88,7 +88,7 @@ class Assignment < ApplicationRecord
   end
 
   def freeze_submissions
-    projects.where(project_submission: false).each do |proj|
+    projects.where(project_submission: false).find_each do |proj|
       submission = proj.fork(proj.author)
       submission.project_submission = true
       proj.assignment_id = nil
