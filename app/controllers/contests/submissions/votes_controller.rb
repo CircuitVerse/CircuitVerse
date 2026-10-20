@@ -37,6 +37,9 @@ class Contests::Submissions::VotesController < ApplicationController
       @submission.user_id == current_user.id || @submission.project&.author_id == current_user.id
     end
 
+    # Sets the contest and submission for the action.
+    #
+    # @return [void]
     def set_contest_and_submission
       @contest = Contest.find(params.expect(:contest_id))
       @submission = @contest.submissions.find(params.expect(:submission_id))
