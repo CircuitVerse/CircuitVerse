@@ -137,11 +137,9 @@ describe AssignmentsController, type: :request do
           expect(@assignment.reload.status).to eq("closed")
           expect(@project.reload.assignment_id).to be_nil
           expect(@project.project_submission).to be(false)
-
-          submission = @assignment.projects.find_by(author: @member)
-          expect(submission).to be_present
-          expect(submission.project_submission).to be(true)
-          expect(submission.forked_project_id).to eq(@project.id)
+          expect(@assignment.projects.find_by(author: @member)).to be_present
+          expect(@assignment.projects.find_by(author: @member).project_submission).to be(true)
+          expect(@assignment.projects.find_by(author: @member).forked_project_id).to eq(@project.id)
         end
       end
     end
