@@ -142,8 +142,7 @@ describe AssignmentsController, type: :request do
         end
 
         it "forks project for frozen submission" do
-          put close_group_assignment_path(@group, @assignment)
-          submission = @assignment.projects.find_by(author: @member)
+          expect(@assignment.projects.find_by(author: @member).forked_project_id).to eq(@project.id)
           expect(submission.forked_project_id).to eq(@project.id)
         end
 
