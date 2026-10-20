@@ -131,7 +131,7 @@ describe AssignmentsController, type: :request do
                                                  project_submission: false)
         end
 
-        it "freezes student submissions" do
+        it "freezes student submissions and returns accepted" do
           put close_group_assignment_path(@group, @assignment)
           expect(response).to have_http_status(:accepted)
           @assignment.reload
