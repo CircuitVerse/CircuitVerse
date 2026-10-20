@@ -5,6 +5,7 @@ class Contests::SubmissionsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_contest
+  before_action :reject_completed_contest, only: %i[new create]
 
   def new
     @projects = current_user.projects
@@ -41,6 +42,12 @@ class Contests::SubmissionsController < ApplicationController
 
     def set_contest
       @contest = Contest.find(params.expect(:contest_id))
+    end
+
+    def reject_completed_contest
+      return unless @contest.completed?
+
+      redirect_to contest_path(@contest), alert: t("contests.submissions.create.contest_closed")
     end
 
     def duplicate_submission?(project_id)
