@@ -30,6 +30,22 @@ describe TemplatesController, type: :request do
       expect(response.body).not_to include("Group Only", "Private One", "Plain Project")
     end
 
+    it "excludes templates whose project is private" do
+      create_template("Hidden Project", project_access_type: "Private")
+      get templates_path
+      expect(response.body).not_to include("Hidden Project")
+    end
+
+    it "selects the canonical tag name in the dropdown" do
+      get templates_path, params: { tag: "sequential" }
+      expect(response.body).to include('<option selected="selected" value="Sequential">Sequential</option>')
+    end
+
+    it "labels the search and tag controls" do
+      get templates_path
+      expect(response.body).to include('for="q"', 'for="tag"')
+    end
+
     it "searches by name" do
       get templates_path, params: { q: "adder" }
       expect(response.body).to include("Ripple Adder")

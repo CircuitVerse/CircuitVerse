@@ -76,7 +76,7 @@ class ProjectPolicy < ApplicationPolicy
   def save_as_template?
     return false if user.blank?
 
-    author_access? || mentor_of_author?
+    author_access? || (mentor_of_author? && check_view_access?)
   end
 
   def author_access?

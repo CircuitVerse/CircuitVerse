@@ -58,6 +58,15 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  describe "#fork" do
+    it "does not copy template status to the fork" do
+      template = FactoryBot.create(:project, :public, author: @user, is_template: true, template_visibility: :public)
+      forked = template.fork(FactoryBot.create(:user))
+      expect(forked.is_template).to be(false)
+      expect(forked).to be_template_private
+    end
+  end
+
   describe "public methods" do
     context "project submission is false" do
       before do

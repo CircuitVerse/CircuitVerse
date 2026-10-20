@@ -95,7 +95,8 @@ class Project < ApplicationRecord
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
     forked_project.update!(
-      view: 1, author_id: user.id, forked_project_id: id, name: name
+      view: 1, author_id: user.id, forked_project_id: id, name: name,
+      is_template: false, template_visibility: :private
     )
     @project = Project.find(id)
     if @project.author != user # rubocop:disable Style/IfUnlessModifier

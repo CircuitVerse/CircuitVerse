@@ -242,6 +242,15 @@ describe ProjectsController, type: :request do
       expect(@project.reload).to be_template_public
     end
 
+    it "does not let a mentor publish a private project they cannot view" do
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:group_member, group: group, user: @author)
+      private_project = FactoryBot.create(:project, author: @author, project_access_type: "Private")
+      sign_in group.primary_mentor
+      post save_as_template_project_path(private_project), params: { template_visibility: "public" }
+      expect(private_project.reload).not_to be_is_template
+    end
+
     it "rejects an unrelated user" do
       sign_in_random_user
       post save_as_template_project_path(@project), params: { template_visibility: "public" }
