@@ -7,6 +7,8 @@ class Assignment < ApplicationRecord
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"
   }, if: :lti_integrated?
   belongs_to :group
+  belongs_to :circuit_template, class_name: "Project", optional: true
+  validate :circuit_template_must_be_template, if: :circuit_template_id?
   has_many :projects, class_name: "Project", dependent: :nullify
 
   after_commit :send_new_assignment_mail, on: :create
@@ -86,4 +88,10 @@ class Assignment < ApplicationRecord
       end
     end
   end
+
+  private
+
+    def circuit_template_must_be_template
+      errors.add(:circuit_template, "must be a template") unless circuit_template&.is_template?
+    end
 end

@@ -52,6 +52,10 @@
       </div>
     <% end %>
   </div>
+  <div id="template-field" class="form-group projects-tag-mb-3">
+    <h6><%= form.label :circuit_template_id, t("assignments.form.base_template") %></h6>
+    <%= form.collection_select :circuit_template_id, Project.templates_for(current_user).order(:name), :id, :name, { include_blank: t("assignments.form.no_template") }, class: "form-control form-input" %>
+  </div>
 
   <div id="restrictions-field" class="field mb-3">
     <label for="restrict-elements" class="primary-checkpoint-container" id="label-restrict-elements"><h6><%= t("assignments.form.enable_element_restriction") %></h6>

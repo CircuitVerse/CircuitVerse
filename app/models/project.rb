@@ -42,6 +42,10 @@ class Project < ApplicationRecord
 
   scope :name_like, ->(query) { where("projects.name ILIKE ?", "%#{sanitize_sql_like(query)}%") }
 
+  scope :templates_for, lambda { |user|
+    where(is_template: true).and(template_public.or(by(user.id)))
+  }
+
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model

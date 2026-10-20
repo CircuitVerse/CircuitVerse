@@ -10,6 +10,7 @@ class AssignmentsController < ApplicationController
   before_action :set_assignment, only: %i[show edit update destroy start reopen close]
   before_action :check_access, only: %i[edit update destroy reopen close]
   before_action :sanitize_assignment_description, only: %i[show edit]
+  before_action :check_circuit_template, only: %i[create update]
   after_action :check_reopening_status, only: [:update]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
     Flipper.enabled?(:lms_integration, current_user)
@@ -170,12 +171,19 @@ class AssignmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_create_params
       params.expect(assignment: %i[name deadline description grading_scale
-                                   restrictions feature_restrictions])
+                                   restrictions feature_restrictions circuit_template_id])
     end
 
     def assignment_update_params
       params.expect(assignment: %i[name deadline description
-                                   restrictions feature_restrictions])
+                                   restrictions feature_restrictions circuit_template_id])
+    end
+
+    def check_circuit_template
+      template_id = params.dig(:assignment, :circuit_template_id)
+      return if template_id.blank? || Project.templates_for(current_user).exists?(template_id)
+
+      raise Pundit::NotAuthorizedError
     end
 
     def check_access
