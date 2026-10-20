@@ -143,6 +143,12 @@ describe AssignmentsController, type: :request do
           submission = @assignment.projects.find_by(author: @member)
           expect(submission).to be_present
           expect(submission.project_submission).to be(true)
+        end
+
+        it "links frozen submission to original project" do
+          put close_group_assignment_path(@group, @assignment)
+          @assignment.reload
+          submission = @assignment.projects.find_by(author: @member)
           expect(submission.forked_project_id).to eq(@project.id)
         end
       end

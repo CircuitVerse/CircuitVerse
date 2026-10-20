@@ -58,9 +58,14 @@ RSpec.describe Api::V1::AssignmentsController, "#close", type: :request do
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
-      it "closes assignment, freezes submissions & returns status accepted" do
+      it "returns accepted status with close message" do
+        put /api/v1/assignments/#{assignment.id}/close, headers: { Authorization: "Token #{token}" }, as: :json
         expect(response).to have_http_status(:accepted)
         expect(response.parsed_body["message"]).to eq("Assignment has been closed!")
+      end
+
+      it "closes assignment and freezes submissions" do
+        put "/api/v1/assignments/#{assignment.id}/close", headers: { Authorization: "Token #{token}" }, as: :json
         assignment.reload
         project.reload
         expect(assignment.status).to eq("closed")
