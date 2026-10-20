@@ -137,6 +137,7 @@ Rails.application.routes.draw do
   end
 
   get "/tags/:tag", to: "tags#show", as: "tag"
+  get "/templates", to: "templates#index", as: :templates
 
   resources :contests, only: %i[index show] do
     resources :submissions, only: %i[new create destroy], controller: "contests/submissions" do

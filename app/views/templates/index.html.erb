@@ -1,0 +1,17 @@
+<% content_for :title, "CircuitVerse - #{t('templates.index.heading')}" %>
+<div class="container">
+  <h1 class="main-heading"><%= t("templates.index.heading") %></h1>
+  <%= form_with(url: templates_path, method: :get, class: "d-flex gap-2 mb-4") do |form| %>
+    <%= form.text_field :q, value: params[:q], placeholder: t("templates.index.search"), class: "form-control" %>
+    <%= form.select :tag, Tag.order(:name).limit(ExploreController::MAX_TAGS).pluck(:name), { include_blank: t("templates.index.all_tags"), selected: params[:tag] }, class: "form-select" %>
+    <%= form.submit t("templates.index.filter"), class: "btn primary-button" %>
+  <% end %>
+  <% if @templates.any? %>
+    <div class="project-cards-grid">
+      <%= render(Project::ProjectCardComponent.with_collection(@templates)) %>
+    </div>
+    <%= will_paginate @templates, renderer: PaginateRenderer %>
+  <% else %>
+    <p class="text-muted"><%= t("explore.empty") %></p>
+  <% end %>
+</div>

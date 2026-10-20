@@ -1,0 +1,7 @@
+en:
+  templates:
+    index:
+      heading: "Circuit Templates"
+      search: "Search templates by name"
+      all_tags: "All tags"
+      filter: "Filter"
