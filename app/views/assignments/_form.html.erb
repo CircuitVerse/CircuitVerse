@@ -54,7 +54,9 @@
   </div>
   <div id="template-field" class="form-group projects-tag-mb-3">
     <h6><%= form.label :circuit_template_id, t("assignments.form.base_template") %></h6>
-    <%= form.collection_select :circuit_template_id, Project.templates_for(current_user).order(:name), :id, :name, { include_blank: t("assignments.form.no_template") }, class: "form-control form-input" %>
+    <% templates = Project.templates_for(current_user) %>
+    <% templates = templates.or(Project.where(id: @assignment.circuit_template_id)) if @assignment.circuit_template_id %>
+    <%= form.collection_select :circuit_template_id, templates.order(:name), :id, :name, { include_blank: t("assignments.form.no_template") }, class: "form-control form-input" %>
   </div>
 
   <div id="restrictions-field" class="field mb-3">

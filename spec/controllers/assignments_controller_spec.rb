@@ -302,6 +302,16 @@ describe AssignmentsController, type: :request do
         project = FactoryBot.create(:project, author: @primary_mentor)
         expect { create_with_template(project) }.not_to change(Assignment, :count)
       end
+
+      it "keeps an already linked template that is no longer accessible when editing" do
+        template = FactoryBot.create(:project, author: author, is_template: true)
+        assignment = FactoryBot.create(:assignment, group: @group)
+        assignment.update_columns(circuit_template_id: template.id)
+        patch group_assignment_path(@group, assignment), params: { assignment:
+          { name: "Renamed", circuit_template_id: template.id } }
+        expect(assignment.reload.name).to eq("Renamed")
+        expect(assignment.circuit_template).to eq(template)
+      end
     end
 
     context "when a random user is logged in" do
