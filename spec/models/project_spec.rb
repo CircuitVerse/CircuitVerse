@@ -54,7 +54,7 @@ RSpec.describe Project, type: :model do
     it "does not allow an assignment project to be marked as a template" do
       project = FactoryBot.build(:project, author: @user, assignment: @assignment, is_template: true)
       expect(project).to be_invalid
-      expect(project.errors[:is_template]).to be_present
+      expect(project.errors[:base]).to include("Assignment projects cannot be saved as templates")
     end
   end
 

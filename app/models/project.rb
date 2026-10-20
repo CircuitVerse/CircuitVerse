@@ -164,7 +164,7 @@ class Project < ApplicationRecord
     end
 
     def template_not_assignment
-      errors.add(:is_template, "cannot be set on an assignment project") if assignment_id.present?
+      errors.add(:base, "Assignment projects cannot be saved as templates") if assignment_id.present?
     end
 
     def clean_description
