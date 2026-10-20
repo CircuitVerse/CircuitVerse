@@ -305,8 +305,7 @@ describe AssignmentsController, type: :request do
 
       it "keeps an already linked template that is no longer accessible when editing" do
         template = FactoryBot.create(:project, author: author, is_template: true)
-        assignment = FactoryBot.create(:assignment, group: @group)
-        assignment.update_columns(circuit_template_id: template.id)
+        assignment = FactoryBot.create(:assignment, group: @group, circuit_template: template)
         patch group_assignment_path(@group, assignment), params: { assignment:
           { name: "Renamed", circuit_template_id: template.id } }
         expect(assignment.reload.name).to eq("Renamed")

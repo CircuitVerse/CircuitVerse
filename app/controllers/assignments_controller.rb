@@ -182,7 +182,7 @@ class AssignmentsController < ApplicationController
     def check_circuit_template
       template_id = params.dig(:assignment, :circuit_template_id)
       return if template_id.blank? || @assignment&.circuit_template_id.to_s == template_id.to_s
-      return if Project.templates_for(current_user).where(id: template_id).exists?
+      return if Project.templates_for(current_user).exists?(id: template_id)
 
       raise Pundit::NotAuthorizedError
     end
