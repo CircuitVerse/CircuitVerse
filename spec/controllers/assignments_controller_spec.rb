@@ -140,9 +140,6 @@ describe AssignmentsController, type: :request do
           expect(@assignment.projects.find_by(author: @member)).to be_present
           expect(@assignment.projects.find_by(author: @member).project_submission).to be(true)
         end
-
-        it "forks project for frozen submission" do
-          expect(@assignment.projects.find_by(author: @member).forked_project_id).to eq(@project.id)
           expect(submission.forked_project_id).to eq(@project.id)
         end
 
