@@ -65,6 +65,7 @@ RSpec.describe Api::V1::AssignmentsController, "#close", type: :request do
         project.reload
         expect(assignment.status).to eq("closed")
         expect(project.assignment_id).to be_nil
+
         submission = assignment.projects.find_by(author: student)
         expect(submission).to be_present
         expect(submission.project_submission).to be(true)

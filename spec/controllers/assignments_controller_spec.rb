@@ -133,6 +133,7 @@ describe AssignmentsController, type: :request do
 
         it "freezes student submissions" do
           put close_group_assignment_path(@group, @assignment)
+          expect(response).to have_http_status(:accepted)
           @assignment.reload
           @project.reload
           expect(@assignment.status).to eq("closed")
