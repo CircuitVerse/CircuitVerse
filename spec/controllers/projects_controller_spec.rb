@@ -261,6 +261,8 @@ describe ProjectsController, type: :request do
       sign_in @author
       post save_as_template_project_path(assignment_project), params: { template_visibility: "private" }
       expect(assignment_project.reload).not_to be_is_template
+      follow_redirect!
+      expect(response.body).to include("cannot be set on an assignment project")
     end
   end
 
