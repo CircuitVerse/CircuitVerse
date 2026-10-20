@@ -131,6 +131,8 @@ Rails.application.routes.draw do
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
+    post "/save_as_template/:id", to: "projects#save_as_template", as: "save_as_template_project"
+    get "/template/:id", to: "projects#template", as: "template_project"
     get "tags/:tag", to: redirect('/tags/%{tag}'), as: "legacy_tag"
   end
 
