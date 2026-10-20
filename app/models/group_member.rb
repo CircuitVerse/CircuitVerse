@@ -5,7 +5,9 @@ class GroupMember < ApplicationRecord
   belongs_to :user
   has_many :assignments, through: :group
 
-  after_commit :send_welcome_email, on: :create
+  validates :user_id, uniqueness: { scope: :group_id }
+
+  after_commit :send_welcome_email, on: :create, unless: -> { group.subgroup? }
   scope :mentor, -> { where(mentor: true) }
   scope :member, -> { where(mentor: false) }
 

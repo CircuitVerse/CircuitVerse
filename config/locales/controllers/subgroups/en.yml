@@ -1,0 +1,10 @@
+en:
+  subgroups:
+    create:
+      success: "Subgroup created."
+    destroy:
+      success: "Subgroup removed."
+    update_members:
+      success: "Subgroup members updated."
+    update_team_project:
+      success: "Team project shared with all subgroup members."
