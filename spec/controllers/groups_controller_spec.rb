@@ -209,6 +209,38 @@ describe GroupsController, type: :request do
     end
   end
 
+  describe "#show subgroups" do
+    before { @subgroup = FactoryBot.create(:group, name: "Team A", parent_group: @group) }
+
+    it "lists subgroups for the primary mentor" do
+      sign_in @primary_mentor
+      get group_path(@group)
+      expect(response.body).to include("Team A", "SUBGROUPS:")
+    end
+
+    it "pluralizes the progress summary" do
+      FactoryBot.create(:assignment, group: @subgroup, grading_scale: :percent)
+      empty = FactoryBot.create(:group, name: "Team B", parent_group: @group)
+      FactoryBot.create_list(:assignment, 2, group: empty, grading_scale: :percent)
+      sign_in @primary_mentor
+      get group_path(@group)
+      expect(response.body).to include("1 assignment, 0 submitted, 0 graded", "2 assignments, 0 submitted, 0 graded")
+    end
+
+    it "hides the subgroups section from a plain member" do
+      sign_in get_group_member(@group)
+      get group_path(@group)
+      expect(response.body).not_to include("SUBGROUPS:")
+    end
+
+    it "links a subgroup back to its parent and omits nested subgroup controls" do
+      sign_in @primary_mentor
+      get group_path(@subgroup)
+      expect(response.body).to include("Back to #{@group.name}")
+      expect(response.body).not_to include("SUBGROUPS:")
+    end
+  end
+
   describe "#show org-scoped group lookup" do
     before do
       @organization = FactoryBot.create(:organization)
