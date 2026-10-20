@@ -68,10 +68,12 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     if @assignment.status == "closed"
       api_error(status: 409, errors: "Assignment is already closed!")
     else
-      @assignment.status = "closed"
-      @assignment.deadline = Time.zone.now
-      @assignment.save!
-      @assignment.freeze_submissions
+      Assignment.transaction do
+        @assignment.status = "closed"
+        @assignment.deadline = Time.zone.now
+        @assignment.save!
+        @assignment.freeze_submissions
+      end
       render json: { message: "Assignment has been closed!" }, status: :accepted
     end
   end
