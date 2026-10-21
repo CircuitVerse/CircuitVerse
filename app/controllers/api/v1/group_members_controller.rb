@@ -17,7 +17,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # POST /api/v1/groups/:group_id/members/
   def create
-    return invalid_resource! if params[:emails].blank?
+    return api_error(status: 422, errors: "emails is required") if params[:emails].blank?
 
     mails_handler = MailsHandler.new(params[:emails], @group, current_user)
     # parse mails as valid or invalid

@@ -73,6 +73,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       it "returns status unprocessable_content" do
         expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body).to have_jsonapi_errors
+        expect(response.parsed_body["errors"].first["detail"]).to eq("emails is required")
       end
     end
 
