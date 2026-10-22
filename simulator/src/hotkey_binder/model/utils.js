@@ -1,8 +1,6 @@
-export const storageSet = (storage, key, obj) =>
-    storage.setItem(key, JSON.stringify(obj));
+export const storageSet = (storage, key, obj) => storage.setItem(key, JSON.stringify(obj));
 
-export const storageGet = (storage, key) =>
-    JSON.parse(storage.getItem(key));
+export const storageGet = (storage, key) => JSON.parse(storage.getItem(key));
 
 export const objectSize = (obj) => Object.keys(obj).length;
 

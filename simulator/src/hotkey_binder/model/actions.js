@@ -8,7 +8,9 @@ import {
     updateCanvasSet, gridUpdateSet, errorDetectedSet,
 } from '../../engine';
 
-import { getOS, storageGet, storageSet, objectSize } from './utils.js';
+import {
+    getOS, storageGet, storageSet, objectSize,
+} from './utils';
 import {shortcut} from './shortcuts.plugin.js'
 /**
  * Function used to add or change keys user or default
