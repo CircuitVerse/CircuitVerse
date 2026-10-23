@@ -9,7 +9,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
 
     context "when not authenticated" do
       before do
-        get "/api/v1/projects/#{project.id}/toggle-star", as: :json
+        post "/api/v1/projects/#{project.id}/toggle-star", as: :json
       end
 
       it "returns status :not_authorized" do
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
     context "when authenticated & stars a non existent project" do
       before do
         token = get_auth_token(user)
-        get "/api/v1/projects/0/toggle-star",
+        post "/api/v1/projects/0/toggle-star",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
 
       before do
         token = get_auth_token(user)
-        get "/api/v1/projects/#{private_project.id}/toggle-star",
+        post "/api/v1/projects/#{private_project.id}/toggle-star",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
     context "when stars an unstarred project" do
       before do
         token = get_auth_token(user)
-        get "/api/v1/projects/#{project.id}/toggle-star",
+        post "/api/v1/projects/#{project.id}/toggle-star",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       before do
         FactoryBot.create(:star, project: project, user: user)
         token = get_auth_token(user)
-        get "/api/v1/projects/#{project.id}/toggle-star",
+        post "/api/v1/projects/#{project.id}/toggle-star",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
