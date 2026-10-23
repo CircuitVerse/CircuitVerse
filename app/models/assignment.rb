@@ -22,6 +22,18 @@ class Assignment < ApplicationRecord
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
+  def template_circuit_data
+    return unless circuit_template
+    return if circuit_template.project_access_type == "Private" && !template_author_mentors_group?
+
+    circuit_template.project_datum&.data
+  end
+
+  def template_author_mentors_group?
+    author_id = circuit_template.author_id
+    group.primary_mentor_id == author_id || group.group_members.mentor.exists?(user_id: author_id)
+  end
+
   def notify_recipient
     group.group_members.each do |group_member|
       NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)

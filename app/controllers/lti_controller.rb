@@ -148,7 +148,7 @@ class LtiController < ApplicationController
         project_access_type: "Private",
         lis_result_sourced_id: params[:lis_result_sourcedid]
       )
-      @project.build_project_datum(data: @assignment.circuit_template&.project_datum&.data)
+      @project.build_project_datum(data: @assignment.template_circuit_data)
       @project.save
     end
 

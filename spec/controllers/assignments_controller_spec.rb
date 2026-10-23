@@ -88,7 +88,13 @@ describe AssignmentsController, type: :request do
     end
 
     context "when the assignment has a circuit template" do
-      let(:template) { create(:project, is_template: true, template_visibility: :public) }
+      let(:template) do
+        create(:project, is_template: true, template_visibility: :public, project_access_type: "Public")
+      end
+
+      def student_copy_data
+        Project.find_by(author: @member, assignment: @assignment).project_datum.data
+      end
 
       before do
         template.create_project_datum!(data: { name: "template circuit" }.to_json)
@@ -100,6 +106,18 @@ describe AssignmentsController, type: :request do
         copy = Project.find_by(author: @member, assignment: @assignment)
         expect(copy.project_datum.data).to eq(template.project_datum.data)
         expect(template.reload.author).not_to eq(@member)
+      end
+
+      it "does not copy a template that is now private and owned by someone else" do
+        template.update!(project_access_type: "Private")
+        get assignment_start_path(@group, @assignment)
+        expect(student_copy_data).not_to eq(template.project_datum.data)
+      end
+
+      it "copies a private template owned by the primary mentor" do
+        template.update!(project_access_type: "Private", author: @primary_mentor)
+        get assignment_start_path(@group, @assignment)
+        expect(student_copy_data).to eq(template.project_datum.data)
       end
     end
   end

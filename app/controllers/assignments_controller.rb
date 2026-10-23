@@ -29,7 +29,7 @@ class AssignmentsController < ApplicationController
     @project.name = "#{current_user.name}/#{@assignment.name}"
     @project.assignment_id = @assignment.id
     @project.project_access_type = "Private"
-    @project.build_project_datum(data: @assignment.circuit_template&.project_datum&.data)
+    @project.build_project_datum(data: @assignment.template_circuit_data)
     @project.save
     redirect_to user_project_path(current_user, @project)
   end
