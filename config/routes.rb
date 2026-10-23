@@ -190,7 +190,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :collaborations, only: %i[create destroy update]
+  resources :collaborations, only: %i[create destroy]
 
   resources :comment_threads, only: [] do
     resources :comments, only: %i[create]
