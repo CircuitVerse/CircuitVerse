@@ -86,6 +86,22 @@ describe AssignmentsController, type: :request do
       get assignment_start_path(@group, @assignment)
       expect(response.status).to eq(302)
     end
+
+    context "when the assignment has a circuit template" do
+      let(:template) { create(:project, is_template: true, template_visibility: :public) }
+
+      before do
+        template.create_project_datum!(data: { name: "template circuit" }.to_json)
+        @assignment.update!(circuit_template: template)
+      end
+
+      it "copies the template circuit into a new project owned by the student" do
+        expect { get assignment_start_path(@group, @assignment) }.to change(Project, :count).by(1)
+        copy = Project.find_by(author: @member, assignment: @assignment)
+        expect(copy.project_datum.data).to eq(template.project_datum.data)
+        expect(template.reload.author).not_to eq(@member)
+      end
+    end
   end
 
   describe "#close" do
