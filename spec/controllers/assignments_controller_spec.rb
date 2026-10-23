@@ -86,6 +86,40 @@ describe AssignmentsController, type: :request do
       get assignment_start_path(@group, @assignment)
       expect(response.status).to eq(302)
     end
+
+    context "when the assignment has a circuit template" do
+      let(:template) do
+        create(:project, is_template: true, template_visibility: :public, project_access_type: "Public")
+      end
+
+      def student_copy_data
+        Project.find_by(author: @member, assignment: @assignment).project_datum.data
+      end
+
+      before do
+        template.create_project_datum!(data: { name: "template circuit" }.to_json)
+        @assignment.update!(circuit_template: template)
+      end
+
+      it "copies the template circuit into a new project owned by the student" do
+        expect { get assignment_start_path(@group, @assignment) }.to change(Project, :count).by(1)
+        copy = Project.find_by(author: @member, assignment: @assignment)
+        expect(copy.project_datum.data).to eq(template.project_datum.data)
+        expect(template.reload.author).not_to eq(@member)
+      end
+
+      it "does not copy a template that is now private and owned by someone else" do
+        template.update!(project_access_type: "Private")
+        get assignment_start_path(@group, @assignment)
+        expect(student_copy_data).not_to eq(template.project_datum.data)
+      end
+
+      it "copies a private template owned by the primary mentor" do
+        template.update!(project_access_type: "Private", author: @primary_mentor)
+        get assignment_start_path(@group, @assignment)
+        expect(student_copy_data).to eq(template.project_datum.data)
+      end
+    end
   end
 
   describe "#close" do
@@ -268,6 +302,48 @@ describe AssignmentsController, type: :request do
           post group_assignments_path(@group), params: { assignment:
             { description: "group assignment", name: "Test Name" } }
         end.to change(Assignment, :count).by(1)
+      end
+    end
+
+    context "when a circuit template is chosen" do
+      let(:author) { FactoryBot.create(:user) }
+
+      def create_with_template(template)
+        post group_assignments_path(@group), params: { assignment:
+          { description: "group assignment", name: "Test Name", circuit_template_id: template.id } }
+      end
+
+      before { sign_in @primary_mentor }
+
+      it "links a public template" do
+        template = FactoryBot.create(:project, author: author, is_template: true, template_visibility: :public)
+        create_with_template(template)
+        expect(Assignment.last.circuit_template).to eq(template)
+      end
+
+      it "links the mentor's own private template" do
+        template = FactoryBot.create(:project, author: @primary_mentor, is_template: true)
+        create_with_template(template)
+        expect(Assignment.last.circuit_template).to eq(template)
+      end
+
+      it "rejects another user's private template" do
+        template = FactoryBot.create(:project, author: author, is_template: true)
+        expect { create_with_template(template) }.not_to change(Assignment, :count)
+      end
+
+      it "rejects a project that is not a template" do
+        project = FactoryBot.create(:project, author: @primary_mentor)
+        expect { create_with_template(project) }.not_to change(Assignment, :count)
+      end
+
+      it "keeps an already linked template that is no longer accessible when editing" do
+        template = FactoryBot.create(:project, author: author, is_template: true)
+        assignment = FactoryBot.create(:assignment, group: @group, circuit_template: template)
+        patch group_assignment_path(@group, assignment), params: { assignment:
+          { name: "Renamed", circuit_template_id: template.id } }
+        expect(assignment.reload.name).to eq("Renamed")
+        expect(assignment.circuit_template).to eq(template)
       end
     end
 
