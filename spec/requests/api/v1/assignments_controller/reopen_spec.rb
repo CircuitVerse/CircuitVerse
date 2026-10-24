@@ -67,31 +67,21 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
     end
 
     context "when authorized and has access to reopen assignment" do
+      let!(:project) { FactoryBot.create(:project, assignment: assignment) }
+
       before do
+        assignment.close!
         token = get_auth_token(primary_mentor)
         patch "/api/v1/assignments/#{assignment.id}/reopen",
               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
-      it "reopens assignment & return status accepted" do
+      it "reopens assignment, restores projects & return status accepted" do
         expect(response).to have_http_status(:accepted)
         expect(response.parsed_body["message"]).to eq("Assignment has been reopened!")
-      end
-    end
-
-    context "when reopening an assignment that was closed with submissions" do
-      let!(:project) { FactoryBot.create(:project, assignment: open_assignment) }
-
-      before do
-        open_assignment.close!
-        token = get_auth_token(primary_mentor)
-        patch "/api/v1/assignments/#{open_assignment.id}/reopen",
-              headers: { Authorization: "Token #{token}" }, as: :json
-      end
-
-      it "restores the original projects" do
-        expect(project.reload.assignment_id).to eq(open_assignment.id)
-        expect(open_assignment.projects.where(project_submission: true)).to be_empty
+        expect(assignment.reload.status).to eq("open")
+        expect(project.reload.assignment_id).to eq(assignment.id)
+        expect(assignment.projects.where(project_submission: true)).to be_empty
       end
     end
   end
