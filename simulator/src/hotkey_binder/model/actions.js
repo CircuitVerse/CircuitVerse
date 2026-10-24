@@ -8,7 +8,9 @@ import {
     updateCanvasSet, gridUpdateSet, errorDetectedSet,
 } from '../../engine';
 
-import {getOS} from './utils.js'
+import {
+    getOS, storageGet, storageSet, objectSize,
+} from './utils';
 import {shortcut} from './shortcuts.plugin.js'
 /**
  * Function used to add or change keys user or default
@@ -20,7 +22,7 @@ export const addKeys = (mode) => {
     shortcut.removeAll();
     if (mode === "user") {
         localStorage.removeItem("defaultKeys");
-        let userKeys = localStorage.get("userKeys");
+        let userKeys = storageGet(localStorage, "userKeys");
         for (let pref in userKeys) {
             let key = userKeys[pref];
             key = key.split(" ").join("");
@@ -29,7 +31,7 @@ export const addKeys = (mode) => {
         updateHTML("user");
     } else if (mode == "default") {
         if (localStorage.userKeys) localStorage.removeItem("userKeys");
-        let defaultKeys = localStorage.get("defaultKeys");
+        let defaultKeys = storageGet(localStorage, "defaultKeys");
         for (let pref in defaultKeys) {
             let key = defaultKeys[pref];
             key = key.split(" ").join("");
@@ -42,14 +44,14 @@ export const addKeys = (mode) => {
  * Function used to check if new keys are added, adds missing keys if added
  */
 export const checkUpdate = () => {
-    const userK = localStorage.get("userKeys");
-    if (Object.size(userK) !== Object.size(defaultKeys)) {
+    const userK = storageGet(localStorage, "userKeys");
+    if (objectSize(userK) !== objectSize(defaultKeys)) {
         for (const [key, value] of Object.entries(defaultKeys)) {
             if (!Object.keys(userK).includes(key)) {
                 userK[key] = value;
             }
         }
-        localStorage.set("userKeys", userK);
+        storageSet(localStorage, "userKeys", userK);
     } else {
         return;
     }
@@ -69,7 +71,7 @@ export const setUserKeys = () => {
         ).children()[x].children[1].children[1].innerText;
         x++;
     }
-    localStorage.set("userKeys", userKeys);
+    storageSet(localStorage, "userKeys", userKeys);
     addKeys("user");
 };
 /**
@@ -83,15 +85,14 @@ export const setDefault = () => {
     if (getOS() === "MacOS") {
         const macDefaultKeys = {};
         for (let [key, value] of Object.entries(defaultKeys)) {
-            if (value.split(" + ")[0] == "Ctrl");
             macDefaultKeys[key] =
-                value.split(" + ")[0] == "Ctrl"
+                value.split(" + ")[0] === "Ctrl"
                     ? value.replace("Ctrl", "Meta")
                     : value;
-            localStorage.set("defaultKeys", macDefaultKeys);
         }
+        storageSet(localStorage, "defaultKeys", macDefaultKeys);
     } else {
-        localStorage.set("defaultKeys", defaultKeys); //TODO add a confirmation alert
+        storageSet(localStorage, "defaultKeys", defaultKeys); //TODO add a confirmation alert
     }
     addKeys("default");
 };
