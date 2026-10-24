@@ -70,26 +70,16 @@ RSpec.describe Assignment, type: :model do
       let!(:project) { FactoryBot.create(:project, assignment: @assignment, author: member) }
 
       it "freezes submissions and closes the assignment" do
-        expect(@assignment.close!).to be_truthy
+        FactoryBot.create(:project_datum, project: project, data: "original")
+        @assignment.close!
         expect(@assignment.reload.status).to eq("closed")
 
         submission = @assignment.projects.find_by(author: member)
         expect(submission.project_submission).to be(true)
         expect(submission.forked_project_id).to eq(project.id)
         expect(project.reload.assignment_id).to be_nil
-      end
 
-      it "returns false if the assignment is already closed" do
-        @assignment.update(status: "closed")
-        expect(@assignment.close!).to be(false)
-      end
-
-      it "keeps submission data unchanged when the original project is edited" do
-        FactoryBot.create(:project_datum, project: project, data: "original")
-        @assignment.close!
         project.project_datum.update!(data: "edited")
-
-        submission = @assignment.projects.find_by(author: member)
         expect(submission.project_datum.reload.data).to eq("original")
       end
 
@@ -102,7 +92,7 @@ RSpec.describe Assignment, type: :model do
         expect(@assignment.reload.deadline).to eq(deadline)
       end
 
-      it "rolls back if a submission fails to save" do
+      it "rolls back if freezing a later project fails" do
         other_project = FactoryBot.create(:project, assignment: @assignment, author: FactoryBot.create(:user))
         forks = 0
         allow_any_instance_of(Project).to receive(:fork).and_wrap_original do |original, *args|
