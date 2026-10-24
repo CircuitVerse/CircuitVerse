@@ -36,4 +36,29 @@ RSpec.describe "Contest submissions create guards", type: :request do
     expect(response).to redirect_to(new_contest_submission_path(contest))
     expect(flash[:notice]).to eq("This project is already submitted in Contest ##{contest.id}")
   end
+
+  context "when the contest is completed" do
+    let(:contest) { create(:contest, status: :completed) }
+    let(:author)  { create(:user) }
+    let(:project) { create(:project, author: author) }
+
+    before { sign_in author }
+
+    it "redirects away from the new submission form" do
+      get new_contest_submission_path(contest)
+
+      expect(response).to redirect_to(contest_path(contest))
+      expect(flash[:alert]).to eq("Submissions are closed as the contest has ended.")
+    end
+
+    it "does not create a submission" do
+      expect do
+        post contest_submissions_path(contest),
+             params: { submission: { project_id: project.id } }
+      end.not_to change(Submission, :count)
+
+      expect(response).to redirect_to(contest_path(contest))
+      expect(flash[:alert]).to eq("Submissions are closed as the contest has ended.")
+    end
+  end
 end
