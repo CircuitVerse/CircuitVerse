@@ -14,7 +14,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   # GET /api/v1/groups/:group_id/assignments
   def index
     @assignments = paginate(@group.assignments)
-    @options[:links] = link_attrs(@assignments, api_v1_group_assignments_url(@group.id))
+    @options[:links] = link_attrs(api_v1_group_assignments_url(@group.id))
     render json: Api::V1::AssignmentSerializer.new(@assignments, @options)
   end
 
