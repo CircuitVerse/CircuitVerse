@@ -11,6 +11,7 @@ class Assignment < ApplicationRecord
   validate :circuit_template_must_be_template, if: :circuit_template_id?
   has_many :projects, class_name: "Project", dependent: :nullify
 
+  after_save :copy_template_testbench, if: :saved_change_to_circuit_template_id?
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
@@ -22,6 +23,11 @@ class Assignment < ApplicationRecord
   has_one :testbench, dependent: :destroy
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
+
+  def copy_template_testbench
+    suite = circuit_template&.template_testbench
+    create_testbench!(data: suite) if suite.present? && testbench.nil?
+  end
 
   def template_circuit_data
     return unless circuit_template

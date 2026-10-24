@@ -56,6 +56,19 @@ RSpec.describe Project, type: :model do
       expect(project).to be_invalid
       expect(project.errors[:base]).to include("Assignment projects cannot be saved as templates")
     end
+
+    it "accepts a runnable test suite on a template" do
+      project = FactoryBot.build(:project, author: @user, is_template: true,
+                                           template_testbench: FactoryBot.build(:testbench).data)
+      expect(project).to be_valid
+    end
+
+    it "rejects a template test suite that is not runnable" do
+      project = FactoryBot.build(:project, author: @user, is_template: true,
+                                           template_testbench: { "type" => "verilog" })
+      expect(project).to be_invalid
+      expect(project.errors[:template_testbench]).to be_present
+    end
   end
 
   describe "#fork" do

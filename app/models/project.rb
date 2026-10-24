@@ -150,6 +150,7 @@ class Project < ApplicationRecord
 
   validate :check_validity
   validate :template_not_assignment, if: :is_template?
+  validate :template_testbench_is_runnable, if: :template_testbench?
   validate :clean_description
 
   def sim_version
@@ -168,6 +169,12 @@ class Project < ApplicationRecord
       return unless (project_access_type != "Private") && !assignment_id.nil?
 
       errors.add(:project_access_type, "Assignment has to be private")
+    end
+
+    def template_testbench_is_runnable
+      suite = Testbench.new(assignment: Assignment.new, data: template_testbench)
+      suite.validate
+      errors.add(:template_testbench, suite.errors[:data].to_sentence) if suite.errors.key?(:data)
     end
 
     def template_not_assignment
