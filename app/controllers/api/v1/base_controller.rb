@@ -5,6 +5,7 @@ class Api::V1::BaseController < ActionController::API
   include CustomErrors
   include ActionController::RequestForgeryProtection
   include ActiveStorage::SetCurrent
+  include Pagy::Backend
 
   protect_from_forgery with: :exception, if: lambda {
     request.headers["Authorization"].blank? && current_user
@@ -67,19 +68,19 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def paginate(resource)
-    resource.paginate(
-      page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
-      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
-    )
+    page = (params.to_unsafe_h.dig("page", "number") || 1).to_i
+    limit = (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
+    @pagy, records = pagy(resource, page: page, limit: limit, overflow: :empty_page)
+    records
   end
 
-  def link_attrs(resource, base_url)
+  def link_attrs(base_url)
     {
-      self: paginated_url(base_url, resource.current_page),
+      self: paginated_url(base_url, @pagy.page),
       first: paginated_url(base_url, 1),
-      prev: paginated_url(base_url, resource.previous_page),
-      next: paginated_url(base_url, resource.next_page),
-      last: paginated_url(base_url, resource.total_pages)
+      prev: paginated_url(base_url, @pagy.prev),
+      next: paginated_url(base_url, @pagy.next),
+      last: paginated_url(base_url, @pagy.last)
     }
   end
 
