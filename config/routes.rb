@@ -131,10 +131,13 @@ Rails.application.routes.draw do
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
+    post "/save_as_template/:id", to: "projects#save_as_template", as: "save_as_template_project"
+    get "/template/:id", to: "projects#template", as: "template_project"
     get "tags/:tag", to: redirect('/tags/%{tag}'), as: "legacy_tag"
   end
 
   get "/tags/:tag", to: "tags#show", as: "tag"
+  get "/templates", to: "templates#index", as: :templates
 
   resources :contests, only: %i[index show] do
     resources :submissions, only: %i[new create destroy], controller: "contests/submissions" do
@@ -159,8 +162,6 @@ Rails.application.routes.draw do
     get 'jwks', to: 'lti#jwks'
     get 'tool_config', to: 'lti#tool_config'
   end
-
-  mount Commontator::Engine => "/commontator"
 
   # simulator (legacy URLs, redirected to canonical /users/:user_id/projects/:id/simulator)
   scope "/simulator" do
@@ -193,6 +194,15 @@ Rails.application.routes.draw do
     end
   end
   resources :collaborations, only: %i[create destroy update]
+
+  resources :comment_threads, only: [] do
+    resources :comments, only: %i[create]
+    member do
+      patch :close
+      patch :reopen
+    end
+  end
+  resources :comments, only: %i[update destroy]
 
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")

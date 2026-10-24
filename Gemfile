@@ -25,35 +25,28 @@ gem "view_component"
 gem "rails", "~> 8.1.3"
 # Use Puma as the app server
 gem "puma", "~> 8.0.2"
-# Use SCSS for stylesheets
-gem "sass-rails", "~> 6.0"
-gem "terser"
+# Use SCSS for stylesheets (compiled via cssbundling-rails + dart-sass, see package.json build:css)
+gem "cssbundling-rails", "~> 1.0"
+# Static asset server (fingerprints + serves app/assets). Replaces sprockets-rails.
+gem "propshaft"
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use CoffeeScript for .coffee assets and views
-gem "coffee-rails", "~> 5.0"
-gem "select2-rails"
+# Turbolinks is served from npm (see app/javascript) instead of the asset pipeline
 gem 'redcarpet', '~> 3.3', '>= 3.3.4'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.15"
 
 gem "devise"
 
-gem "commontator", "~> 7.0.0"
-
 # To generate sitemap.xml
 gem "sitemap_generator"
 
-gem "jquery-rails"
+# jquery is served from npm (see app/javascript) instead of the asset pipeline
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
 gem "carrierwave", "~> 3.1"
-
-gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
 # gem 'cancancan', '~>2.0'
 
@@ -102,7 +95,7 @@ gem "webpush"
 gem "bootsnap", require: false
 gem 'rexml', '>= 3.3.9'
 
-gem "font-awesome-sass", "~> 5.13.1"
+# font-awesome is served from npm (@fortawesome/fontawesome-free) instead of the asset pipeline
 
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
@@ -113,13 +106,14 @@ gem "jsonapi-serializer"
 gem "jwt", "~> 3.2.0"
 gem "rails-i18n", "~> 8.1.0"
 gem "recaptcha"
-gem "simple_discussion", github: "CircuitVerse/simple_discussion"
-gem "sprockets-rails", "~> 3.5"
+# NOTE: sprockets-rails is gone. App JS/CSS is bundled with
+# jsbundling-rails (esbuild) + cssbundling-rails (dart-sass) into
+# app/assets/builds and served by propshaft.
 gem "strong_migrations"
 gem 'rails-data-migrations', github: 'notarize/rails-data-migrations'
 
-# For Vite rails
-gem 'vite_rails'
+gem "jsbundling-rails", "~> 1.0"
+gem "stimulus-rails", "~> 1.0"
 
 group :development, :test do
   # Adds support for debug
@@ -182,11 +176,6 @@ gem "oj", "~> 3.17"
 
 # Used for rate limiting
 gem "rack-attack"
-
-gem "jsbundling-rails", "~> 1.0"
-
-gem "sassc-rails"
-gem "stimulus-rails", "~> 1.0"
 
 gem "noticed", "~> 1.6"
 

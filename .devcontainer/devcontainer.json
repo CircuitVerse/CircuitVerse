@@ -1,40 +1,37 @@
 {
-    "hostRequirements": {
-      "cpus": 4
-    },
-    "workspaceFolder": "/workspaces/CircuitVerse/",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "web",
-    "features": {
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
-	},
-    "waitFor": "onCreateCommand",
-    "postCreateCommand": ".devcontainer/setup.sh",
-    "postAttachCommand": {
-      "server": ".devcontainer/boot.sh"
-    },
-    "customizations": {
-      "vscode": {
-        "extensions": [
-            "dbaeumer.vscode-eslint",
-            "LoranKloeze.ruby-rubocop-revived",
-            "rebornix.Ruby",
-            "wingrunr21.vscode-ruby",
-            "KoichiSasada.vscode-rdbg"
-        ],
-        "settings": {
-            "remote.autoForwardPorts": true,
-            "remote.otherPortsAttributes": {
-                "onAutoForward": "ignore"
-            }
-        }
+  "name": "CircuitVerse",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "web",
+  "workspaceFolder": "/workspaces/CircuitVerse",
+  "shutdownAction": "stopCompose",
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "waitFor": "onCreateCommand",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/boot.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "Shopify.ruby-lsp",
+        "KoichiSasada.vscode-rdbg"
+      ],
+      "settings": {
+        "remote.autoForwardPorts": true,
+        "rubyLsp.bundleGemfile": "Gemfile"
       }
+    }
+  },
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "notify"
     },
-    "portsAttributes": {
-      "3000": {
-        "label": "Application",
-        "onAutoForward": "notify"
-      }
-    },
-    "forwardPorts": [3000]
-  }
+    "8025": {
+      "label": "Mailpit",
+      "onAutoForward": "silent"
+    }
+  },
+  "forwardPorts": [3000, 8025]
+}

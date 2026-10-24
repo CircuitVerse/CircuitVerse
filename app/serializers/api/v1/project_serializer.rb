@@ -22,21 +22,21 @@ class Api::V1::ProjectSerializer
   attributes :stars_count, &:stars_count
 
   attributes :thread_id do |project|
-    project.commontator_thread.id
+    project.comment_thread.id
   end
 
   attributes :is_thread_subscribed do |project, params|
     if params[:current_user].nil?
       nil
     else
-      params[:current_user].commontator_subscriptions.exists?(
-        thread_id: project.commontator_thread.id
+      params[:current_user].comment_subscriptions.exists?(
+        thread_id: project.comment_thread.id
       )
     end
   end
 
   attributes :is_thread_closed do |project|
-    project.commontator_thread.is_closed?
+    project.comment_thread.is_closed?
   end
 
   # :nocov:

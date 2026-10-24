@@ -10,7 +10,6 @@ class NotifyUser
     @assignment = @notification.params[:assignment]
     # @type [Project]
     @project = @notification.params[:project]
-    @thread = @notification.params[:forum_thread]
     @contest = @notification.params[:contest]
   end
 
@@ -33,10 +32,8 @@ class NotifyUser
         fork_notification
       when "NewAssignmentNotification"
         new_assignment_notification
-      when "ForumCommentNotification"
-        forum_comment_notification
-      when "ForumThreadNotification"
-        forum_thread_notification
+      when "ForumCommentNotification", "ForumThreadNotification"
+        forum_discourse
       when "ContestNotification"
         contest_notification
       when "ContestWinnerNotification"
@@ -58,13 +55,10 @@ class NotifyUser
       Result.new("true", "new_assignment", @assignment.group, @assignment)
     end
 
-    def forum_comment_notification
-      @post = @notification.params[:forum_post]
-      Result.new("true", "forum_comment", @thread, @post.id)
-    end
-
-    def forum_thread_notification
-      Result.new("true", "forum_thread", @thread)
+    def forum_discourse
+      # Forum moved to Discourse; historic forum notifications land there
+      # without touching removed forum models.
+      Result.new("true", "forum_discourse")
     end
 
     def contest_notification

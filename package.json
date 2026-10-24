@@ -12,7 +12,11 @@
     "lint": "eslint ./simulator",
     "postinstall": "opencollective-postinstall || true",
     "prepare": "husky .",
-    "build": "VITE_BASE=/simulator-v0/ node esbuild.config.js",
+    "build": "yarn build:js && yarn build:css",
+    "build:js": "node esbuild.config.js",
+    "build:css": "yarn build:css:compile && yarn build:css:fonts",
+    "build:css:compile": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css ./app/assets/stylesheets/mailer.scss:./app/assets/builds/mailer.css --no-source-map --load-path=node_modules",
+    "build:css:fonts": "cp ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2 ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2 ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2 ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2 ./node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf ./app/assets/builds/",
     "build-vue-simulator": "cd cv-frontend-vue && VITE_BASE=/simulator-v0/ npm run build && cd .."
   },
   "devDependencies": {
@@ -37,14 +41,13 @@
     "playwright": "1.55.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
-    "postcss-preset-env": "^8.4.2",
-    "vite": "^5.4.21",
-    "vite-plugin-ruby": "^5.1.0"
+    "postcss-preset-env": "^8.4.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@hotwired/stimulus": "^3.2.2",
     "@popperjs/core": "^2.11.8",
+    "@rails/ujs": "^7.1.3-4",
     "@tarekraafat/autocomplete.js": "^10.2.9",
     "banana-i18n": "^2.4.0",
     "better-docs": "^2.7.3",
@@ -64,6 +67,7 @@
     "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.3",
     "sass": "^1.83.4",
+    "select2": "4.0.13",
     "stimulus": "^3.2.2",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",

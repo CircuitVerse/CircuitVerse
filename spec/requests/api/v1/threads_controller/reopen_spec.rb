@@ -8,7 +8,7 @@ RSpec.describe Api::V1::ThreadsController, "#reopen", type: :request do
 
     context "when not authenticated" do
       before do
-        put "/api/v1/threads/#{project.commontator_thread.id}/reopen", as: :json
+        put "/api/v1/threads/#{project.comment_thread.id}/reopen", as: :json
       end
 
       it "returns status unauthorized" do
@@ -19,9 +19,9 @@ RSpec.describe Api::V1::ThreadsController, "#reopen", type: :request do
 
     context "when authenticated as a non moderator user" do
       before do
-        project.commontator_thread.close(admin)
+        project.comment_thread.close(admin)
         token = get_auth_token(user)
-        put "/api/v1/threads/#{project.commontator_thread.id}/reopen",
+        put "/api/v1/threads/#{project.comment_thread.id}/reopen",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::ThreadsController, "#reopen", type: :request do
     context "when authenticated as moderator but thread is already opened" do
       before do
         token = get_auth_token(admin)
-        put "/api/v1/threads/#{project.commontator_thread.id}/reopen",
+        put "/api/v1/threads/#{project.comment_thread.id}/reopen",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -46,9 +46,9 @@ RSpec.describe Api::V1::ThreadsController, "#reopen", type: :request do
 
     context "when authenticated as moderator & thread is closed" do
       before do
-        project.commontator_thread.close(admin)
+        project.comment_thread.close(admin)
         token = get_auth_token(admin)
-        put "/api/v1/threads/#{project.commontator_thread.id}/reopen",
+        put "/api/v1/threads/#{project.comment_thread.id}/reopen",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 

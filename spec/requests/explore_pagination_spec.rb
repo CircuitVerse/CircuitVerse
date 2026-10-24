@@ -5,10 +5,6 @@ require "rails_helper"
 RSpec.describe "Explore pagination (cursor)", type: :request do
   let(:recent_limit) { ExploreController::RECENT_LIMIT }
 
-  before do
-    Flipper.enable(:circuit_explore_page)
-  end
-
   def extract_cursor(body, key)
     m = body.match(%r{href="/explore\?section=recent&amp;#{key}=([^"#&]+)})
     m && m[1]

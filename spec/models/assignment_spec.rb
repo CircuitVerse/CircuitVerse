@@ -11,6 +11,23 @@ RSpec.describe Assignment, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:group) }
     it { is_expected.to have_many(:projects) }
+    it { is_expected.to belong_to(:circuit_template).class_name("Project").optional }
+  end
+
+  describe "circuit template" do
+    before { @author = FactoryBot.create(:user) }
+
+    it "accepts a project marked as a template" do
+      template = FactoryBot.create(:project, author: @author, is_template: true)
+      expect(FactoryBot.build(:assignment, group: @group, circuit_template: template)).to be_valid
+    end
+
+    it "rejects a project that is not a template" do
+      project = FactoryBot.create(:project, author: @author)
+      assignment = FactoryBot.build(:assignment, group: @group, circuit_template: project)
+      expect(assignment).to be_invalid
+      expect(assignment.errors[:circuit_template]).to be_present
+    end
   end
 
   describe "callbacks" do

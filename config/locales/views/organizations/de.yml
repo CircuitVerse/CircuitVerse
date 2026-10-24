@@ -89,6 +89,11 @@ de:
   organization_members:
     create:
       success: "Mitglied wurde erfolgreich hinzugefügt."
+      invite_summary:
+        one: "1 E-Mail-Adresse verarbeitet: %{invited} eingeladen, %{invalid} ungültig, %{already} bereits Mitglied."
+        other: "%{count} E-Mail-Adressen verarbeitet: %{invited} eingeladen, %{invalid} ungültig, %{already} bereits Mitglieder."
+      limit_exceeded: "Nur %{limit} Einladungen können auf einmal gesendet werden, daher wurden %{skipped} Adresse(n) nicht verarbeitet. Bitte laden Sie sie in einem anderen Batch ein."
+      invite_failed: "Einige Einladungen konnten nicht gesendet werden. Bitte versuchen Sie es erneut."
     update:
       success: "Rolle des Mitglieds wurde erfolgreich aktualisiert."
     destroy:

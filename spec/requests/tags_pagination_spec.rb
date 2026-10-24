@@ -5,10 +5,6 @@ require "rails_helper"
 RSpec.describe "Tags pagination (cursor)", type: :request do
   let(:per_page) { ExploreController::RECENT_LIMIT }
 
-  before do
-    Flipper.enable(:circuit_explore_page)
-  end
-
   def extract_cursor(body, key, tag_name:)
     pattern = %r{href="/tags/#{Regexp.escape(tag_name)}\?#{key}=([^"#&]+)}
     m = body.match(pattern)

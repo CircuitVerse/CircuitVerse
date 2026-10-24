@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe "Contests Leaderboard", type: :system do
-  before { Flipper.enable(:contests) }
-
   it "shows button on completed contest and displays ordered rankings" do
     contest  = create(:contest, status: :completed)
     author_a = create(:user, name: "Alpha")

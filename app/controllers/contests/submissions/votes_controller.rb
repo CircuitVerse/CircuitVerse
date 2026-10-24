@@ -5,7 +5,6 @@ class Contests::Submissions::VotesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_contest_and_submission
-  before_action :check_contests_feature_flag
 
   def create
     redirect_to contest_path(@contest), alert: t(".voting_closed") and return if @contest.completed?
@@ -29,11 +28,5 @@ class Contests::Submissions::VotesController < ApplicationController
     def set_contest_and_submission
       @contest = Contest.find(params.expect(:contest_id))
       @submission = @contest.submissions.find(params.expect(:submission_id))
-    end
-
-    def check_contests_feature_flag
-      return if Flipper.enabled?(:contests, current_user)
-
-      redirect_to root_path, alert: t("feature_not_available")
     end
 end

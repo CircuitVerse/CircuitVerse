@@ -11,9 +11,6 @@ default_flipper_features = {
   lms_integration: true,
   vuesim: false,
   block_registration: false,
-  contests: false,
-  circuit_explore_page: false,
-  yosys_local_gem: false,
   organizations: false,
   lti_advantage: false
 }

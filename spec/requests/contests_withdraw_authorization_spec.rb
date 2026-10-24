@@ -8,8 +8,6 @@ RSpec.describe "Withdraw authorization", type: :request do
   let(:contest)    { create(:contest, status: :live) }
   let!(:submission) { create(:submission, contest: contest, project: project, user: author) }
 
-  before { enable_contests! }
-
   it "allows the project owner to withdraw their submission" do
     sign_in author
 

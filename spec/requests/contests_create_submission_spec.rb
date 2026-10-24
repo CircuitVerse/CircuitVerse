@@ -7,7 +7,7 @@ RSpec.describe "Contests::Submissions#create", type: :request do
   let(:contest) { create_live_contest }
   let(:project) { create(:project, author: user) }
 
-  before { sign_in user; enable_contests! }
+  before { sign_in user }
 
   it "allows the owner to submit and redirects" do
     expect do

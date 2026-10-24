@@ -8,10 +8,18 @@ class ContestDeadlineJob < ApplicationJob
     return if contest.nil? || contest.completed?
 
     contest.with_lock do
-      if Time.zone.now - contest.deadline >= 0 && contest.live?
-        ShortlistContestWinner.new(contest.id).call
-        contest.status = :completed
-        contest.save!
+      next unless contest.live? && contest.deadline <= Time.zone.now
+
+      result = ShortlistContestWinner.new(contest.id).call
+      contest.reload
+
+      if result[:success] || result[:message] == "Contest already completed"
+        next
+      elsif result[:message] == "No submissions found" && contest.live?
+        contest.update!(status: :completed)
+      else
+        Rails.logger.error "ContestDeadlineJob: winner selection failed for contest #{contest.id}: #{result[:message]}"
+        raise ActiveRecord::Rollback
       end
     end
   end

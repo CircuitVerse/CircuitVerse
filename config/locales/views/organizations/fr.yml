@@ -89,6 +89,11 @@ fr:
   organization_members:
     create:
       success: "Le membre a été ajouté avec succès."
+      invite_summary:
+        one: "1 adresse e-mail traitée : %{invited} invité, %{invalid} invalide, %{already} déjà membre."
+        other: "Adresses e-mail %{count} traitées: %{invited} invitées, %{invalid} invalide, %{already} déjà membres."
+      limit_exceeded: "Seules les invitations %{limit} peuvent être envoyées à la fois, donc la(les) adresse(s) %{skipped} n'ont pas été traitées. Veuillez les inviter dans un autre lot."
+      invite_failed: "Certaines invitations n'ont pas pu être envoyées. Veuillez réessayer."
     update:
       success: "Le rôle du membre a été mis à jour avec succès."
     destroy:

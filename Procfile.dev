@@ -1,5 +1,5 @@
 web: bundle exec rdbg --open --nonstop --command -- bundle exec rails server -p 3000 -b '0.0.0.0'
-js: REBUILD_VUE=false yarn build --watch
+js: yarn build:js --watch
+css: yarn build:css:compile --watch
 worker: bundle exec sidekiq
 mail: mailcatcher -f
-vite: bin/vite dev

@@ -7,6 +7,8 @@ class Assignment < ApplicationRecord
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"
   }, if: :lti_integrated?
   belongs_to :group
+  belongs_to :circuit_template, class_name: "Project", optional: true
+  validate :circuit_template_must_be_template, if: :circuit_template_id?
   has_many :projects, class_name: "Project", dependent: :nullify
 
   after_commit :send_new_assignment_mail, on: :create
@@ -20,6 +22,18 @@ class Assignment < ApplicationRecord
   has_one :testbench, dependent: :destroy
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
+
+  def template_circuit_data
+    return unless circuit_template
+    return if circuit_template.project_access_type == "Private" && !template_author_mentors_group?
+
+    circuit_template.project_datum&.data
+  end
+
+  def template_author_mentors_group?
+    author_id = circuit_template.author_id
+    group.primary_mentor_id == author_id || group.group_members.mentor.exists?(user_id: author_id)
+  end
 
   def notify_recipient
     group.group_members.each do |group_member|
@@ -87,4 +101,10 @@ class Assignment < ApplicationRecord
       end
     end
   end
+
+  private
+
+    def circuit_template_must_be_template
+      errors.add(:circuit_template, "must be a template") unless circuit_template&.is_template?
+    end
 end

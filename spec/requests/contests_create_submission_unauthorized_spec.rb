@@ -7,7 +7,7 @@ RSpec.describe "Contests::Submissions#create unauthorized project", type: :reque
   let(:contest) { create(:contest, status: :live) }
   let(:foreign_project) { create(:project) }
 
-  before { sign_in user; enable_contests! }
+  before { sign_in user }
 
   it "redirects with an alert when the project is not owned by the user" do
     post contest_submissions_path(contest),

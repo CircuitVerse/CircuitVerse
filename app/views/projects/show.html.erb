@@ -25,6 +25,14 @@
     </div>
   </div>
   <% end %>
+  <% if alert %>
+  <div class="row">
+    <div class="alert alert-danger alert-dismissible container text-center">
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+      <h6><%= alert %></h6>
+    </div>
+  </div>
+  <% end %>
   <br>
   <div class="row center-row">
     <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
@@ -205,7 +213,7 @@
 
 </div>
 
-<%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
+<%= render partial: "comments/thread", locals: { comment_thread: @project.comment_thread } if Flipper.enabled?(:project_comments) %>
 
 <script>
   $(document).ready(function() {
