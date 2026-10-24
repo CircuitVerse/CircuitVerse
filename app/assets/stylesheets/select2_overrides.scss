@@ -14,6 +14,9 @@
   display: inline-block;
   margin-bottom: .4em;
   padding: 0 .4em .15em;
+  word-break: break-all;
+  white-space: normal;
+  max-width: 100%;
 }
 
 .select2-container ul.select2-selection__rendered span.select2-selection__choice__remove {
