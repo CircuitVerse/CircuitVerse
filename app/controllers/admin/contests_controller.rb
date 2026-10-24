@@ -40,6 +40,7 @@ class Admin::ContestsController < ApplicationController
       if @contest.update(deadline: Time.zone.now, status: :completed)
         redirect_to contest_path(@contest), notice: t(".contest_closed")
       else
+        load_contests
         render :index, status: :unprocessable_content
       end
     else
