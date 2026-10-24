@@ -107,16 +107,12 @@ describe AssignmentsController, type: :request do
 
       context "when assignment is open" do
         it "closes the assignment" do
+          project = create(:project, assignment: @assignment, author: @member)
           put close_group_assignment_path(@group, @assignment)
           @assignment.reload
           expect(@assignment.status).to eq("closed")
-        end
 
-        it "freezes student projects as submissions" do
-          project = create(:project, assignment: @assignment, author: @member)
-          put close_group_assignment_path(@group, @assignment)
-
-          submission = @assignment.reload.projects.find_by(author: @member)
+          submission = @assignment.projects.find_by(author: @member)
           expect(submission.project_submission).to be(true)
           expect(submission.forked_project_id).to eq(project.id)
           expect(project.reload.assignment_id).to be_nil
@@ -223,20 +219,13 @@ describe AssignmentsController, type: :request do
     end
 
     context "when primary_mentor is signed in" do
-      it "changes status to open" do
-        sign_in @primary_mentor
-        expect(@closed_assignment.status).to eq("closed")
-        get reopen_group_assignment_path(@group, @closed_assignment)
-        @closed_assignment.reload
-        expect(@closed_assignment.status).to eq("open")
-      end
-
-      it "restores projects frozen on close" do
+      it "changes status to open and restores frozen projects" do
         sign_in @primary_mentor
         project = create(:project, assignment: @assignment, author: @member)
         @assignment.close!
         get reopen_group_assignment_path(@group, @assignment)
 
+        expect(@assignment.reload.status).to eq("open")
         expect(project.reload.assignment_id).to eq(@assignment.id)
         expect(@assignment.projects.where(project_submission: true)).to be_empty
       end
