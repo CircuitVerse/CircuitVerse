@@ -122,31 +122,41 @@ export default class ImageAnnotation extends CircuitElement {
 
     async uploadImage() {
         var file = await promptFile("image/*", false);
-        var apiUrl = 'https://api.imgur.com/3/image';
-        var apiKey = '9a33b3b370f1054';
-        var settings = {
-            crossDomain: true,
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            url: apiUrl,
-            headers: {
-            Authorization: 'Client-ID ' + apiKey,
-            Accept: 'application/json',
-            },
-            mimeType: 'multipart/form-data',
-        };
-        var formData = new FormData();
-        formData.append('image', file);
-        settings.data = formData;
+        if(!file) return;
+        
+        var formData=new FormData();
 
-        // Response contains stringified JSON
-        // Image URL available at response.data.link
-        showMessage('Uploading Image');
-        var response = await $.ajax(settings);
-        showMessage('Image Uploaded');
-        this.imageUrl = JSON.parse(response).data.link;
-        this.loadImage();
+        /**
+         * 'image' matches the parameter name expected by your Rails ActiveStorage controller
+         **/
+
+        formData.append('image',file);
+
+        try{
+            var response=await $.ajax({
+                url:'/circuit_images',
+                type:'POST',
+                data:formData,
+                processData:false,
+                contentType:false,
+                headers:{
+                    Accept:'application/json',
+                }
+
+            });
+
+            showMessage('Image Uploaded');
+
+            this.imageUrl=response.url;
+            this.loadImage();
+
+        }catch(error){
+            showMessage('Image Upload Failed');
+            console.error('Upload error:',error);
+            
+        }
+
+
     }
 
     async loadImage() {

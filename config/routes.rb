@@ -174,6 +174,8 @@ Rails.application.routes.draw do
     post "/verilogcv", to: "simulator#verilog_cv"
     get "/", to: "simulator#new", as: "simulator_new"
     get "/embed/:id", to: "simulator#embed", as: "simulator_embed"
+    post "/update_image", to: "simulator#update_image"
+    post "/circuit_images", to: "simulator#circuit_images"
   end
 
   scope "/testbench" do

@@ -140,6 +140,22 @@ class SimulatorController < ApplicationController
     compile_with_local_gem
   end
 
+  def circuit_images
+    if params[:image].present?
+      blob=ActiveStorage::Blob.create_and_upload!(
+        io:params[:image].to_io,
+        filename:params[:image].original_filename,
+        content_type:params[:image].content_type;
+      )
+
+        image_url = url_for(blob)
+      render json: { url: image_url }, status: :created
+    else
+      render json: { error: 'No image provided' }, status: :unprocessable_entity
+    end
+  end
+
+
   def allow_iframe_lti
     return unless session[:is_lti]
 
