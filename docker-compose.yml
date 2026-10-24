@@ -80,7 +80,7 @@ services:
       - -c
       - |
         bin/docker/wait_for_setup && \
-        yarn build --watch
+        bun run build --watch
     ports:
       - "3035:3035"
   mailcatcher:

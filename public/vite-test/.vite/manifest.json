@@ -1,0 +1,85 @@
+{
+  "../../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900-D0aA9rwL.ttf",
+    "src": "../../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
+  },
+  "../../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900-CTAAxXor.woff2",
+    "src": "../../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+  },
+  "../../simulator/src/css/assets/CVLogo.svg": {
+    "file": "assets/CVLogo-D7Sz_GTx.svg",
+    "src": "../../simulator/src/css/assets/CVLogo.svg"
+  },
+  "../../simulator/src/css/assets/logo.svg": {
+    "file": "assets/logo-BmmFTsr1.svg",
+    "src": "../../simulator/src/css/assets/logo.svg"
+  },
+  "../../simulator/vendor/images/ui-icons_444444_256x240.png": {
+    "file": "assets/ui-icons_444444_256x240-C4-rVn94.png",
+    "src": "../../simulator/vendor/images/ui-icons_444444_256x240.png"
+  },
+  "../../simulator/vendor/images/ui-icons_555555_256x240.png": {
+    "file": "assets/ui-icons_555555_256x240-B6PJU_rX.png",
+    "src": "../../simulator/vendor/images/ui-icons_555555_256x240.png"
+  },
+  "../../simulator/vendor/images/ui-icons_777620_256x240.png": {
+    "file": "assets/ui-icons_777620_256x240-Ci2c966F.png",
+    "src": "../../simulator/vendor/images/ui-icons_777620_256x240.png"
+  },
+  "../../simulator/vendor/images/ui-icons_777777_256x240.png": {
+    "file": "assets/ui-icons_777777_256x240-C64Sgfnp.png",
+    "src": "../../simulator/vendor/images/ui-icons_777777_256x240.png"
+  },
+  "../../simulator/vendor/images/ui-icons_cc0000_256x240.png": {
+    "file": "assets/ui-icons_cc0000_256x240-B9aNqVeI.png",
+    "src": "../../simulator/vendor/images/ui-icons_cc0000_256x240.png"
+  },
+  "../../simulator/vendor/images/ui-icons_ffffff_256x240.png": {
+    "file": "assets/ui-icons_ffffff_256x240-DqY0TvBk.png",
+    "src": "../../simulator/vendor/images/ui-icons_ffffff_256x240.png"
+  },
+  "__commonjsHelpers-Cpj98o6Y.js": {
+    "file": "assets/_commonjsHelpers-Cpj98o6Y.js",
+    "name": "_commonjsHelpers"
+  },
+  "entrypoints/bootstrap.js": {
+    "file": "assets/bootstrap-D1koExWf.js",
+    "name": "entrypoints/bootstrap.js",
+    "src": "entrypoints/bootstrap.js",
+    "isEntry": true
+  },
+  "entrypoints/jquery.js": {
+    "file": "assets/jquery-C_xHJXvO.js",
+    "name": "entrypoints/jquery.js",
+    "src": "entrypoints/jquery.js",
+    "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ]
+  },
+  "entrypoints/simulator.js": {
+    "file": "assets/simulator-DdLjSy58.js",
+    "name": "entrypoints/simulator.js",
+    "src": "entrypoints/simulator.js",
+    "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ],
+    "css": [
+      "assets/simulator-CsqLbZUI.css"
+    ],
+    "assets": [
+      "assets/ui-icons_444444_256x240-C4-rVn94.png",
+      "assets/ui-icons_555555_256x240-B6PJU_rX.png",
+      "assets/ui-icons_ffffff_256x240-DqY0TvBk.png",
+      "assets/ui-icons_777620_256x240-Ci2c966F.png",
+      "assets/ui-icons_cc0000_256x240-B9aNqVeI.png",
+      "assets/ui-icons_777777_256x240-C64Sgfnp.png",
+      "assets/fa-solid-900-CTAAxXor.woff2",
+      "assets/fa-solid-900-D0aA9rwL.ttf",
+      "assets/logo-BmmFTsr1.svg",
+      "assets/CVLogo-D7Sz_GTx.svg"
+    ]
+  }
+}
