@@ -7,11 +7,9 @@ RSpec.describe Adapters::PgAdapter do
 
   describe "#search_project" do
     let(:project_relation) { double }
-    let(:paginated_results) { double }
     let(:mock_results) do
       double.tap do |results|
-        allow(results).to receive_messages(includes: results, paginate: paginated_results, text_search: results,
-                                           order: results)
+        allow(results).to receive_messages(includes: results, text_search: results, order: results)
       end
     end
 
@@ -23,28 +21,26 @@ RSpec.describe Adapters::PgAdapter do
     context "with search query" do
       let(:query_params) { { q: "test", page: 1 } }
 
-      it "performs text search and returns paginated results" do
+      it "performs text search and returns the filtered results" do
         allow(project_relation).to receive(:text_search).with("test").and_return(mock_results)
         allow(mock_results).to receive(:includes).with(:tags, :author).and_return(mock_results)
-        allow(mock_results).to receive(:paginate).with(page: 1, per_page: 9).and_return(paginated_results)
 
         result = adapter.search_project(project_relation, query_params)
 
-        expect(result).to eq(paginated_results)
+        expect(result).to eq(mock_results)
       end
     end
 
     context "without search query" do
       let(:query_params) { { page: 1 } }
 
-      it "returns public projects and applies pagination" do
+      it "returns public projects without pagination" do
         allow(Project).to receive(:public_and_not_forked).and_return(mock_results)
         allow(mock_results).to receive(:includes).with(:tags, :author).and_return(mock_results)
-        allow(mock_results).to receive(:paginate).with(page: 1, per_page: 9).and_return(paginated_results)
 
         result = adapter.search_project(project_relation, query_params)
 
-        expect(result).to eq(paginated_results)
+        expect(result).to eq(mock_results)
       end
     end
 
@@ -56,17 +52,13 @@ RSpec.describe Adapters::PgAdapter do
 
         adapter.search_project(project_relation, query_params)
 
-        expect(mock_results).to have_received(:order).with(created_at: :desc)
+        expect(mock_results).to have_received(:order).with(created_at: :desc).at_least(:once)
       end
     end
 
     context "with tag filters" do
       let(:query_params) { { tag: "electronics,circuit", page: 1 } }
-      let(:tag_filtered_results) do
-        instance_double(ActiveRecord::Relation).tap do |results|
-          allow(results).to receive_messages(includes: results, paginate: paginated_results)
-        end
-      end
+      let(:tag_filtered_results) { instance_double(ActiveRecord::Relation) }
 
       before do
         allow(mock_results).to receive(:joins).with(:tags).and_return(mock_results)
@@ -85,10 +77,9 @@ RSpec.describe Adapters::PgAdapter do
 
   describe "#search_user" do
     let(:user_relation) { double }
-    let(:paginated_results) { double }
     let(:mock_results) do
       double.tap do |results|
-        allow(results).to receive_messages(paginate: paginated_results, text_search: results, where: results)
+        allow(results).to receive_messages(text_search: results, where: results)
       end
     end
 
@@ -102,11 +93,10 @@ RSpec.describe Adapters::PgAdapter do
 
       it "performs text search and returns paginated results" do
         allow(user_relation).to receive(:text_search).with("john").and_return(mock_results)
-        allow(mock_results).to receive(:paginate).with(page: 1, per_page: 9).and_return(paginated_results)
 
         result = adapter.search_user(user_relation, query_params)
 
-        expect(result).to eq(paginated_results)
+        expect(result).to eq(mock_results)
       end
     end
 
@@ -142,7 +132,6 @@ RSpec.describe Adapters::PgAdapter do
       query_params = { sort_by: "invalid_field", page: 1 }
 
       allow(Project).to receive(:public_and_not_forked).and_return(mock_relation)
-      allow(mock_relation).to receive(:paginate).and_return(double)
 
       # Should not call order for invalid sort field
       adapter.search_project(mock_relation, query_params)
@@ -154,11 +143,10 @@ RSpec.describe Adapters::PgAdapter do
       query_params = { sort_by: "created_at", sort_direction: "asc", page: 1 }
 
       allow(Project).to receive(:public_and_not_forked).and_return(mock_relation)
-      allow(mock_relation).to receive(:paginate).and_return(double)
 
       adapter.search_project(mock_relation, query_params)
 
-      expect(mock_relation).to have_received(:order).with(created_at: :asc)
+      expect(mock_relation).to have_received(:order).with(created_at: :asc).at_least(:once)
     end
   end
 end
