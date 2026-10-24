@@ -1,4 +1,4 @@
 es:
-  will_paginate:
-    previous_label: "&#8592; Anterior"
-    next_label: "Siguiente &#8594;"
+  pagination:
+    previous_label_html: "&#8592; Anterior"
+    next_label_html: "Siguiente &#8594;"

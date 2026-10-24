@@ -950,9 +950,6 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    will_paginate (4.0.1)
-    will_paginate-bootstrap (1.0.2)
-      will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.44)
@@ -1099,8 +1096,6 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webmock
   webpush
-  will_paginate (~> 4.0.1)
-  will_paginate-bootstrap
   yosys2digitaljs!
 
 BUNDLED WITH

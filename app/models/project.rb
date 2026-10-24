@@ -53,8 +53,6 @@ class Project < ApplicationRecord
 
   before_destroy :purge_circuit_preview
 
-  self.per_page = 9
-
   has_one :comment_thread, as: :commontable, dependent: :destroy
 
   # Mirrors the old commontator behavior: reading the thread builds one
