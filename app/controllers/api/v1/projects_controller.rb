@@ -147,6 +147,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # DELETE /api/v1/projects/:id
   def destroy
+    authorize @project, :user_access?
     authorize @project, :author_access?
     @project.destroy!
     head :no_content
