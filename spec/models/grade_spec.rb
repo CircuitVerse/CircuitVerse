@@ -116,4 +116,21 @@ RSpec.describe Grade, type: :model do
       end
     end
   end
+
+  describe ".to_csv" do
+    before do
+      FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
+      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @primary_mentor,
+                                         grade: "A", assignment: @assignment, remarks: "Great job")
+    end
+
+    it "exports assignment grades as CSV" do
+      csv = described_class.to_csv(@assignment.id)
+      expect(csv).to include("email,name,grade,remarks")
+      expect(csv).to include(@assignment_project.author.email)
+      expect(csv).to include(@assignment_project.author.name)
+      expect(csv).to include(@grade.grade)
+      expect(csv).to include(@grade.remarks)
+    end
+  end
 end

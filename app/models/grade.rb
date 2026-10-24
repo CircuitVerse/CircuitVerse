@@ -12,6 +12,29 @@ class Grade < ApplicationRecord
   validate :grading_scale, :assignment_project
   validates :project_id, uniqueness: { scope: :assignment_id }
 
+  def self.to_csv(assignment_id)
+    attributes = %w[email name grade remarks]
+    group_members = User.joins(group_members: :assignments)
+                        .where(group_members: { assignments: { id: assignment_id } })
+    submissions = Project.where(assignment_id: assignment_id)&.includes(:grade, :author)
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      group_members.each do |member|
+        submission = submissions.find do |s|
+          s.author_id == member.id &&
+            s.assignment_id == assignment_id
+        end
+        grade = submission&.grade&.grade
+        remarks = submission&.grade&.remarks
+        grade = grade.presence || "N.A"
+        remarks = remarks.presence || "N.A"
+        csv << [member.email, member.name, grade, remarks]
+      end
+    end
+  end
+
   private
 
     def grading_scale
@@ -31,28 +54,5 @@ class Grade < ApplicationRecord
 
     def assignment_project
       errors.add(:project, "is not a part of the assignment") if project&.assignment_id != assignment&.id
-    end
-
-    def self.to_csv(assignment_id)
-      attributes = %w[email name grade remarks]
-      group_members = User.joins(group_members: :assignments)
-                          .where(group_members: { assignments: { id: assignment_id } })
-      submissions = Project.where(assignment_id: assignment_id)&.includes(:grade, :author)
-
-      CSV.generate(headers: true) do |csv|
-        csv << attributes
-
-        group_members.each do |member|
-          submission = submissions.find do |s|
-            s.author_id == member.id &&
-              s.assignment_id == assignment_id
-          end
-          grade = submission&.grade&.grade
-          remarks = submission&.grade&.remarks
-          grade = grade.presence || "N.A"
-          remarks = remarks.presence || "N.A"
-          csv << [member.email, member.name, grade, remarks]
-        end
-      end
     end
 end
