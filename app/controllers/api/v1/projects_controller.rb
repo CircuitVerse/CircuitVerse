@@ -46,27 +46,22 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects
   def index
-    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    render_project_collection(api_v1_projects_url)
   end
 
   # GET /api/v1/projects/search?q=:query
   def search
-    base_url = "#{api_v1_projects_search_url}?q=#{params[:q]}"
-    @options[:links] = link_attrs(paginate(@projects), base_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    render_project_collection("#{api_v1_projects_search_url}?q=#{params[:q]}")
   end
 
   # GET /api/v1/users/:id/projects/
   def user_projects
-    @options[:links] = link_attrs(paginate(@projects), projects_api_v1_user_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    render_project_collection(projects_api_v1_user_url)
   end
 
   # GET /api/v1/users/:id/favourites
   def user_favourites
-    @options[:links] = link_attrs(paginate(@projects), favourites_api_v1_user_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    render_project_collection(favourites_api_v1_user_url)
   end
 
   # GET /api/v1/projects/:id/check_edit_access
@@ -80,6 +75,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   def show
     authorize @project, :check_view_access?
     @project.increase_views(current_user)
+    preload_starred_project_ids(@project)
     render json: Api::V1::ProjectSerializer.new(@project, @options)
   end
 
@@ -124,6 +120,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     params.permit(:project)[:name] = sanitize(project_params[:name])
     @project.update!(project_params)
     if @project.update(project_params)
+      preload_starred_project_ids(@project)
       render json: Api::V1::ProjectSerializer.new(@project, @options), status: :accepted
     else
       invalid_resource!(@project.errors)
@@ -154,8 +151,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/featured
   def featured_circuits
-    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_featured_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    render_project_collection(api_v1_projects_featured_url)
   end
 
   # GET /api/v1/projects/:id/toggle-star
@@ -176,6 +172,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
       @forked_project = @project.fork(current_user)
+      preload_starred_project_ids(@forked_project)
       render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
     end
   end
@@ -283,6 +280,24 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def project_params
       params.expect(project: %i[name project_access_type description tag_list])
+    end
+
+    def render_project_collection(url)
+      projects = paginate(@projects)
+      preload_starred_project_ids(projects)
+      @options[:links] = link_attrs(projects, url)
+      render json: Api::V1::ProjectSerializer.new(projects, @options)
+    end
+
+    def preload_starred_project_ids(projects)
+      return unless current_user
+
+      project_ids = Array.wrap(projects).map(&:id)
+      return if project_ids.empty?
+
+      @options[:params] ||= {}
+      @options[:params][:starred_project_ids] =
+        current_user.stars.where(project_id: project_ids).pluck(:project_id).to_set
     end
 end
 # rubocop:enable Metrics/ClassLength
