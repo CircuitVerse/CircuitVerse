@@ -251,7 +251,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def search_projects
-      query_params = { q: params[:q], page: params[:page][:number], per_page: params[:page][:size] }
+      page = params[:page].is_a?(ActionController::Parameters) || params[:page].is_a?(Hash) ? params[:page][:number] : params[:page]
+      per_page = params[:page].is_a?(ActionController::Parameters) || params[:page].is_a?(Hash) ? params[:page][:size] : nil
+      query_params = { q: params[:q], page: page, per_page: per_page }
       @projects = ProjectsQuery.new(query_params, Project.public_and_not_forked).results
     end
 
