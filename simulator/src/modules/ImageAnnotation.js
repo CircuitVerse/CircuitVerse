@@ -122,7 +122,7 @@ export default class ImageAnnotation extends CircuitElement {
 
     async uploadImage() {
         var file = await promptFile("image/*", false);
-        if(!file) return;
+        if (!file) return;
         
         var formData=new FormData();
 
@@ -130,29 +130,29 @@ export default class ImageAnnotation extends CircuitElement {
          * 'image' matches the parameter name expected by your Rails ActiveStorage controller
          **/
 
-        formData.append('image',file);
+        formData.append('image', file);
 
-        try{
-            var response=await $.ajax({
-                url:'/circuit_images',
-                type:'POST',
-                data:formData,
-                processData:false,
-                contentType:false,
+        try {
+            var response = await $.ajax({
+                url: '/simulator/circuit_images',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
                 headers:{
-                    Accept:'application/json',
+                    Accept: 'application/json',
                 }
 
             });
 
             showMessage('Image Uploaded');
 
-            this.imageUrl=response.url;
+            this.imageUrl= response.url;
             this.loadImage();
 
-        }catch(error){
+        } catch (error) {
             showMessage('Image Upload Failed');
-            console.error('Upload error:',error);
+            console.error('Upload error:', error);
             
         }
 
