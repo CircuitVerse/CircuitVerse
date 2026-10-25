@@ -49,6 +49,13 @@ describe GroupMembersController, type: :request do
         check_not_authorized(response)
       end
     end
+
+    context "when user is not signed in" do
+      it "redirects to sign in" do
+        post group_members_path, params: create_params
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "#update" do
@@ -81,6 +88,13 @@ describe GroupMembersController, type: :request do
         check_not_authorized(response)
       end
     end
+
+    context "when user is not signed in" do
+      it "redirects to sign in" do
+        patch group_member_path(@group_member), params: { group_member: { mentor: true } }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "#destroy" do
@@ -111,6 +125,13 @@ describe GroupMembersController, type: :request do
         sign_in_random_user
         delete group_member_path(@group_member)
         check_not_authorized(response)
+      end
+    end
+
+    context "when user is not signed in" do
+      it "redirects to sign in" do
+        delete group_member_path(@group_member)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
