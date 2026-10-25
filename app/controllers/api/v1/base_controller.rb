@@ -14,6 +14,7 @@ class Api::V1::BaseController < ActionController::API
   after_action :verify_authorized
 
   DEFAULT_PER_PAGE = 9
+  MAX_PER_PAGE = 100
 
   rescue_from ActionController::ParameterMissing do
     api_error(status: 400, errors: "invalid parameters")
@@ -67,9 +68,17 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "invalid resource")
   end
 
+  # Reads page[number] and page[size]. Invalid or out-of-range values are
+  # clamped (page >= 1, 1 <= size <= MAX_PER_PAGE) so they never reach Pagy,
+  # which raises on zero or negative values.
   def paginate(resource)
-    page = (params.to_unsafe_h.dig("page", "number") || 1).to_i
-    limit = (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
+    page_params = params.to_unsafe_h.fetch("page", {})
+    page_params = {} unless page_params.is_a?(Hash)
+
+    page = [page_params["number"].to_i, 1].max
+    limit = page_params["size"].to_i
+    limit = limit.positive? ? [limit, MAX_PER_PAGE].min : DEFAULT_PER_PAGE
+
     @pagy, records = pagy(resource, page: page, limit: limit, overflow: :empty_page)
     records
   end
