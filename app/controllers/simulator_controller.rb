@@ -152,7 +152,7 @@ class SimulatorController < ApplicationController
       return render json: { error: "File exceeds the 5MB limit." }, status: :unprocessable_entity
     end
 
-    allowed_types = %w[image/png image/jpeg image/jpg image/svg+xml image/gif]
+    allowed_types = %w[image/png image/jpeg image/gif]
     
     unless allowed_types.include?(image.content_type)
       return render json: { error: "Invalid file type. Only PNG, JPEG, SVG, and GIF are allowed." }, status: :unprocessable_entity

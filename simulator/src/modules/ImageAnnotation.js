@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, rect, fillText, drawImage} from '../canvasApi';
-import { colors } from '../themer/themer';
+import { colors} from '../themer/themer';
 import { promptFile, showMessage, getImageDimensions} from '../utils'
 /**
  * @class
@@ -141,6 +141,7 @@ export default class ImageAnnotation extends CircuitElement {
                 contentType: false,
                 headers:{
                     Accept: 'application/json',
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
                 }
 
             });
