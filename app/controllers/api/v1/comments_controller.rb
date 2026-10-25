@@ -29,7 +29,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   # PUT/PATCH /api/v1/comments/:id
   def update
     @comment.editor = current_user
-    @comment.body = params.dig(:comment, :body)
+    @comment.body = comment_params[:body]
     security_transgression_unless @comment.can_be_edited_by?(current_user)
 
     if @comment.save
@@ -101,7 +101,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
       security_transgression_unless @commontator_thread.can_be_read_by? current_user
 
       @comment = Commontator::Comment.new(
-        thread: @commontator_thread, creator: current_user, body: params.dig(:comment, :body)
+        thread: @commontator_thread, creator: current_user, body: comment_params[:body]
       )
       security_transgression_unless @comment.can_be_created_by?(current_user)
     end
@@ -114,5 +114,9 @@ class Api::V1::CommentsController < Api::V1::BaseController
     def set_options
       @options = {}
       @options[:params] = { current_user: current_user }
+    end
+
+    def comment_params
+      params.expect(comment: [:body])
     end
 end

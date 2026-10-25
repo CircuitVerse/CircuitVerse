@@ -64,5 +64,19 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
         expect(response.parsed_body["data"]["attributes"]["body"]).to eq("updated_body")
       end
     end
+
+    context "when authenticated & has edit access with malformed params (comment as string)" do
+      before do
+        token = get_auth_token(creator)
+        patch "/api/v1/comments/#{comment.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: { comment: "malformed_string" }, as: :json
+      end
+
+      it "returns status bad_request" do
+        expect(response).to have_http_status(:bad_request)
+        expect(response.parsed_body).to have_jsonapi_error("invalid parameters")
+      end
+    end
   end
 end
