@@ -155,7 +155,7 @@ class SimulatorController < ApplicationController
     allowed_types = %w[image/png image/jpeg image/gif]
     
     unless allowed_types.include?(image.content_type)
-      return render json: { error: "Invalid file type. Only PNG, JPEG, SVG, and GIF are allowed." }, status: :unprocessable_entity
+      return render json: { error: "Invalid file type. Only PNG, JPEG, and GIF are allowed." }, status: :unprocessable_entity
     end
 
     # blob creation
