@@ -98,20 +98,22 @@ class Assignment < ApplicationRecord
     end
   end
 
-  # Restores original projects from submissions; a no-op for closed assignments,
-  # so editing a closed assignment keeps its submissions frozen.
+  # Moves submissions back to the original projects unless the assignment is closed.
+  # Status comes from the locked row since this object may be stale if close! just ran.
   def check_reopening_status
-    return if status == "closed"
+    transaction do
+      next if Assignment.lock.find(id).status == "closed"
 
-    projects.each do |proj|
-      next unless proj.project_submission == true
+      projects.reload.each do |proj|
+        next unless proj.project_submission == true
 
-      old_project = Project.find_by(id: proj.forked_project_id)
-      if old_project.nil?
-        proj.update(project_submission: false)
-      else
-        old_project.update(assignment_id: proj.assignment_id)
-        proj.destroy
+        old_project = Project.find_by(id: proj.forked_project_id)
+        if old_project.nil?
+          proj.update(project_submission: false)
+        else
+          old_project.update(assignment_id: proj.assignment_id)
+          proj.destroy
+        end
       end
     end
   end

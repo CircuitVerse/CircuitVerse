@@ -107,6 +107,15 @@ RSpec.describe Assignment, type: :model do
         expect(@assignment.projects.where(project_submission: true)).to be_empty
         expect([project.reload, other_project.reload].map(&:assignment_id)).to all(eq(@assignment.id))
       end
+
+      it "keeps submissions frozen when a stale open copy checks reopening status" do
+        stale = described_class.find(@assignment.id)
+        @assignment.close!
+        stale.check_reopening_status
+
+        expect(project.reload.assignment_id).to be_nil
+        expect(@assignment.projects.where(project_submission: true).count).to eq(1)
+      end
     end
   end
 end
