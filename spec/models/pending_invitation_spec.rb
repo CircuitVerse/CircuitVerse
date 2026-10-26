@@ -21,7 +21,7 @@ RSpec.describe PendingInvitation, type: :model do
     end
 
     it "rejects a comma-separated list of addresses" do
-      invitation = FactoryBot.build(:pending_invitation, group: @group, email: "a@x.com,b@y.com,c")
+      invitation = FactoryBot.build(:pending_invitation, group: @group, email: "a@x.com,b@y.com,c@z.com")
 
       expect(invitation).not_to be_valid
       expect(invitation.errors[:email]).to be_present
