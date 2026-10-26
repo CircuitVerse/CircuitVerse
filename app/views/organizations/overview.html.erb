@@ -83,7 +83,11 @@
           });
         </script>
         <div class="org-index-pagination mt-4">
-          <%= will_paginate @groups, param_name: "groups_page", renderer: PaginateRenderer %>
+          <% if @groups_pagy.pages > 1 %>
+            <div class="d-flex justify-content-center">
+              <%== pagy_bootstrap_nav(@groups_pagy) %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </section>
