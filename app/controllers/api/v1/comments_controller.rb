@@ -12,8 +12,9 @@ class Api::V1::CommentsController < Api::V1::BaseController
   # GET /api/v1/threads/:thread_id/comments
   def index
     @comments = @comment_thread.comments
-    @options[:links] = link_attrs(paginate(@comments), api_v1_thread_comments_url)
-    render json: Api::V1::CommentSerializer.new(paginate(@comments), @options)
+    comments = paginate(@comments)
+    @options[:links] = link_attrs(api_v1_thread_comments_url)
+    render json: Api::V1::CommentSerializer.new(comments, @options)
   end
 
   # POST /api/v1/threads/:thread_id/comments
