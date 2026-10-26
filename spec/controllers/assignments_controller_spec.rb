@@ -167,6 +167,19 @@ describe AssignmentsController, type: :request do
       end
     end
 
+    context "when updating a closed assignment" do
+      it "keeps submissions frozen" do
+        sign_in @primary_mentor
+        project = create(:project, assignment: @assignment, author: @member)
+        @assignment.close!
+        put group_assignment_path(@group, @assignment), params: update_params
+
+        expect(@assignment.reload.status).to eq("closed")
+        expect(project.reload.assignment_id).to be_nil
+        expect(@assignment.projects.where(project_submission: true).count).to eq(1)
+      end
+    end
+
     context "when a random user is signed in" do
       it "returns unauthorized error" do
         sign_in_random_user

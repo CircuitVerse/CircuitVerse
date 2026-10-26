@@ -51,6 +51,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   end
 
   # PATCH /api/v1/assignments/:id/reopen
+  # Reopens a closed assignment and restores student projects via the API.
   def reopen
     if @assignment.status == "open"
       api_error(status: 409, errors: "Project is already opened!")

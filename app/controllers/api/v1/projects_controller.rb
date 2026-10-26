@@ -146,6 +146,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   end
 
   # DELETE /api/v1/projects/:id
+  # Deletes a project, restricting deletion if it is a frozen assignment submission.
   def destroy
     authorize @project, :user_access?
     authorize @project, :author_access?

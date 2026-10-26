@@ -46,6 +46,7 @@ class AssignmentsController < ApplicationController
     authorize @assignment
   end
 
+  # Reopens a closed assignment and restores student projects.
   def reopen
     authorize @assignment
     @assignment.status = "open"

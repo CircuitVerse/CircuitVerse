@@ -98,7 +98,11 @@ class Assignment < ApplicationRecord
     end
   end
 
+  # Restores original projects from submissions; a no-op for closed assignments,
+  # so editing a closed assignment keeps its submissions frozen.
   def check_reopening_status
+    return if status == "closed"
+
     projects.each do |proj|
       next unless proj.project_submission == true
 
