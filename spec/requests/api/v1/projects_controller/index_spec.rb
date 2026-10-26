@@ -91,5 +91,32 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         expect(response.parsed_body["data"].length).to eq(2)
       end
     end
+
+    context "when pagination parameters are zero, negative, or invalid" do
+      before do
+        FactoryBot.create_list(:project, 2, project_access_type: "Public")
+      end
+
+      it "defaults to page 1 and default per_page without raising RangeError" do
+        get "/api/v1/projects", params: { page: { number: 0, size: 0 } }, as: :json
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+
+      it "handles negative page and invalid strings gracefully" do
+        get "/api/v1/projects", params: { page: { number: -1, size: "invalid" } }, as: :json
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+
+      it "handles strings with numeric prefixes by safely falling back to defaults" do
+        get "/api/v1/projects", params: { page: { number: "2abc", size: "100invalid" } }, as: :json
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
   end
 end
