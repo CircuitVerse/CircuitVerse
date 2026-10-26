@@ -16,7 +16,7 @@ class OrganizationMembersController < ApplicationController
   def create
     role = organization_member_params[:role].presence_in(%w[admin mentor member]) || "member"
     submitted = Array(organization_member_params[:emails]).map { |e| e.to_s.strip.downcase }
-    valid_emails = submitted.grep(Devise.email_regexp).uniq
+    valid_emails = submitted.grep(URI::MailTo::EMAIL_REGEXP).uniq
     emails = valid_emails.first(MAX_INVITES_PER_REQUEST)
     present_members = User.where(id: @organization.organization_members.select(:user_id)).pluck(:email)
     newly_added = emails - present_members - [current_user&.email&.downcase]

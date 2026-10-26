@@ -56,6 +56,19 @@ RSpec.describe OrganizationMembersController, type: :controller do
         end.to change(PendingInvitation, :count).by(1)
       end
 
+      it "skips comma-separated emails instead of raising and still invites the valid ones" do
+        expect do
+          post :create, params: {
+            organization_id: organization.id,
+            organization_member: { role: "member", emails: ["a,b@example.com", "newperson@example.com"] }
+          }
+        end.to change(PendingInvitation, :count).by(1)
+
+        expect(response).to redirect_to(members_organization_path(organization))
+        invited = PendingInvitation.where(organization_id: organization.id).pluck(:email)
+        expect(invited).to eq(["newperson@example.com"])
+      end
+
       it "redirects to the members page" do
         post :create, params: {
           organization_id: organization.id,
