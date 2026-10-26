@@ -2,8 +2,6 @@
 
 module Adapters
   class PgAdapter < BaseAdapter
-    MAX_RESULTS_PER_PAGE = 9
-
     # Mapping of sort fields to actual database columns
     SORT_MAPPINGS = {
       project: {
