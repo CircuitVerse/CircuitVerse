@@ -3,27 +3,16 @@
 class AssignmentDeadlineSubmissionJob < ApplicationJob
   queue_as :default
 
+  # Closes the assignment and snapshots student submissions if the deadline has passed.
   def perform(assignment_id)
     assignment = Assignment.find_by(id: assignment_id)
 
     return if assignment.nil? || (assignment.status == "closed")
 
     assignment.with_lock do
-      next if assignment.nil? || (assignment.status == "closed")
+      next unless Time.zone.now - assignment.deadline >= -10
 
-      if Time.zone.now - assignment.deadline >= -10 && (assignment.status == "open")
-        assignment.projects.each do |proj|
-          next unless proj.project_submission == false
-
-          submission = proj.fork(proj.author)
-          submission.project_submission = true
-          proj.assignment_id = nil
-          proj.save!
-          submission.save!
-        end
-        assignment.status = "closed"
-        assignment.save!
-      end
+      assignment.close!(deadline: assignment.deadline)
     end
   end
 end

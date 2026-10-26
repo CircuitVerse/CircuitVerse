@@ -64,5 +64,58 @@ RSpec.describe Assignment, type: :model do
           .to eq(@projects.map { |p| p.author.name }.sort)
       end
     end
+
+    describe "#close!" do
+      let(:member) { FactoryBot.create(:user) }
+      let!(:project) { FactoryBot.create(:project, assignment: @assignment, author: member) }
+
+      it "freezes submissions and closes the assignment" do
+        FactoryBot.create(:project_datum, project: project, data: "original")
+        @assignment.close!
+        expect(@assignment.reload.status).to eq("closed")
+
+        submission = @assignment.projects.find_by(author: member)
+        expect(submission.project_submission).to be(true)
+        expect(submission.forked_project_id).to eq(project.id)
+        expect(project.reload.assignment_id).to be_nil
+
+        project.project_datum.update!(data: "edited")
+        expect(submission.project_datum.reload.data).to eq("original")
+      end
+
+      it "does nothing when closed a second time" do
+        @assignment.close!
+        deadline = @assignment.reload.deadline
+
+        expect(@assignment.close!).to be(false)
+        expect(@assignment.projects.where(project_submission: true).count).to eq(1)
+        expect(@assignment.reload.deadline).to eq(deadline)
+      end
+
+      it "rolls back if freezing a later project fails" do
+        other_project = FactoryBot.create(:project, assignment: @assignment, author: FactoryBot.create(:user))
+        forks = 0
+        allow_any_instance_of(Project).to receive(:fork).and_wrap_original do |original, *args|
+          forks += 1
+          raise ActiveRecord::RecordInvalid if forks == 2
+
+          original.call(*args)
+        end
+
+        expect { @assignment.close! }.to raise_error(ActiveRecord::RecordInvalid)
+        expect(@assignment.reload.status).to eq("open")
+        expect(@assignment.projects.where(project_submission: true)).to be_empty
+        expect([project.reload, other_project.reload].map(&:assignment_id)).to all(eq(@assignment.id))
+      end
+
+      it "keeps submissions frozen when a stale open copy checks reopening status" do
+        stale = described_class.find(@assignment.id)
+        @assignment.close!
+        stale.check_reopening_status
+
+        expect(project.reload.assignment_id).to be_nil
+        expect(@assignment.projects.where(project_submission: true).count).to eq(1)
+      end
+    end
   end
 end
