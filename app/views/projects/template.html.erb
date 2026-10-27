@@ -7,4 +7,7 @@
   <% end %>
   <p><%= @project.description %></p>
   <%= link_to t("launch_simulator"), simulator_user_project_path(@author, @project), class: "btn primary-button" %>
+  <% if user_signed_in? && policy(@project).create_fork? %>
+    <%= button_to t("fork"), create_fork_project_path(@project), class: "btn primary-button" %>
+  <% end %>
 </div>

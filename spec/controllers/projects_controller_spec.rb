@@ -283,6 +283,29 @@ describe ProjectsController, type: :request do
       expect(response.body).to include(project.name)
     end
 
+    context "when forking from the template page" do
+      let(:template) do
+        FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                    template_visibility: :public)
+      end
+
+      it "offers a fork button to a signed-in user and creates a plain copy they own" do
+        user = FactoryBot.create(:user)
+        sign_in user
+        get template_project_path(template)
+        expect(response.body).to include(create_fork_project_path(template))
+        expect { post create_fork_project_path(template) }.to change { user.projects.count }.by(1)
+        copy = user.projects.last
+        expect(copy.forked_project_id).to eq(template.id)
+        expect(copy).not_to be_is_template
+      end
+
+      it "does not offer a fork button to a visitor" do
+        get template_project_path(template)
+        expect(response.body).not_to include(create_fork_project_path(template))
+      end
+    end
+
     context "when the template is not public" do
       let(:group) { FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user)) }
       let(:template) do
