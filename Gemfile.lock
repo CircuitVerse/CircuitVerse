@@ -111,7 +111,7 @@ GEM
     ast (2.4.3)
     auth-sanitizer (0.2.1)
       version_gem (~> 1.1, >= 1.1.10)
-    avo (3.32.1)
+    avo (3.33.2)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -803,8 +803,8 @@ GEM
       logger
     rugged (1.9.0)
     safely_block (1.0.0)
-    sanitize (7.0.0)
-      crass (~> 1.0.2)
+    sanitize (7.0.1)
+      crass (~> 1.0.8)
       nokogiri (>= 1.16.8)
     securerandom (0.4.1)
     sentry-rails (5.26.0)
