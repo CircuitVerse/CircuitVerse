@@ -30,6 +30,20 @@ describe TemplatesController, type: :request do
       expect(response.body).not_to include("Group Only", "Private One", "Plain Project")
     end
 
+    it "lists a group template only for people who share a group with its author" do
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:group_member, group: group, user: @author)
+      create_template("Group Only", template_visibility: :group)
+      get templates_path
+      expect(response.body).not_to include("Group Only")
+      sign_in_random_user
+      get templates_path
+      expect(response.body).not_to include("Group Only")
+      sign_in group.primary_mentor
+      get templates_path
+      expect(response.body).to include("Group Only")
+    end
+
     it "excludes templates whose project is private" do
       create_template("Hidden Project", project_access_type: "Private")
       get templates_path

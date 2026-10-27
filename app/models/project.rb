@@ -43,7 +43,14 @@ class Project < ApplicationRecord
   scope :name_like, ->(query) { where("projects.name ILIKE ?", "%#{sanitize_sql_like(query)}%") }
 
   scope :templates_for, lambda { |user|
-    where(is_template: true).and(template_public.or(by(user.id)))
+    return where(is_template: true).template_public if user.nil?
+
+    groups = Group.where(id: GroupMember.where(user_id: user.id).select(:group_id))
+                  .or(Group.where(primary_mentor_id: user.id)).select(:id)
+    peers = GroupMember.where(group_id: groups).select(:user_id)
+    mentors = Group.where(id: groups).select(:primary_mentor_id)
+    shared = template_group.where(author_id: peers).or(template_group.where(author_id: mentors))
+    where(is_template: true).and(template_public.or(by(user.id)).or(shared))
   }
 
   scope :by, ->(author_id) { where(author_id: author_id) }

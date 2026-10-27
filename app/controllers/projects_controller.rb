@@ -80,7 +80,7 @@ class ProjectsController < ApplicationController
   end
 
   def template
-    raise ActiveRecord::RecordNotFound unless @project.is_template?
+    raise ActiveRecord::RecordNotFound unless Project.templates_for(current_user).exists?(id: @project.id)
   end
 
   # POST /projects

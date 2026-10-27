@@ -277,9 +277,53 @@ describe ProjectsController, type: :request do
 
   describe "#template" do
     it "shows a template" do
-      project = FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true)
+      project = FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                            template_visibility: :public)
       get template_project_path(project)
       expect(response.body).to include(project.name)
+    end
+
+    context "when the template is not public" do
+      let(:group) { FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user)) }
+      let(:template) do
+        FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                    template_visibility: :group)
+      end
+
+      before { FactoryBot.create(:group_member, group: group, user: @author) }
+
+      it "shows a group template to a member of the author's group" do
+        member = FactoryBot.create(:user)
+        FactoryBot.create(:group_member, group: group, user: member)
+        sign_in member
+        get template_project_path(template)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "shows a group template to the group's primary mentor" do
+        sign_in group.primary_mentor
+        get template_project_path(template)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "hides a group template from an unrelated user and from visitors" do
+        sign_in_random_user
+        get template_project_path(template)
+        expect(response).to have_http_status(:not_found)
+        sign_out :user
+        get template_project_path(template)
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "hides a private template from everyone except its author" do
+        template.update!(template_visibility: :private)
+        sign_in group.primary_mentor
+        get template_project_path(template)
+        expect(response).to have_http_status(:not_found)
+        sign_in @author
+        get template_project_path(template)
+        expect(response).to have_http_status(:ok)
+      end
     end
 
     it "returns not found for a project that is not a template" do
