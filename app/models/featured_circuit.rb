@@ -13,6 +13,6 @@ class FeaturedCircuit < ApplicationRecord
     end
 
     def featured_circuit_email
-      UserMailer.featured_circuit_email(project.author, project).deliver_later
+      UserMailer.featured_circuit_email(project.author_id, project_id).deliver_later
     end
 end
