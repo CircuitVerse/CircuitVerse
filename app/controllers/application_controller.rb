@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include SearchHelper
 
+  LOCALES_BY_CODE = I18n.available_locales.index_by(&:to_s).freeze
+
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
@@ -30,11 +32,10 @@ class ApplicationController < ActionController::Base
   end
 
   def switch_locale(&)
-    logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = params.permit(:locale)[:locale]&.to_sym || current_user&.locale&.to_sym ||
-             extract_locale_from_accept_language_header
+    logger.debug { "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}" }
+    locale = requested_locale
     locale = I18n.default_locale unless I18n.available_locales.include?(locale)
-    logger.debug "* Locale set to '#{locale}'"
+    logger.debug { "* Locale set to '#{locale}'" }
     I18n.with_locale(locale, &)
   end
 
@@ -55,6 +56,13 @@ class ApplicationController < ActionController::Base
     # manage their own access control.
     def skip_authorization_verification?
       devise_controller?
+    end
+
+    def requested_locale
+      locale_param = params[:locale]
+      return LOCALES_BY_CODE[locale_param] if locale_param.is_a?(String)
+
+      current_user&.locale&.to_sym || extract_locale_from_accept_language_header
     end
 
     def extract_locale_from_accept_language_header
