@@ -38,6 +38,7 @@ describe CollaborationsController, type: :request do
         expect do
           post collaborations_path, params: params
         end.to change(Collaboration, :count).by(1)
+        expect(@project.collaborations.find_by(user: @new_collaboration)).to be_present
       end
     end
 
