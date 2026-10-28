@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Assignment, type: :model do
+  include ActiveJob::TestHelper
+
   before do
     @primary_mentor = FactoryBot.create(:user)
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
@@ -31,16 +33,29 @@ RSpec.describe Assignment, type: :model do
       @assignment = FactoryBot.create(:assignment, group: @group, status: "open")
     end
 
-    it "sends new assignment mail" do
+    it "sends new assignment mail with scalar IDs" do
       expect do
         @assignment.send_new_assignment_mail
-      end.to have_enqueued_job.on_queue("mailers")
+      end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+        .with("AssignmentMailer", "new_assignment_email", "deliver_now",
+              { args: [@group.group_members.first.user_id, @assignment.id] })
+        .on_queue("mailers")
     end
 
-    it "sends assignment update mail" do
+    it "sends assignment update mail with scalar IDs" do
       expect do
         @assignment.send_update_mail
-      end.to have_enqueued_job.on_queue("mailers")
+      end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+        .with("AssignmentMailer", "update_assignment_email", "deliver_now",
+              { args: [@group.group_members.first.user_id, @assignment.id] })
+        .on_queue("mailers")
+    end
+
+    it "executes enqueued mailer job safely even if assignment is deleted before processing" do
+      @assignment.send_new_assignment_mail
+      @assignment.destroy!
+
+      expect { perform_enqueued_jobs }.not_to raise_error
     end
 
     it "sets deadline submission job" do
