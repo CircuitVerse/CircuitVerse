@@ -15,6 +15,8 @@ class Project < ApplicationRecord
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
+  has_many :template_assignments, class_name: "Assignment", foreign_key: "circuit_template_id",
+                                  inverse_of: :circuit_template, dependent: :nullify
   has_many :user_ratings, through: :stars, dependent: :destroy, source: "user"
   belongs_to :assignment, optional: true
 

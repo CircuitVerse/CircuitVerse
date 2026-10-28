@@ -27,6 +27,9 @@
     <div class="project-card-author">
       <%= helpers.image_tag("svgs/user.svg", alt: "User") %> <%= project.author.name %>
     </div>
+    <% if project.is_template? %>
+      <div class="project-card-author"><%= t("templates.usage", count: project.template_assignments.size) %></div>
+    <% end %>
     <div class="project-card-description">
       <%= sanitize project.description %>
     </div>

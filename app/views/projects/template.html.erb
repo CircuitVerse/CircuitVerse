@@ -5,6 +5,7 @@
   <% if @project.circuit_preview.attached? %>
     <%= image_tag @project.circuit_preview, class: "img-fluid mb-3", alt: @project.name %>
   <% end %>
+  <p class="text-muted"><%= t("templates.usage", count: @project.template_assignments.count) %></p>
   <p><%= @project.description %></p>
   <%= link_to t("launch_simulator"), simulator_user_project_path(@author, @project), class: "btn primary-button" %>
   <% if user_signed_in? && policy(@project).create_fork? %>

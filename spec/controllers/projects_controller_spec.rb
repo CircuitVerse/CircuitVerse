@@ -283,6 +283,17 @@ describe ProjectsController, type: :request do
       expect(response.body).to include(project.name)
     end
 
+    it "shows the author and how many assignments use the template" do
+      project = FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                            template_visibility: :public)
+      get template_project_path(project)
+      expect(response.body).to include(@author.name, "Used in 0 assignments")
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:assignment, group: group, circuit_template: project)
+      get template_project_path(project)
+      expect(response.body).to include("Used in 1 assignment<")
+    end
+
     context "when forking from the template page" do
       let(:template) do
         FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,

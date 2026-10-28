@@ -44,6 +44,13 @@ describe TemplatesController, type: :request do
       expect(response.body).to include("Group Only")
     end
 
+    it "shows how many assignments each template backs" do
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:assignment, group: group, circuit_template: @adder)
+      get templates_path
+      expect(response.body).to include("Used in 1 assignment<", "Used in 0 assignments")
+    end
+
     it "excludes templates whose project is private" do
       create_template("Hidden Project", project_access_type: "Private")
       get templates_path
