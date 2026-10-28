@@ -47,7 +47,7 @@ class Contests::SubmissionsController < ApplicationController
     def reject_completed_contest
       return unless @contest.completed?
 
-      redirect_to contest_path(@contest), alert: t("contests.submissions.create.contest_closed")
+      redirect_to contest_path(@contest), alert: t("contests.submissions.contest_closed")
     end
 
     def duplicate_submission?(project_id)

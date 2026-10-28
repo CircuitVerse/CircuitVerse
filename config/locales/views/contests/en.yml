@@ -96,11 +96,11 @@ en:
       already_voted: "You have already cast a vote for this submission!"
       success: "You have successfully voted the submission, Thanks! Votes remaining: %{votes_remaining}"
     submissions:
+      contest_closed: "Submissions are closed as the contest has ended."
       create:
         success: "Submission was successfully added."
         unauthorized_project: "You can't submit someone else's project."
         duplicate_submission: "This project is already submitted in Contest #%{contest_id}"
-        contest_closed: "Submissions are closed as the contest has ended."
       destroy:
         success: "Submission was successfully removed."
         withdraw_closed: "Withdrawals are closed as the contest has ended."

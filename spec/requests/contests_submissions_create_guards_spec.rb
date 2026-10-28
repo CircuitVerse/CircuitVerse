@@ -48,7 +48,7 @@ RSpec.describe "Contest submissions create guards", type: :request do
       get new_contest_submission_path(contest)
 
       expect(response).to redirect_to(contest_path(contest))
-      expect(flash[:alert]).to eq("Submissions are closed as the contest has ended.")
+      expect(flash[:alert]).to eq(I18n.t("contests.submissions.contest_closed"))
     end
 
     it "does not create a submission" do
@@ -58,7 +58,7 @@ RSpec.describe "Contest submissions create guards", type: :request do
       end.not_to change(Submission, :count)
 
       expect(response).to redirect_to(contest_path(contest))
-      expect(flash[:alert]).to eq("Submissions are closed as the contest has ended.")
+      expect(flash[:alert]).to eq(I18n.t("contests.submissions.contest_closed"))
     end
   end
 end
