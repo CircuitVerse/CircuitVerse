@@ -47,6 +47,17 @@ describe LtiController, type: :request do
         lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, primary_mentor.email)
         expect(response.code).to eq("302")
       end
+
+      it "redirect (302) to assignment page if user is secondary mentor" do
+        secondary_mentor = FactoryBot.create(:user)
+        FactoryBot.create(:group_member, user: secondary_mentor, group: group, mentor: true)
+
+        expect do
+          lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, secondary_mentor.email)
+        end.not_to change(Project, :count)
+
+        expect(response.code).to eq("302")
+      end
     end
 
     context "when lti parameters are invalid" do
