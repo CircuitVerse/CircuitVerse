@@ -2,3 +2,7 @@ ne:
   pagination:
     previous_label_html: "&#8592; अघिल्लो"
     next_label_html: "अर्को &#8594;"
+  pagy:
+    aria_label:
+      prev: "अघिल्लो"
+      next: "अर्को"

@@ -2,3 +2,7 @@ mr:
   pagination:
     previous_label_html: "&#8592; मागील"
     next_label_html: "पुढील &#8594;"
+  pagy:
+    aria_label:
+      prev: "मागील"
+      next: "पुढील"

@@ -2,3 +2,7 @@ bn:
   pagination:
     previous_label_html: "&#8592; পূর্ববর্তী"
     next_label_html: "পরবর্তী &#8594;"
+  pagy:
+    aria_label:
+      prev: "পূর্ববর্তী"
+      next: "পরবর্তী"
