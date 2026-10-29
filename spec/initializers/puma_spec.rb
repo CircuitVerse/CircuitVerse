@@ -102,6 +102,7 @@ RSpec.describe "PumaClientDisconnectPatch" do
   end
 
   describe "Puma::Server client error handling integration" do
+    # Reads nonblocking chunks from an IO stream until a condition is met or the timeout expires.
     def read_with_deadline(io, timeout: 5.0)
       deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
       buf = +""
@@ -145,6 +146,7 @@ RSpec.describe "PumaClientDisconnectPatch" do
 
       begin
         launcher = Puma::Launcher.new(conf, log_writer: Puma::LogWriter.null)
+        launcher.define_singleton_method(:setup_signals) { nil }
         server_thread = Thread.new { launcher.run }
 
         startup_deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + 5.0
