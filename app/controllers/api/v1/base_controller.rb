@@ -75,8 +75,8 @@ class Api::V1::BaseController < ActionController::API
     page_params = params.to_unsafe_h.fetch("page", {})
     page_params = {} unless page_params.is_a?(Hash)
 
-    page = [page_params["number"].to_i, 1].max
-    limit = page_params["size"].to_i
+    page = [scalar_page_param(page_params["number"]), 1].max
+    limit = scalar_page_param(page_params["size"])
     limit = limit.positive? ? [limit, MAX_PER_PAGE].min : DEFAULT_PER_PAGE
 
     @pagy, records = pagy(resource, page: page, limit: limit, overflow: :empty_page)
@@ -99,6 +99,12 @@ class Api::V1::BaseController < ActionController::API
   end
 
   private
+
+    # Only plain values count; arrays or hashes such as page[number][]=1 are
+    # treated as missing instead of raising NoMethodError on #to_i.
+    def scalar_page_param(value)
+      value.is_a?(String) || value.is_a?(Integer) ? value.to_i : 0
+    end
 
     def paginated_url(base_url, page)
       separator = base_url.index("?").nil? ? "?" : "&"
