@@ -45,6 +45,20 @@ RSpec.describe Api::V1::ProjectsController, "#index pagination", type: :request 
     expect(controller.instance_variable_get(:@pagy).limit).to eq(Api::V1::BaseController::MAX_PER_PAGE)
   end
 
+  it "ignores a nested page[number] instead of raising" do
+    body = request_projects("page[number][]=2")
+
+    expect(response).to have_http_status(:ok)
+    expect(body["links"]["self"]).to include("page[number]=1")
+  end
+
+  it "ignores a nested page[size] instead of raising" do
+    body = request_projects("page[size][]=2")
+
+    expect(response).to have_http_status(:ok)
+    expect(body["data"].length).to eq(3)
+  end
+
   it "returns an empty page past the last page" do
     body = request_projects("page[number]=99")
 
