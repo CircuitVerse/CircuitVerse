@@ -371,7 +371,6 @@ function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
-    hideProperties();
     if (layoutModeGet()) {
         layoutModeSet(false);
         $('#layoutDialog').fadeOut();
@@ -392,6 +391,7 @@ export function toggleLayoutMode() {
             verilogModeSet(true);
         dots();
     } else {
+        hideProperties();
         layoutModeSet(true);
         verilogModeSet(false);
         $('#layoutDialog').fadeIn();
@@ -404,7 +404,7 @@ export function toggleLayoutMode() {
         $('.elementPanel').fadeOut();
         $('.timing-diagram-panel').fadeOut();
         $('.testbench-manual-panel').fadeOut();
-        fillSubcircuitElements();
+        fillSubcircuitElements();    
 
         globalScope.ox = 0;
         globalScope.oy = 0;
