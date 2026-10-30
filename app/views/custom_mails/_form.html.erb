@@ -8,7 +8,7 @@
   <div class="field mb-3" id="description">
     <h6><%= form.label :content %></h6>
     <div class="input-group">
-      <%= render partial: "editor/index", locals: { content: custom_mail.content } %>
+      <%= render FormComponents::RichTextEditorComponent.new(editor_content: custom_mail.content) %>
     </div>
   </div>
   <div onclick="before_submit()">
