@@ -225,7 +225,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         Project.open
       else
         Project.open.or(Project.by(current_user.id))
-      end.includes(:author, :tags, :comment_thread)
+      end.includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def load_user_projects
@@ -235,7 +235,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         Project.open.by(params[:id])
       else
         current_user.projects
-      end.includes(:author, :tags, :comment_thread)
+      end.includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def load_user_favourites
@@ -248,11 +248,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         @projects.open
       else
         @projects
-      end.includes(:author, :tags, :comment_thread)
+      end.includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def load_featured_circuits
-      @projects = Project.joins(:featured_circuit).includes(:author, :tags, :comment_thread)
+      @projects = Project.joins(:featured_circuit).includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def search_projects
