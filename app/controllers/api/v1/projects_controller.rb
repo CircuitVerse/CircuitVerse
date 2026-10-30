@@ -46,27 +46,31 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects
   def index
-    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    projects = paginate(@projects)
+    @options[:links] = link_attrs(projects, api_v1_projects_url)
+    render json: Api::V1::ProjectSerializer.new(projects, @options)
   end
 
   # GET /api/v1/projects/search?q=:query
   def search
     base_url = "#{api_v1_projects_search_url}?q=#{params[:q]}"
-    @options[:links] = link_attrs(paginate(@projects), base_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    projects = paginate(@projects)
+    @options[:links] = link_attrs(projects, base_url)
+    render json: Api::V1::ProjectSerializer.new(projects, @options)
   end
 
   # GET /api/v1/users/:id/projects/
   def user_projects
-    @options[:links] = link_attrs(paginate(@projects), projects_api_v1_user_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    projects = paginate(@projects)
+    @options[:links] = link_attrs(projects, projects_api_v1_user_url)
+    render json: Api::V1::ProjectSerializer.new(projects, @options)
   end
 
   # GET /api/v1/users/:id/favourites
   def user_favourites
-    @options[:links] = link_attrs(paginate(@projects), favourites_api_v1_user_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    projects = paginate(@projects)
+    @options[:links] = link_attrs(projects, favourites_api_v1_user_url)
+    render json: Api::V1::ProjectSerializer.new(projects, @options)
   end
 
   # GET /api/v1/projects/:id/check_edit_access
@@ -154,8 +158,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/featured
   def featured_circuits
-    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_featured_url)
-    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+    projects = paginate(@projects)
+    @options[:links] = link_attrs(projects, api_v1_projects_featured_url)
+    render json: Api::V1::ProjectSerializer.new(projects, @options)
   end
 
   # GET /api/v1/projects/:id/toggle-star
@@ -220,7 +225,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         Project.open
       else
         Project.open.or(Project.by(current_user.id))
-      end
+      end.includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def load_user_projects
@@ -230,7 +235,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         Project.open.by(params[:id])
       else
         current_user.projects
-      end
+      end.includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def load_user_favourites
@@ -243,11 +248,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         @projects.open
       else
         @projects
-      end
+      end.includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def load_featured_circuits
-      @projects = Project.joins(:featured_circuit).all
+      @projects = Project.joins(:featured_circuit).includes(:author, :tags, :comment_thread).with_attached_circuit_preview
     end
 
     def search_projects
