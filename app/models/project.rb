@@ -36,7 +36,15 @@ class Project < ApplicationRecord
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
+  enum :template_visibility, { private: 0, group: 1, public: 2 }, prefix: :template
+
   scope :open, -> { where(project_access_type: "Public") }
+
+  scope :name_like, ->(query) { where("projects.name ILIKE ?", "%#{sanitize_sql_like(query)}%") }
+
+  scope :templates_for, lambda { |user|
+    where(is_template: true).and(template_public.or(by(user.id)))
+  }
 
   scope :by, ->(author_id) { where(author_id: author_id) }
 
@@ -91,7 +99,8 @@ class Project < ApplicationRecord
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
     forked_project.update!(
-      view: 1, author_id: user.id, forked_project_id: id, name: name
+      view: 1, author_id: user.id, forked_project_id: id, name: name,
+      is_template: false, template_visibility: :private
     )
     @project = Project.find(id)
     if @project.author != user # rubocop:disable Style/IfUnlessModifier
@@ -140,6 +149,8 @@ class Project < ApplicationRecord
   end
 
   validate :check_validity
+  validate :template_not_assignment, if: :is_template?
+  validate :template_testbench_is_runnable, if: :template_testbench?
   validate :clean_description
 
   def sim_version
@@ -158,6 +169,16 @@ class Project < ApplicationRecord
       return unless (project_access_type != "Private") && !assignment_id.nil?
 
       errors.add(:project_access_type, "Assignment has to be private")
+    end
+
+    def template_testbench_is_runnable
+      suite = Testbench.new(assignment: Assignment.new, data: template_testbench)
+      suite.validate
+      errors.add(:template_testbench, suite.errors[:data].to_sentence) if suite.errors.key?(:data)
+    end
+
+    def template_not_assignment
+      errors.add(:base, "Assignment projects cannot be saved as templates") if assignment_id.present?
     end
 
     def clean_description

@@ -39,6 +39,47 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  describe "template flag" do
+    it "defaults to a private non-template" do
+      project = FactoryBot.create(:project, author: @user)
+      expect(project.is_template).to be(false)
+      expect(project).to be_template_private
+    end
+
+    it "allows a standalone project to be marked as a template" do
+      project = FactoryBot.build(:project, author: @user, is_template: true, template_visibility: :public)
+      expect(project).to be_valid
+    end
+
+    it "does not allow an assignment project to be marked as a template" do
+      project = FactoryBot.build(:project, author: @user, assignment: @assignment, is_template: true)
+      expect(project).to be_invalid
+      expect(project.errors[:base]).to include("Assignment projects cannot be saved as templates")
+    end
+
+    it "accepts a runnable test suite on a template" do
+      project = FactoryBot.build(:project, author: @user, is_template: true,
+                                           template_testbench: FactoryBot.build(:testbench).data)
+      expect(project).to be_valid
+    end
+
+    it "rejects a template test suite that is not runnable" do
+      project = FactoryBot.build(:project, author: @user, is_template: true,
+                                           template_testbench: { "type" => "verilog" })
+      expect(project).to be_invalid
+      expect(project.errors[:template_testbench]).to be_present
+    end
+  end
+
+  describe "#fork" do
+    it "does not copy template status to the fork" do
+      template = FactoryBot.create(:project, :public, author: @user, is_template: true, template_visibility: :public)
+      forked = template.fork(FactoryBot.create(:user))
+      expect(forked.is_template).to be(false)
+      expect(forked).to be_template_private
+    end
+  end
+
   describe "public methods" do
     context "project submission is false" do
       before do

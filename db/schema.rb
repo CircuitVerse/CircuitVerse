@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_20_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -91,6 +91,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   end
 
   create_table "assignments", force: :cascade do |t|
+    t.bigint "circuit_template_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "deadline", null: false
     t.text "description"
@@ -104,6 +105,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.json "restrictions", default: "[]"
     t.string "status"
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["circuit_template_id"], name: "index_assignments_on_circuit_template_id"
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -481,6 +483,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.text "description"
     t.bigint "forked_project_id"
     t.string "image_preview"
+    t.boolean "is_template", default: false, null: false
     t.string "lis_result_sourced_id"
     t.string "name"
     t.string "project_access_type", default: "Public"
@@ -488,6 +491,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))", stored: true
     t.string "slug"
     t.integer "stars_count", default: 0, null: false
+    t.jsonb "template_testbench"
+    t.integer "template_visibility", default: 0, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "version", default: "1.0", null: false
     t.bigint "view", default: 1
@@ -579,6 +584,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.check_constraint "name IS NOT NULL", name: "tags_name_null"
   end
 
+  create_table "testbenches", force: :cascade do |t|
+    t.bigint "assignment_id", null: false
+    t.jsonb "data", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_testbenches_on_assignment_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false
     t.datetime "confirmation_sent_at"
@@ -632,6 +645,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assignments", "groups"
+  add_foreign_key "assignments", "projects", column: "circuit_template_id", on_delete: :nullify, validate: false
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
   add_foreign_key "comment_subscriptions", "comment_threads", column: "thread_id"
@@ -674,4 +688,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "testbenches", "assignments"
 end

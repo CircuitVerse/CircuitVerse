@@ -7,8 +7,11 @@ class Assignment < ApplicationRecord
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"
   }, if: :lti_integrated?
   belongs_to :group
+  belongs_to :circuit_template, class_name: "Project", optional: true
+  validate :circuit_template_must_be_template, if: :circuit_template_id?
   has_many :projects, class_name: "Project", dependent: :nullify
 
+  after_save :copy_template_testbench, if: :saved_change_to_circuit_template_id?
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
@@ -17,8 +20,26 @@ class Assignment < ApplicationRecord
   enum :grading_scale, { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
+  has_one :testbench, dependent: :destroy
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
+
+  def copy_template_testbench
+    suite = circuit_template&.template_testbench
+    create_testbench!(data: suite) if suite.present? && testbench.nil?
+  end
+
+  def template_circuit_data
+    return unless circuit_template
+    return if circuit_template.project_access_type == "Private" && !template_author_mentors_group?
+
+    circuit_template.project_datum&.data
+  end
+
+  def template_author_mentors_group?
+    author_id = circuit_template.author_id
+    group.primary_mentor_id == author_id || group.group_members.mentor.exists?(user_id: author_id)
+  end
 
   def notify_recipient
     group.group_members.each do |group_member|
@@ -86,4 +107,10 @@ class Assignment < ApplicationRecord
       end
     end
   end
+
+  private
+
+    def circuit_template_must_be_template
+      errors.add(:circuit_template, "must be a template") unless circuit_template&.is_template?
+    end
 end
