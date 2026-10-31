@@ -221,5 +221,32 @@ describe ProjectsController, type: :request do
         end
       end
     end
+
+    describe "#grading_result" do
+      before do
+        group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+        @assignment = FactoryBot.create(:assignment, group: group, reveal_test_cases: false)
+        @project = FactoryBot.create(:project, author: @author, assignment: @assignment)
+        breakdown = [{ "label" => "Case 1", "cases" => [{ "passed" => true }] }]
+        snapshot = { "groups" => [{ "hidden" => true,
+                                    "inputs" => [{ "label" => "a", "values" => ["1"] }], "outputs" => [] }] }
+        @result = FactoryBot.create(:grading_result, project: @project, breakdown: breakdown, suite_snapshot: snapshot)
+      end
+
+      it "redacts hidden test case inputs when reveal is off" do
+        sign_in @author
+        get grading_result_user_project_path(@author, @project)
+
+        expect(response.body).not_to include("a=1")
+      end
+
+      it "shows hidden test case inputs when reveal_test_cases is on" do
+        @assignment.update!(reveal_test_cases: true)
+        sign_in @author
+        get grading_result_user_project_path(@author, @project)
+
+        expect(response.body).to include("a=1")
+      end
+    end
   end
 end

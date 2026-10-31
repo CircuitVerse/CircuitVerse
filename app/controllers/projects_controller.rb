@@ -5,14 +5,14 @@ class ProjectsController < ApplicationController
   include SanitizeDescription
   include UsersCircuitverseHelper
 
-  before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
+  before_action :set_project, only: %i[show edit update destroy create_fork change_stars grading_result]
   before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
 
   skip_after_action :verify_authorized, only: %i[index create]
 
   before_action :check_access, only: %i[edit update destroy]
   before_action :check_delete_access, only: [:destroy]
-  before_action :check_view_access, only: %i[show create_fork change_stars]
+  before_action :check_view_access, only: %i[show create_fork change_stars grading_result]
   before_action :sanitize_name, only: %i[create update]
   before_action :sanitize_project_description, only: %i[show edit]
 
@@ -40,6 +40,10 @@ class ProjectsController < ApplicationController
       # else
       simulator_user_project_path(@project.author_id, @project)
     # end
+  end
+
+  def grading_result
+    @result = GradingResult.where(project: @project).order(:created_at).last
   end
 
   # GET /projects/1/edit
