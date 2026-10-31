@@ -88,7 +88,7 @@ RSpec/MessageSpies:
     - 'spec/models/push_subscription_test.rb'
     - 'spec/tasks/maintenance/migrate_image_preview_task_spec.rb'
 
-# Offense count: 28
+# Offense count: 30
 # Configuration parameters: AllowedPatterns.
 # AllowedPatterns: ^expect_, ^assert_
 RSpec/NoExpectationExample:
@@ -101,6 +101,7 @@ RSpec/NoExpectationExample:
     - 'spec/controllers/groups_controller_spec.rb'
     - 'spec/controllers/projects_controller_spec.rb'
     - 'spec/controllers/simulator_controller_spec.rb'
+    - 'spec/controllers/subgroups_controller_spec.rb'
     - 'spec/policies/project_policy_spec.rb'
 
 # Offense count: 1
