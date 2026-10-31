@@ -66,10 +66,27 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "invalid resource")
   end
 
+  def pagination_params
+    params_hash = params.respond_to?(:to_unsafe_h) ? params.to_unsafe_h : params
+    page_data = params_hash[:page] || params_hash["page"] if (params_hash[:page] || params_hash["page"]).is_a?(Hash)
+
+    page = page_data&.[](:number) || page_data&.[]("number")
+    per_page = page_data&.[](:size) || page_data&.[]("size")
+    raw_page = params[:page] if params[:page].is_a?(String) || params[:page].is_a?(Numeric)
+
+    page_number = (page || raw_page || 1).to_i
+    page_size = (per_page || DEFAULT_PER_PAGE).to_i
+
+    {
+      page: page_number.positive? ? page_number : 1,
+      per_page: page_size.positive? ? page_size : DEFAULT_PER_PAGE
+    }
+  end
+
   def paginate(resource)
     resource.paginate(
-      page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
-      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
+      page: pagination_params[:page],
+      per_page: pagination_params[:per_page]
     )
   end
 
