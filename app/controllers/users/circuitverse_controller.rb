@@ -42,11 +42,12 @@ class Users::CircuitverseController < ApplicationController
   def groups
     @user = authorize @user
     @groups_owned = Group.where(id: Group.joins(:primary_mentor).where(primary_mentor: @user))
+                         .top_level
                          .select("groups.*, COUNT(group_members.id) as group_member_count")
                          .left_outer_joins(:group_members)
                          .group("groups.id")
                          .preload(:organization)
-    @groups_member = @user.groups.preload(:organization)
+    @groups_member = @user.groups.top_level.preload(:organization)
   end
 
   private

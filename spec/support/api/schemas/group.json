@@ -13,6 +13,7 @@
             "primary_mentor_name": { "type": "string" },
             "name": { "type": "string" },
             "primary_mentor_id": { "type": "integer" },
+            "parent_group_id": { "type": ["null", "integer"] },
             "created_at": { "type": "string" },
             "updated_at": { "type": "string" }
           },
@@ -21,6 +22,7 @@
             "primary_mentor_name",
             "name",
             "primary_mentor_id",
+            "parent_group_id",
             "created_at",
             "updated_at"
           ]
