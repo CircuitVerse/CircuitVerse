@@ -5,14 +5,14 @@ class ProjectsController < ApplicationController
   include SanitizeDescription
   include UsersCircuitverseHelper
 
-  before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
-  before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
+  before_action :set_project, only: %i[show edit update destroy create_fork change_stars save_as_template template]
+  before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars save_as_template]
 
   skip_after_action :verify_authorized, only: %i[index create]
 
   before_action :check_access, only: %i[edit update destroy]
   before_action :check_delete_access, only: [:destroy]
-  before_action :check_view_access, only: %i[show create_fork change_stars]
+  before_action :check_view_access, only: %i[show create_fork change_stars template]
   before_action :sanitize_name, only: %i[create update]
   before_action :sanitize_project_description, only: %i[show edit]
 
@@ -64,6 +64,23 @@ class ProjectsController < ApplicationController
     @project_new = @project.fork(current_user)
     @project_new.save!
     redirect_to user_project_path(current_user, @project_new)
+  end
+
+  def save_as_template
+    authorize @project
+    visibility = params.expect(:template_visibility)
+    saved = Project.template_visibilities.key?(visibility) &&
+            @project.update(is_template: true, template_visibility: visibility)
+    if saved
+      redirect_to template_project_path(@project), notice: "Project was saved as a template."
+    else
+      redirect_to user_project_path(@author, @project),
+                  alert: @project.errors.full_messages.to_sentence.presence || "Invalid visibility."
+    end
+  end
+
+  def template
+    raise ActiveRecord::RecordNotFound unless Project.templates_for(current_user).exists?(id: @project.id)
   end
 
   # POST /projects
