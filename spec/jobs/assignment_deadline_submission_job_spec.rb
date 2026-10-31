@@ -37,6 +37,16 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
         @assignment.reload
         expect(@assignment.status).to eq("closed")
       end
+
+      it "enqueues AutogradeJob for each submission when a testbench exists" do
+        FactoryBot.create(:testbench, assignment: @assignment)
+        member = FactoryBot.create(:user)
+        FactoryBot.create(:group_member, group: @group, user: member)
+        FactoryBot.create(:project, assignment: @assignment, author: member)
+        @assignment.update!(status: "open", deadline: Time.zone.now - 10)
+
+        expect { described_class.perform_now(@assignment.id) }.to have_enqueued_job(AutogradeJob)
+      end
     end
   end
 end
