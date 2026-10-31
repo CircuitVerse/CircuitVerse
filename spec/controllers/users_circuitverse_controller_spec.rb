@@ -11,6 +11,8 @@ describe Users::CircuitverseController, type: :request do
   it "gets user projects" do
     get user_projects_path(id: @user.id)
     expect(response.status).to eq(200)
+    expect(response.body).to include("alt=\"#{CGI.escapeHTML(@user.name)}\"")
+    expect(response.body).not_to include("alt=\"project.name\"")
   end
 
   it "gets user profile" do
