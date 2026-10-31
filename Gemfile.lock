@@ -111,7 +111,7 @@ GEM
     ast (2.4.3)
     auth-sanitizer (0.2.1)
       version_gem (~> 1.1, >= 1.1.10)
-    avo (3.32.1)
+    avo (3.33.2)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -217,7 +217,7 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.7)
+    crass (1.0.8)
     css_parser (3.3.0)
       addressable
       base64
@@ -803,8 +803,8 @@ GEM
       logger
     rugged (1.9.0)
     safely_block (1.0.0)
-    sanitize (7.0.0)
-      crass (~> 1.0.2)
+    sanitize (7.0.1)
+      crass (~> 1.0.8)
       nokogiri (>= 1.16.8)
     securerandom (0.4.1)
     sentry-rails (5.26.0)
@@ -930,10 +930,9 @@ GEM
     uri (1.1.1)
     useragent (0.16.11)
     version_gem (1.1.11)
-    view_component (4.12.0)
+    view_component (4.19.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
-      concurrent-ruby (~> 1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.3.0)
