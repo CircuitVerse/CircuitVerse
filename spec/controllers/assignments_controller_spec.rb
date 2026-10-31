@@ -271,6 +271,48 @@ describe AssignmentsController, type: :request do
       end
     end
 
+    context "when a circuit template is chosen" do
+      let(:author) { FactoryBot.create(:user) }
+
+      def create_with_template(template)
+        post group_assignments_path(@group), params: { assignment:
+          { description: "group assignment", name: "Test Name", circuit_template_id: template.id } }
+      end
+
+      before { sign_in @primary_mentor }
+
+      it "links a public template" do
+        template = FactoryBot.create(:project, author: author, is_template: true, template_visibility: :public)
+        create_with_template(template)
+        expect(Assignment.last.circuit_template).to eq(template)
+      end
+
+      it "links the mentor's own private template" do
+        template = FactoryBot.create(:project, author: @primary_mentor, is_template: true)
+        create_with_template(template)
+        expect(Assignment.last.circuit_template).to eq(template)
+      end
+
+      it "rejects another user's private template" do
+        template = FactoryBot.create(:project, author: author, is_template: true)
+        expect { create_with_template(template) }.not_to change(Assignment, :count)
+      end
+
+      it "rejects a project that is not a template" do
+        project = FactoryBot.create(:project, author: @primary_mentor)
+        expect { create_with_template(project) }.not_to change(Assignment, :count)
+      end
+
+      it "keeps an already linked template that is no longer accessible when editing" do
+        template = FactoryBot.create(:project, author: author, is_template: true)
+        assignment = FactoryBot.create(:assignment, group: @group, circuit_template: template)
+        patch group_assignment_path(@group, assignment), params: { assignment:
+          { name: "Renamed", circuit_template_id: template.id } }
+        expect(assignment.reload.name).to eq("Renamed")
+        expect(assignment.circuit_template).to eq(template)
+      end
+    end
+
     context "when a random user is logged in" do
       it "does not create assignment" do
         sign_in create(:user)

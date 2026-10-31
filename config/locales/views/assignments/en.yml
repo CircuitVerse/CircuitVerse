@@ -4,6 +4,8 @@ en:
     deadline: "Deadline:"
     remaining_time_error: "(something went wrong when loading script)"
     form:
+      base_template: "Base circuit template"
+      no_template: "No template"
       grade_scale_cant_change: "(Cannot be changed once set)"
       cannot_be_edited: "%{graded} - Cannot be edited"
       enable_element_restriction: "Enable elements restriction:"
