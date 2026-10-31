@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include Pagy::Backend
   include SearchHelper
 
   protect_from_forgery with: :exception
@@ -16,6 +17,8 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  # Invalid page params (e.g. ?page=0 or ?page=abc) render 404, as will_paginate did
+  rescue_from Pagy::VariableError, with: :not_found
 
   def auth_error
     render plain: "You are not authorized to do the requested operation", status: :forbidden
