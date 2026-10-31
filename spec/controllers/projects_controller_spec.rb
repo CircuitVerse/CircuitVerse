@@ -222,4 +222,148 @@ describe ProjectsController, type: :request do
       end
     end
   end
+
+  describe "#save_as_template" do
+    before { @project = FactoryBot.create(:project, author: @author, project_access_type: "Public") }
+
+    it "lets the author save the project as a template" do
+      sign_in @author
+      post save_as_template_project_path(@project), params: { template_visibility: "group" }
+      expect(response).to redirect_to(template_project_path(@project))
+      expect(@project.reload).to be_is_template
+      expect(@project).to be_template_group
+    end
+
+    it "lets a mentor of one of the author's groups save it" do
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:group_member, group: group, user: @author)
+      sign_in group.primary_mentor
+      post save_as_template_project_path(@project), params: { template_visibility: "public" }
+      expect(@project.reload).to be_template_public
+    end
+
+    it "does not let a mentor publish a private project they cannot view" do
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:group_member, group: group, user: @author)
+      private_project = FactoryBot.create(:project, author: @author, project_access_type: "Private")
+      sign_in group.primary_mentor
+      post save_as_template_project_path(private_project), params: { template_visibility: "public" }
+      expect(private_project.reload).not_to be_is_template
+    end
+
+    it "rejects an unrelated user" do
+      sign_in_random_user
+      post save_as_template_project_path(@project), params: { template_visibility: "public" }
+      expect(@project.reload).not_to be_is_template
+    end
+
+    it "rejects an unknown visibility" do
+      sign_in @author
+      post save_as_template_project_path(@project), params: { template_visibility: "everyone" }
+      expect(@project.reload).not_to be_is_template
+    end
+
+    it "rejects an assignment project" do
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      assignment = FactoryBot.create(:assignment, group: group)
+      assignment_project = FactoryBot.create(:project, author: @author, assignment: assignment)
+      sign_in @author
+      post save_as_template_project_path(assignment_project), params: { template_visibility: "private" }
+      expect(assignment_project.reload).not_to be_is_template
+      follow_redirect!
+      expect(response.body).to include("Assignment projects cannot be saved as templates")
+    end
+  end
+
+  describe "#template" do
+    it "shows a template" do
+      project = FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                            template_visibility: :public)
+      get template_project_path(project)
+      expect(response.body).to include(project.name)
+    end
+
+    it "shows the author and how many assignments use the template" do
+      project = FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                            template_visibility: :public)
+      get template_project_path(project)
+      expect(response.body).to include(@author.name, "Used in 0 assignments")
+      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:assignment, group: group, circuit_template: project)
+      get template_project_path(project)
+      expect(response.body).to include("Used in 1 assignment<")
+    end
+
+    context "when forking from the template page" do
+      let(:template) do
+        FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                    template_visibility: :public)
+      end
+
+      it "offers a fork button to a signed-in user and creates a plain copy they own" do
+        user = FactoryBot.create(:user)
+        sign_in user
+        get template_project_path(template)
+        expect(response.body).to include(create_fork_project_path(template))
+        expect { post create_fork_project_path(template) }.to change { user.projects.count }.by(1)
+        copy = user.projects.last
+        expect(copy.forked_project_id).to eq(template.id)
+        expect(copy).not_to be_is_template
+      end
+
+      it "does not offer a fork button to a visitor" do
+        get template_project_path(template)
+        expect(response.body).not_to include(create_fork_project_path(template))
+      end
+    end
+
+    context "when the template is not public" do
+      let(:group) { FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user)) }
+      let(:template) do
+        FactoryBot.create(:project, author: @author, project_access_type: "Public", is_template: true,
+                                    template_visibility: :group)
+      end
+
+      before { FactoryBot.create(:group_member, group: group, user: @author) }
+
+      it "shows a group template to a member of the author's group" do
+        member = FactoryBot.create(:user)
+        FactoryBot.create(:group_member, group: group, user: member)
+        sign_in member
+        get template_project_path(template)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "shows a group template to the group's primary mentor" do
+        sign_in group.primary_mentor
+        get template_project_path(template)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "hides a group template from an unrelated user and from visitors" do
+        sign_in_random_user
+        get template_project_path(template)
+        expect(response).to have_http_status(:not_found)
+        sign_out :user
+        get template_project_path(template)
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "hides a private template from everyone except its author" do
+        template.update!(template_visibility: :private)
+        sign_in group.primary_mentor
+        get template_project_path(template)
+        expect(response).to have_http_status(:not_found)
+        sign_in @author
+        get template_project_path(template)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    it "returns not found for a project that is not a template" do
+      project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
+      get template_project_path(project)
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end

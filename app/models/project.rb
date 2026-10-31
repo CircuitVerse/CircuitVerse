@@ -15,6 +15,8 @@ class Project < ApplicationRecord
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
+  has_many :template_assignments, class_name: "Assignment", foreign_key: "circuit_template_id",
+                                  inverse_of: :circuit_template, dependent: :nullify
   has_many :user_ratings, through: :stars, dependent: :destroy, source: "user"
   belongs_to :assignment, optional: true
 
@@ -36,7 +38,22 @@ class Project < ApplicationRecord
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
+  enum :template_visibility, { private: 0, group: 1, public: 2 }, prefix: :template
+
   scope :open, -> { where(project_access_type: "Public") }
+
+  scope :name_like, ->(query) { where("projects.name ILIKE ?", "%#{sanitize_sql_like(query)}%") }
+
+  scope :templates_for, lambda { |user|
+    return where(is_template: true).template_public if user.nil?
+
+    groups = Group.where(id: GroupMember.where(user_id: user.id).select(:group_id))
+                  .or(Group.where(primary_mentor_id: user.id)).select(:id)
+    peers = GroupMember.where(group_id: groups).select(:user_id)
+    mentors = Group.where(id: groups).select(:primary_mentor_id)
+    shared = template_group.where(author_id: peers).or(template_group.where(author_id: mentors))
+    where(is_template: true).and(template_public.or(by(user.id)).or(shared))
+  }
 
   scope :by, ->(author_id) { where(author_id: author_id) }
 
@@ -91,7 +108,8 @@ class Project < ApplicationRecord
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
     forked_project.update!(
-      view: 1, author_id: user.id, forked_project_id: id, name: name
+      view: 1, author_id: user.id, forked_project_id: id, name: name,
+      is_template: false, template_visibility: :private
     )
     @project = Project.find(id)
     if @project.author != user # rubocop:disable Style/IfUnlessModifier
@@ -140,6 +158,7 @@ class Project < ApplicationRecord
   end
 
   validate :check_validity
+  validate :template_not_assignment, if: :is_template?
   validate :clean_description
 
   def sim_version
@@ -158,6 +177,10 @@ class Project < ApplicationRecord
       return unless (project_access_type != "Private") && !assignment_id.nil?
 
       errors.add(:project_access_type, "Assignment has to be private")
+    end
+
+    def template_not_assignment
+      errors.add(:base, "Assignment projects cannot be saved as templates") if assignment_id.present?
     end
 
     def clean_description

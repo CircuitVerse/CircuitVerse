@@ -1,0 +1,11 @@
+en:
+  templates:
+    usage:
+      one: "Used in %{count} assignment"
+      other: "Used in %{count} assignments"
+    index:
+      heading: "Circuit Templates"
+      search: "Search templates by name"
+      tag: "Tag"
+      all_tags: "All tags"
+      filter: "Filter"
