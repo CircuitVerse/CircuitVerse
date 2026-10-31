@@ -156,6 +156,7 @@ Rails.application.routes.draw do
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]
+    match 'login', to: 'lti#oidc_login', via: [:get, :post]
     get 'jwks', to: 'lti#jwks'
     get 'tool_config', to: 'lti#tool_config'
   end
