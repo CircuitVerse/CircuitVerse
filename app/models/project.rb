@@ -36,6 +36,8 @@ class Project < ApplicationRecord
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
+  enum :template_visibility, { private: 0, group: 1, public: 2 }, prefix: :template
+
   scope :open, -> { where(project_access_type: "Public") }
 
   scope :by, ->(author_id) { where(author_id: author_id) }
@@ -140,6 +142,7 @@ class Project < ApplicationRecord
   end
 
   validate :check_validity
+  validate :template_not_assignment, if: :is_template?
   validate :clean_description
 
   def sim_version
@@ -158,6 +161,10 @@ class Project < ApplicationRecord
       return unless (project_access_type != "Private") && !assignment_id.nil?
 
       errors.add(:project_access_type, "Assignment has to be private")
+    end
+
+    def template_not_assignment
+      errors.add(:is_template, "cannot be set on an assignment project") if assignment_id.present?
     end
 
     def clean_description

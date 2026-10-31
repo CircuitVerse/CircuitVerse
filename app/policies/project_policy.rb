@@ -73,7 +73,21 @@ class ProjectPolicy < ApplicationPolicy
     project.assignment_id.nil?
   end
 
+  def save_as_template?
+    return false if user.blank?
+
+    author_access? || mentor_of_author?
+  end
+
   def author_access?
     (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
   end
+
+  private
+
+    def mentor_of_author?
+      group_ids = GroupMember.where(user_id: project.author_id).select(:group_id)
+      Group.where(id: group_ids).exists?(primary_mentor_id: user.id) ||
+        GroupMember.exists?(group_id: group_ids, user_id: user.id, mentor: true)
+    end
 end
