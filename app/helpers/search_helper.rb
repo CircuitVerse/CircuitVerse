@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "ipaddr"
+
 module SearchHelper
   MAX_RESULTS_PER_PAGE = 9
   DEFAULT_PRIORITY_COUNTRY_CODES = ["IN"].freeze
@@ -66,13 +68,25 @@ module SearchHelper
     end
 
     def get_user_country_code_simple(request)
+      return nil unless request
+
       ip_address = request.remote_ip
+      return nil if ip_address.blank? || loopback_ip?(ip_address)
+
       cache_key = "geocoder/country_code/#{ip_address}"
 
       Rails.cache.fetch(cache_key, expires_in: 24.hours, race_condition_ttl: 10) do
         Geocoder.search(ip_address).first&.country_code
       end
-    rescue Geocoder::Error, Timeout::Error
+    rescue StandardError
       nil
+    end
+
+    def loopback_ip?(ip_address)
+      return true if ["127.0.0.1", "::1"].include?(ip_address)
+
+      IPAddr.new(ip_address).loopback?
+    rescue IPAddr::InvalidAddressError
+      false
     end
 end
