@@ -75,11 +75,13 @@ module SearchHelper
 
       cache_key = "geocoder/country_code/#{ip_address}"
 
-      Rails.cache.fetch(cache_key, expires_in: 24.hours, race_condition_ttl: 10) do
-        Geocoder.search(ip_address).first&.country_code
+      begin
+        Rails.cache.fetch(cache_key, expires_in: 24.hours, race_condition_ttl: 10) do
+          Geocoder.search(ip_address).first&.country_code
+        end
+      rescue StandardError
+        nil
       end
-    rescue StandardError
-      nil
     end
 
     def loopback_ip?(ip_address)

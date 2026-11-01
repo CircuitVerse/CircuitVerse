@@ -61,5 +61,12 @@ describe SearchHelper do
       expect { helper.send(:get_user_country_code_simple, request) }.not_to raise_error
       expect(helper.send(:get_user_country_code_simple, request)).to be_nil
     end
+
+    it "does not swallow ActionDispatch::RemoteIp::IpSpoofAttackError" do
+      allow(request).to receive(:remote_ip).and_raise(ActionDispatch::RemoteIp::IpSpoofAttackError)
+
+      expect { helper.send(:get_user_country_code_simple, request) }
+        .to raise_error(ActionDispatch::RemoteIp::IpSpoofAttackError)
+    end
   end
 end
