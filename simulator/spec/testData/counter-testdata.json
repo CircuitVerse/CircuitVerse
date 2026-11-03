@@ -1,0 +1,70 @@
+{
+  "countUp": {
+    "type": "seq",
+    "title": "Count Up",
+    "groups": [
+      {
+        "label": "Count 0 to 3",
+        "inputs": [
+          {
+            "label": "max",
+            "bitWidth": 4,
+            "values": [
+              "1111",
+              "1111",
+              "1111",
+              "1111"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "val",
+            "bitWidth": 4,
+            "values": [
+              "0001",
+              "0010",
+              "0011",
+              "0100"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  },
+  "countAndWrap": {
+    "type": "seq",
+    "title": "Count And Wrap",
+    "groups": [
+      {
+        "label": "Wrap at max=2",
+        "inputs": [
+          {
+            "label": "max",
+            "bitWidth": 4,
+            "values": [
+              "0010",
+              "0010",
+              "0010",
+              "0010"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "val",
+            "bitWidth": 4,
+            "values": [
+              "0001",
+              "0010",
+              "0000",
+              "0001"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  }
+}
