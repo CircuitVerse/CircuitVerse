@@ -75,7 +75,7 @@ export function generateSaveData(name, setName = true) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    name = getProjectName() || name || 'Untitled';
     data.name = stripTags(name);
     if (setName) setProjectName(data.name);
 
@@ -328,14 +328,19 @@ async function generateImageForOnline() {
  * @exports save
  */
 export default async function save() {
+    // Asking user name before starting the process of save
+    let projectNameByUser = '';
+    if(getProjectName() === 'Untitled')
+     projectNameByUser = prompt("Enter Project Name:");
+    // If user clicks 'Cancel' we should call the function off
+    if(projectNameByUser === null) return;
+    const data = generateSaveData(projectNameByUser);
     if(layoutModeGet())
         toggleLayoutMode();
 
     projectSavedSet(true);
 
     $('.loadingIcon').fadeIn();
-    const data = generateSaveData();
-
     const projectName = getProjectName();
     var imageData = await generateImageForOnline();
 
