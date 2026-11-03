@@ -1,6 +1,17 @@
 <% content_for :title, t("organizations.dashboard.page_title", organization: @organization.name, tab: t("organizations.tabs.overview")) %>
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "overview", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
+    <% if flash[:notice].present? %>
+      <%= render "shared/notice", message: flash[:notice] %>
+    <% end %>
+    <% if flash[:alert].present? %>
+      <div class="row">
+        <div class="alert alert-danger alert-dismissible container text-center">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <h6><%= flash[:alert] %></h6>
+        </div>
+      </div>
+    <% end %>
     <header class="d-flex flex-column flex-sm-row gap-4 align-items-start mb-4">
       <div class="org-dash-logo d-flex align-items-center justify-content-center flex-shrink-0 overflow-hidden rounded-4 border bg-light">
         <% if @organization.logo.attached? %>

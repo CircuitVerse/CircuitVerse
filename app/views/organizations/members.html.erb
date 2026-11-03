@@ -1,10 +1,185 @@
 <% content_for :title, t("organizations.dashboard.page_title", organization: @organization.name, tab: t("organizations.tabs.members")) %>
-
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "members", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
-    <div class="org-dash-empty">
-      <i class="fa fa-users" aria-hidden="true"></i>
-      <p>Members management is coming soon.</p>
-    </div>
+    <% if flash[:notice].present? %>
+      <%= render "shared/notice", message: flash[:notice] %>
+    <% end %>
+    <% if flash[:alert].present? %>
+      <div class="row">
+        <div class="alert alert-danger alert-dismissible container text-center">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <h6><%= flash[:alert] %></h6>
+        </div>
+      </div>
+    <% end %>
+    <% is_admin = policy(@organization).admin_access? %>
+    <section>
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <h3 class="org-dash-section-title fw-semibold m-0 fs-5"><%= t("organizations.members.list.heading") %></h3>
+          <span class="badge rounded-pill org-role-member">
+            <%= t("organizations.overview.member_count", count: @organization_members.total_entries) %>
+          </span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <% if is_admin %>
+            <button type="button" class="btn primary-button d-inline-flex align-items-center gap-1"
+                    data-bs-toggle="modal" data-bs-target="#inviteMemberModal">
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
+              <%= t("organizations.members.invite.invite_btn") %>
+            </button>
+          <% end %>
+          <% if @organization.organization_members.exists?(user_id: current_user.id) %>
+            <% if policy(@organization).leave? %>
+              <%= button_to organization_leave_path(@organization),
+                            method: :delete,
+                            class: "btn btn-outline-danger d-inline-flex align-items-center gap-1",
+                            form: { class: "d-inline-block m-0", data: { confirm: t("organizations.members.list.leave_confirm", organization: @organization.name) } } do %>
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <%= t("organizations.members.list.leave") %>
+              <% end %>
+            <% else %>
+              <% current_membership = @organization.organization_members.find_by(user_id: current_user.id) %>
+              <% blocked_hint = if current_membership&.admin? && @organization.organization_members.admin.count == 1
+                                  t("organizations.members.list.leave_blocked_sole_admin")
+                                else
+                                  t("organizations.members.list.leave_blocked_primary_mentor")
+                                end %>
+              <span class="org-tooltip-wrap" data-org-tooltip="<%= blocked_hint %>">
+                <button type="button" class="btn btn-outline-secondary d-inline-flex align-items-center gap-1"
+                        disabled style="pointer-events: none;">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  <%= t("organizations.members.list.leave") %>
+                </button>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <% if @organization_members.present? %>
+        <div class="org-members-table-wrapper rounded-4 border">
+          <div>
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr class="org-members-thead">
+                  <th scope="col" class="fw-medium border-0 px-4 py-3">
+                    <%= org_member_sort_link("name", t("organizations.members.list.name"), @organization) %>
+                  </th>
+                  <th scope="col" class="fw-medium border-0 px-4 py-3"><%= t("organizations.members.list.email") %></th>
+                  <th scope="col" class="fw-medium border-0 px-4 py-3">
+                    <%= org_member_sort_link("role", t("organizations.members.list.role"), @organization) %>
+                  </th>
+                  <th scope="col" class="fw-medium border-0 px-4 py-3">
+                    <%= org_member_sort_link("created_at", t("organizations.members.list.joined"), @organization) %>
+                  </th>
+                  <% if is_admin %>
+                    <th scope="col" class="fw-medium border-0 px-4 py-3 text-end"><%= t("organizations.members.list.actions") %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @organization_members.each do |member| %>
+                  <tr>
+                    <td class="px-4 py-3 fw-medium"><%= member.user.name %></td>
+                    <td class="px-4 py-3 text-secondary"><%= member.user.email %></td>
+                    <td class="px-4 py-3">
+                      <span class="org-role-pill org-role-<%= member.role %>">
+                        <%= t("organizations.members.list.roles.#{member.role}") %>
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-secondary">
+                      <%= l member.created_at.to_date, format: :long %>
+                    </td>
+                    <% if is_admin %>
+                      <td class="px-4 py-3 text-end">
+                        <% if member.user_id != current_user.id %>
+                          <div class="dropdown">
+                            <button class="btn btn-sm org-member-action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+        aria-label="<%= t('organizations.members.list.member_actions', name: member.user.name) %>">
+                              <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                              <li class="dropdown-header"><%= t("organizations.members.list.change_role") %></li>
+                              <% (%w[admin mentor member] - [member.role]).each do |role| %>
+                                <li>
+                                  <%= button_to t("organizations.members.list.make_role", role: t("organizations.members.list.roles.#{role}")),
+      organization_organization_member_path(@organization, member),
+      method: :patch,
+      params: { organization_member: { role: role } },
+      class: "dropdown-item",
+      form: { data: { confirm: t("organizations.members.list.change_role_confirm", name: member.user.name, role: t("organizations.members.list.roles.#{role}")) } } %>
+                                </li>
+                              <% end %>
+                              <li><hr class="dropdown-divider"></li>
+                              <li>
+                                <%= button_to organization_organization_member_path(@organization, member),
+                                      method: :delete,
+                                      class: "dropdown-item text-danger",
+                                      form: { data: { confirm: t("organizations.members.list.remove_confirm", name: member.user.name) } } do %>
+                                  <i class="fa fa-user-times me-2" aria-hidden="true"></i><%= t("organizations.members.list.remove") %>
+                                <% end %>
+                              </li>
+                            </ul>
+                          </div>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="org-index-pagination mt-4">
+          <%= will_paginate @organization_members, param_name: "members_page", renderer: PaginateRenderer %>
+        </div>
+      <% else %>
+        <div class="org-dash-empty text-center rounded-4 py-5 px-3 text-secondary">
+          <i class="fa fa-users d-block mb-2 opacity-50" aria-hidden="true"></i>
+          <p class="m-0 fw-medium"><%= t("organizations.members.list.empty") %></p>
+        </div>
+      <% end %>
+    </section>
+    <% if is_admin %>
+      <div class="modal fade" id="inviteMemberModal" tabindex="-1" aria-labelledby="inviteMemberModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content" data-controller="organization-members">
+            <div class="modal-header">
+              <h5 class="modal-title fw-semibold" id="inviteMemberModalLabel">
+                <i class="fa fa-user-plus text-secondary me-2" aria-hidden="true"></i><%= t("organizations.members.invite.heading") %>
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t('close') %>"></button>
+            </div>
+            <%= form_with url: organization_organization_members_path(@organization), method: :post do %>
+              <div class="modal-body p-4">
+                <p class="text-secondary lh-base mb-4"><%= t("organizations.members.invite.description") %></p>
+                <div class="mb-3">
+                  <label for="invite_role" class="form-label fw-medium"><%= t("organizations.members.invite.role_label") %></label>
+                  <%= select_tag "organization_member[role]",
+                        options_for_select(
+                          [
+                            [t("organizations.members.invite.roles.member"), "member"],
+                            [t("organizations.members.invite.roles.mentor"), "mentor"],
+                            [t("organizations.members.invite.roles.admin"), "admin"]
+                          ],
+                          "member"
+                        ),
+                        id: "invite_role", class: "form-select" %>
+                </div>
+                <div class="mb-3">
+                  <label for="org_member_emails" class="form-label fw-medium"><%= t("organizations.members.invite.emails_label") %></label>
+                  <select name="organization_member[emails][]" id="org_member_emails" multiple="multiple" class="form-control"></select>
+                  <small class="text-secondary d-block mt-1"><%= t("organizations.members.invite.emails_hint") %></small>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal"><%= t("organizations.members.invite.cancel") %></button>
+                <%= submit_tag t("organizations.members.invite.submit_btn"), class: "btn primary-button" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
