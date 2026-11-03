@@ -46,7 +46,45 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
 
       it "returns projects list" do
         expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(0)
+      end
+    end
+
+    context "when pagination parameters are omitted" do
+      before do
+        get "/api/v1/projects/search?q=full", as: :json
+      end
+
+      it "returns projects list" do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.body).not_to include "Half adder using basic gates"
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
+
+    context "when query is empty and pagination parameters are omitted" do
+      before do
+        get "/api/v1/projects/search?q=", as: :json
+      end
+
+      it "returns projects list" do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(3)
+      end
+    end
+
+    context "when only page size is provided" do
+      before do
+        get "/api/v1/projects/search?q=full&page[size]=1", as: :json
+      end
+
+      it "returns projects list limited to page size" do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(1)
       end
     end
   end
