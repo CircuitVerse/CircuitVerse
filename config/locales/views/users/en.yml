@@ -40,6 +40,7 @@ en:
       index:
         title: "%{name} - Circuits"
         alt_title: "Nil - Circuits"
+        profile_image_alt: "User Profile Image"
         edit_details: "Edit Details"
         my_circuits: "My Circuits"
         favourite_circuits: "Favourite Circuits"
