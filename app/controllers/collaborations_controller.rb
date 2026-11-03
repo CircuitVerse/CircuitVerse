@@ -18,12 +18,11 @@ class CollaborationsController < ApplicationController
     authorize @project, :author_access?
 
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
-    collaboration_emails = collaboration_params[:emails].grep(Devise.email_regexp)
+    collaboration_emails = collaboration_params[:emails].grep(Devise.email_regexp).map(&:downcase)
 
     newly_added = collaboration_emails - already_present
 
     newly_added.each do |email|
-      email = email.strip
       user = User.find_by(email: email)
       if user.nil?
         # PendingInvitation.where(group_id:@group.id,email:email).first_or_create
