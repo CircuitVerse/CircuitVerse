@@ -39,7 +39,7 @@ cd CircuitVerse
 - [CMAKE](https://cmake.org/install/)
 - OpenSSL
 - libpq-dev
-- [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
+- [PostgreSQL](https://www.postgresql.org/) (`17`) - Database
 
 
 #### Setup
