@@ -10,6 +10,11 @@ en:
     remove_member_message: "Are you sure, you want to remove this member?"
     make_member: "Make member"
     make_mentor: "Make mentor"
+    sync_roster:
+      success: "Group roster synced with the LMS."
+      failure: "Could not sync the roster: %{message}"
+      no_resource_link: "This group is not linked to an LMS course."
+      not_available: "Roster sync is not available yet."
     edit:
       title: "%{name} - Edit Group Name"
       main_heading: "EDIT GROUP NAME"
@@ -19,6 +24,9 @@ en:
       main_description_html: "Groups can be used by mentors to set projects for and give grades to students.
         You can find the documentation <a class='anchor-text' href='https://docs.circuitverse.org/chapter2/chapter2-cvforeducators' target='_blank'>here</a>."
     show:
+      sync_roster_btn: "Sync Roster"
+      last_synced_html: "Last synced: %{time}"
+      never_synced: "Never synced"
       edit_name_btn: "Edit Name"
       primary_mentor_heading: "Primary Mentor:"
       mentor_name_heading: "MENTORS:"

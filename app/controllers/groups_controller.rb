@@ -3,9 +3,11 @@
 class GroupsController < ApplicationController
   include OrganizationScopedRedirect
 
+  helper_method :roster_services_loaded?
+
   skip_after_action :verify_authorized, only: %i[new create group_invite]
 
-  before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
+  before_action :set_group, only: %i[show edit update destroy group_invite generate_token sync_roster]
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag,
                 only: %i[new create show edit update destroy group_invite generate_token],
@@ -14,6 +16,7 @@ class GroupsController < ApplicationController
                 }
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
+  before_action :check_sync_roster_access, only: %i[sync_roster]
 
   # GET /groups/1
   # GET /groups/1.json
@@ -30,6 +33,23 @@ class GroupsController < ApplicationController
   def generate_token
     @group = Group.find(params.expect(:id))
     @group.reset_group_token unless @group.has_valid_token?
+  end
+
+  def sync_roster
+    link = @group.lti_resource_link
+    return redirect_to(group_path(@group), alert: t(".no_resource_link")) if link.blank?
+    return redirect_to(group_path(@group), alert: t(".not_available")) unless roster_services_loaded?
+
+    token = Lti::AccessToken.fetch(link.lti_deployment, [Lti::Membership::SCOPE], signing_key: Lti::KeyManager.private_key)
+    members = Lti::Membership.fetch(link.context_memberships_url, token)
+    ActiveRecord::Base.transaction do
+      Lti::RosterImport.call(@group, members, link.lti_deployment)
+      Lti::RosterDrop.call(@group, members, link.lti_deployment)
+      @group.update!(last_synced_at: Time.current)
+    end
+    redirect_to group_path(@group), notice: t(".success")
+  rescue Lti::AccessToken::Error, NameError => e
+    redirect_to group_path(@group), alert: t(".failure", message: e.message)
   end
 
   def group_invite
@@ -139,6 +159,17 @@ class GroupsController < ApplicationController
       else
         authorize @group, :admin_access?
       end
+    end
+
+    def check_sync_roster_access
+      authorize @group, :sync_roster?
+    end
+
+    # The roster services this action calls (Lti::Membership, Lti::RosterImport,
+    # Lti::RosterDrop) ship in a separate, still-unmerged PR; this keeps a
+    # missing dependency from surfacing as an unhandled NameError/500.
+    def roster_services_loaded?
+      defined?(Lti::Membership) && defined?(Lti::RosterImport) && defined?(Lti::RosterDrop)
     end
 
     def organization_from_params

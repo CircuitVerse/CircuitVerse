@@ -5,6 +5,7 @@ class Group < ApplicationRecord
   validates :name, length: { minimum: 1 }, presence: true
   belongs_to :primary_mentor, class_name: "User"
   belongs_to :organization, optional: true
+  belongs_to :lti_resource_link, optional: true
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
 
