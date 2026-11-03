@@ -14,15 +14,22 @@ export default class extends Controller {
     }
 
     setAdminModals() {
-        const updateContestModal = this.element.querySelector('#update-contest-modal');
-        if (!updateContestModal) return;
-        $(updateContestModal).on('show.bs.modal', function handleUpdateContestModal(e) {
-            const contestId = $(e.relatedTarget).data('contest').id;
-            const currentDeadline = $(e.relatedTarget).data('deadline');
-            const form = $(this).find('#update-contest-form');
-            const action = form.attr('action').replace(':contest_id', contestId);
-            form.attr('action', action);
-            form.find('#contest_deadline').val(currentDeadline);
+        const updateContestModals = this.element.querySelectorAll('[id^="update-contest-modal"]');
+        updateContestModals.forEach((modal) => {
+            $(modal).on('show.bs.modal', function handleUpdateContestModal(e) {
+                const contestData = $(e.relatedTarget).data('contest');
+                if (!contestData) return;
+                const contestId = contestData.id;
+                const currentDeadline = $(e.relatedTarget).data('deadline');
+                const form = $(this).find(`[id^="update-contest-form"]`);
+                if (form.length && form.attr('action')) {
+                    const action = form.attr('action').replace(':contest_id', contestId);
+                    form.attr('action', action);
+                    if (currentDeadline) {
+                        form.find('input[type="datetime-local"]').val(currentDeadline);
+                    }
+                }
+            });
         });
     }
 
