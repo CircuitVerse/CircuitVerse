@@ -31,16 +31,12 @@ describe SimulatorHelper do
     context "circuit has elements" do
       let(:data_url) { "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 100)}" }
       let(:jpeg) { Base64.decode64(data_url[("data:image/jpeg;base64,".length)..]) }
-      let(:image_file) { StringIO.new(jpeg) }
 
-      before do
-        allow(Base64).to receive(:decode64).and_return(jpeg)
-        allow(StringIO).to receive(:new).with(jpeg).and_return(image_file)
-      end
-
-      it "creates a new File object" do
+      it "creates a new Tempfile object" do
         returned_file = return_image_file(data_url)
-        expect(returned_file.path).to start_with("tmp/preview_")
+        expect(returned_file).to be_a(Tempfile)
+        expect(File.basename(returned_file.path)).to start_with("preview_")
+        expect(returned_file.read).to eq(jpeg)
       end
     end
   end
@@ -55,15 +51,9 @@ describe SimulatorHelper do
     context "circuit has elements" do
       let(:data_url) { "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 100)}" }
       let(:jpeg) { Base64.decode64(data_url[("data:image/jpeg;base64,".length)..]) }
-      let(:image_file) { StringIO.new(jpeg) }
-
-      before do
-        allow(Base64).to receive(:decode64).and_return(jpeg)
-        allow(StringIO).to receive(:new).with(jpeg).and_return(image_file)
-      end
 
       it "creates a new StringIO object" do
-        expect(parse_image_data_url(data_url)).to eq(image_file)
+        expect(parse_image_data_url(data_url).read).to eq(jpeg)
       end
     end
   end
