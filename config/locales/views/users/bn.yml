@@ -18,6 +18,7 @@ bn:
         description_html: '<sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> দিয়ে চিহ্নিত ক্ষেত্রগুলি বাধ্যতামূলক'
         profile_picture: "প্রোফাইল ছবি"
         choose_file: "ছবি আপলোড"
+        change_picture: "ছবি পরিবর্তন"
         remove_picture: "ছবি সরান"
         country_select_placeholder: "প্রবেশ না করা পছন্দ"
         select_locale_prompt: "ভাষা নির্বাচন করুন"
