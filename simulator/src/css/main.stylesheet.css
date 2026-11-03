@@ -995,7 +995,26 @@ div.icon img {
 .input-group-append button:hover {
     border-radius: 3px !important;
 }
-
+/* color-picker styling */
+div#color-picker-container{
+    position: relative;
+    height: 2.5rem;
+    margin-top: -1rem;
+}
+input#color-picker-text{
+    position: absolute;
+    top: 0;
+    width: calc(100% - 2.3rem);
+}
+input#color-picker
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 2.3rem;
+    height: 2.3rem;
+    border: none !important;
+}
 /* toogle */
 
 .switch {
