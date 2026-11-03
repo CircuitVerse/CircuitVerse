@@ -13,11 +13,6 @@ Lint/EmptyClass:
     - 'app/lib/adapters/base_adapter.rb'
 
 # Offense count: 1
-Lint/IneffectiveAccessModifier:
-  Exclude:
-    - 'app/models/grade.rb'
-
-# Offense count: 1
 # Configuration parameters: AllowComments, AllowNil.
 Lint/SuppressedException:
   Exclude:
