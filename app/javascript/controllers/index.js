@@ -15,8 +15,10 @@ import SearchBarController from './search_bar_controller';
 import SearchSortingController from './search_sorting_controller';
 import SearchFiltersController from './search_filters_controller';
 import OrganizationFormController from "./organization_form_controller";
+import TestCasesController from './test_cases_controller';
 
 application.register('assignment', AssignmentController);
+application.register('test-cases', TestCasesController);
 application.register('comments', CommentsController);
 application.register('contest', ContestController);
 application.register('explore', ExploreController);
