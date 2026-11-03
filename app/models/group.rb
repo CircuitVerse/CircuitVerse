@@ -5,15 +5,29 @@ class Group < ApplicationRecord
   validates :name, length: { minimum: 1 }, presence: true
   belongs_to :primary_mentor, class_name: "User"
   belongs_to :organization, optional: true
+  belongs_to :parent_group, class_name: "Group", optional: true
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
+  has_many :subgroups, class_name: "Group", foreign_key: :parent_group_id,
+                       inverse_of: :parent_group, dependent: :destroy
 
   has_many :assignments, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
 
-  after_commit :send_creation_mail, on: :create
+  before_validation :inherit_primary_mentor_from_parent, if: :subgroup?
+  validates :name, uniqueness: { scope: :parent_group_id, case_sensitive: false }, if: :subgroup?
+  validate :parent_group_must_be_top_level, if: :subgroup?
+  validate :cannot_become_a_subgroup_with_its_own_subgroups, if: :subgroup?
+
+  after_update :sync_subgroup_mentors, if: -> { !subgroup? && saved_change_to_primary_mentor_id? }
+  after_commit :send_creation_mail, on: :create, unless: :subgroup?
   scope :with_valid_token, -> { where(token_expires_at: Time.zone.now..) }
+  scope :top_level, -> { where(parent_group_id: nil) }
   TOKEN_DURATION = 12.days
+
+  def subgroup?
+    parent_group_id.present?
+  end
 
   def send_creation_mail
     GroupMailer.new_group_email(primary_mentor, self).deliver_later
@@ -37,4 +51,24 @@ class Group < ApplicationRecord
       update(token_expires_at: Time.zone.now + TOKEN_DURATION)
     end
   end
+
+  private
+
+    def inherit_primary_mentor_from_parent
+      self.primary_mentor = parent_group.primary_mentor if parent_group
+    end
+
+    def parent_group_must_be_top_level
+      errors.add(:parent_group, "cannot itself be a subgroup") if parent_group&.subgroup?
+    end
+
+    def cannot_become_a_subgroup_with_its_own_subgroups
+      errors.add(:parent_group, "cannot be set on a group that already has subgroups") if subgroups.exists?
+    end
+
+    # Subgroups always mirror the parent's primary mentor, so a mentor
+    # change on the parent has to propagate rather than leaving them stale.
+    def sync_subgroup_mentors
+      subgroups.find_each { |subgroup| subgroup.update!(primary_mentor_id: primary_mentor_id) }
+    end
 end

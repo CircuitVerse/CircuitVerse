@@ -55,5 +55,18 @@ RSpec.describe Api::V1::GroupsController, "#groups_owned", type: :request do
         expect(response.parsed_body["data"].length).to eq(3)
       end
     end
+
+    context "when the user owns a group with a subgroup" do
+      before do
+        parent = FactoryBot.create(:group, primary_mentor: primary_mentor)
+        FactoryBot.create(:group, name: "Team A", parent_group: parent)
+        token = get_auth_token(primary_mentor)
+        get "/api/v1/groups/owned", headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "excludes the subgroup from the listing" do
+        expect(response.parsed_body["data"].length).to eq(1)
+      end
+    end
   end
 end

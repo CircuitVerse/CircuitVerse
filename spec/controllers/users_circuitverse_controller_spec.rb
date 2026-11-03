@@ -47,6 +47,19 @@ describe Users::CircuitverseController, type: :request do
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
     end
+
+    context "user owns a group with a subgroup" do
+      it "excludes the subgroup from the owned-groups listing" do
+        sign_in @user
+        parent = FactoryBot.create(:group, primary_mentor: @user, name: "Parent Group")
+        FactoryBot.create(:group, name: "Subgroup One", parent_group: parent)
+
+        get user_groups_path(id: @user.id)
+
+        expect(response.body).to include("Parent Group")
+        expect(response.body).not_to include("Subgroup One")
+      end
+    end
   end
 
   it "gets edit profile" do
