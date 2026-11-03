@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_24_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -100,7 +100,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.bigint "group_id"
     t.string "lti_consumer_key"
     t.string "lti_shared_secret"
+    t.integer "max_attempts"
     t.string "name"
+    t.boolean "partial_credit", default: false
+    t.boolean "reveal_test_cases", default: false
     t.json "restrictions", default: "[]"
     t.string "status"
     t.datetime "updated_at", precision: nil, null: false
