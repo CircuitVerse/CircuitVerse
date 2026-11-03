@@ -70,7 +70,7 @@ describe ProjectsController, type: :request do
 
       it "does not create a star" do
         expect do
-          get change_stars_path(@private_project), xhr: true
+          post change_stars_path(@private_project), xhr: true
         end.not_to change(Star, :count)
         check_project_access_error(response)
       end
@@ -79,14 +79,14 @@ describe ProjectsController, type: :request do
     context "user has not already starred" do
       it "creates a star" do
         expect do
-          get change_stars_path(@project), xhr: true
+          post change_stars_path(@project), xhr: true
         end.to change(Star, :count).by(1)
       end
     end
 
     context "star notification" do
       it "notify author" do
-        get change_stars_path(@project), xhr: true
+        post change_stars_path(@project), xhr: true
         expect(@author.noticed_notifications.count).to eq(1)
       end
     end
@@ -98,7 +98,7 @@ describe ProjectsController, type: :request do
 
       it "deletes the star" do
         expect do
-          get change_stars_path(@project), xhr: true
+          post change_stars_path(@project), xhr: true
         end.to change(Star, :count).by(-1)
       end
     end
@@ -122,7 +122,7 @@ describe ProjectsController, type: :request do
 
     context "fork notification" do
       it "notify author" do
-        get change_stars_path(@project), xhr: true
+        post change_stars_path(@project), xhr: true
         expect(@author.noticed_notifications.count).to eq(1)
       end
     end
