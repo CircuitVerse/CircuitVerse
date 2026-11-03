@@ -77,5 +77,19 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
         expect(response.parsed_body["included"].length).to eq(6)
       end
     end
+
+    context "when the user is a member of a subgroup" do
+      before do
+        parent = FactoryBot.create(:group, primary_mentor: primary_mentor)
+        subgroup = FactoryBot.create(:group, name: "Team A", parent_group: parent)
+        FactoryBot.create(:group_member, group: subgroup, user: user)
+        token = get_auth_token(user)
+        get "/api/v1/groups", headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "excludes the subgroup from the listing" do
+        expect(response.parsed_body["data"].length).to eq(0)
+      end
+    end
   end
 end
