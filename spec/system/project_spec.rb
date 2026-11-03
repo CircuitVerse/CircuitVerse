@@ -151,6 +151,20 @@ describe "Project", type: :system do
       click_on "Add Collaborators"
       expect(page).to have_text("1 user(s) will be invited")
     end
+
+    it "allows 254-character email for collaborator input" do
+      local_part = "a" * 64
+      domain = "#{"b" * 185}.com"
+      long_email = "#{local_part}@#{domain}"
+      visit user_project_path(private_project.author, private_project)
+      click_on "+ Add a Collaborator"
+      project_input_field_id = "#project_email_input_collaborator"
+      expect(find(project_input_field_id)[:maxlength]).to eq("254")
+      fill_in_input project_input_field_id, with: long_email
+      fill_in_input project_input_field_id, with: :enter
+      click_on "Add Collaborators"
+      expect(page).to have_text("1 user(s) will be invited")
+    end
   end
 
   def fill_in_input(editor, with:)

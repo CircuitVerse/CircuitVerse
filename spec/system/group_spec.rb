@@ -46,6 +46,22 @@ describe "Group management", type: :system do
     )
   end
 
+  it "allows typing up to 254 characters for a member email" do
+    visit "/groups/#{group.id}"
+    click_button "+ Add Members"
+    local_part = "a" * 64
+    domain = "#{"b" * 185}.com"
+    long_email = "#{local_part}@#{domain}"
+    expect(find("#group_email_input")[:maxlength]).to eq("254")
+    fill_in_input "#group_email_input", with: long_email
+    fill_in_input "#group_email_input", with: :enter
+    click_button "Add members"
+
+    expect(page).to have_text(
+      "Out of 1 Email(s), 1 was valid and 0 were invalid. 1 user(s) will be invited."
+    )
+  end
+
   it "removes a member from the group" do
     group.users.append(user)
     visit "/groups/#{group.id}"
@@ -79,6 +95,22 @@ describe "Group management", type: :system do
     visit "/groups/#{group.id}"
     click_button "+ Add Mentors"
     fill_in_input "#group_email_input_mentor", with: user.email
+    fill_in_input "#group_email_input_mentor", with: :enter
+    click_button "Add mentors"
+
+    expect(page).to have_text(
+      "Out of 1 Email(s), 1 was valid and 0 were invalid. 1 user(s) will be invited."
+    )
+  end
+
+  it "allows typing up to 254 characters for a mentor email" do
+    visit "/groups/#{group.id}"
+    click_button "+ Add Mentors"
+    local_part = "a" * 64
+    domain = "#{"b" * 185}.com"
+    long_email = "#{local_part}@#{domain}"
+    expect(find("#group_email_input_mentor")[:maxlength]).to eq("254")
+    fill_in_input "#group_email_input_mentor", with: long_email
     fill_in_input "#group_email_input_mentor", with: :enter
     click_button "Add mentors"
 
