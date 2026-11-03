@@ -11,7 +11,6 @@ global.window = window;
 window.Jquery = require('jquery');
 window.$ = require('jquery');
 global.jQuery = require('jquery');
-global.inputSpinner = require('bootstrap-input-spinner/src/bootstrap-input-spinner');
 
 window.restrictedElements = [];
 window.userSignedIn = true;
