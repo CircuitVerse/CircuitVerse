@@ -51,10 +51,12 @@ RSpec.describe Project, type: :model do
       end
 
       describe "#send_mail" do
-        it "sends new project mail" do
+        it "sends new project mail with scalar IDs" do
           expect do
             @project.send_mail
-          end.to have_enqueued_job.on_queue("mailers")
+          end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+            .with("UserMailer", "new_project_email", "deliver_now", { args: [@user.id, @project.id] })
+            .on_queue("mailers")
         end
       end
     end

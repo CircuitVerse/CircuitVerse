@@ -16,7 +16,7 @@ class Group < ApplicationRecord
   TOKEN_DURATION = 12.days
 
   def send_creation_mail
-    GroupMailer.new_group_email(primary_mentor, self).deliver_later
+    GroupMailer.new_group_email(primary_mentor_id, id).deliver_later
   end
 
   def has_valid_token?

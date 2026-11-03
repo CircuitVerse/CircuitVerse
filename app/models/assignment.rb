@@ -27,16 +27,16 @@ class Assignment < ApplicationRecord
   end
 
   def send_new_assignment_mail
-    group.group_members.each do |group_member|
-      AssignmentMailer.new_assignment_email(group_member.user, self).deliver_later
+    group.group_members.pluck(:user_id).each do |user_id|
+      AssignmentMailer.new_assignment_email(user_id, id).deliver_later
     end
   end
 
   def send_update_mail
     return unless status != "closed"
 
-    group.group_members.each do |group_member|
-      AssignmentMailer.update_assignment_email(group_member.user, self).deliver_later
+    group.group_members.pluck(:user_id).each do |user_id|
+      AssignmentMailer.update_assignment_email(user_id, id).deliver_later
     end
   end
 

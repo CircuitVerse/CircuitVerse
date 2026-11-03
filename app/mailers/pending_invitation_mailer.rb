@@ -2,8 +2,18 @@
 
 class PendingInvitationMailer < ApplicationMailer
   def new_pending_email(pending_invitation)
-    @group = pending_invitation.group # Group.find_by(id:pending_invitation.group_id)
-    @email = pending_invitation.email
+    @pending_invitation =
+      if pending_invitation.is_a?(PendingInvitation)
+        pending_invitation
+      else
+        PendingInvitation.find_by(id: pending_invitation)
+      end
+    return unless @pending_invitation
+
+    @group = @pending_invitation.group
+    @email = @pending_invitation.email
+    return if @email.blank?
+
     mail(to: [@email], subject: "Added to a group in CircuitVerse ")
   end
 end
