@@ -23,6 +23,14 @@ class Rack::Attack
       end
       @json_params
     end
+
+    # Normalizes a user supplied email for use as a throttle key.
+    # scrub replaces invalid UTF-8 bytes so downcase can never raise.
+    def normalized_email(value)
+      return if value.nil?
+
+      value.to_s.scrub.downcase
+    end
   end
 
   # Disable if DISABLE_RACK_ATTACK and if env is not production
@@ -45,7 +53,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle logins by email", limit: 5, period: 20.seconds) do |req|
-    req.params.dig("user", "email")&.to_s&.downcase if req.path == "/users/sign_in" && req.post?
+    req.normalized_email(req.params.dig("user", "email")) if req.path == "/users/sign_in" && req.post?
   end
 
   ### Throttle password resets ###
@@ -57,7 +65,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle password resets by email", limit: 5, period: 20.seconds) do |req|
-    req.params.dig("user", "email")&.to_s&.downcase if req.path == "/users/password" && req.post?
+    req.normalized_email(req.params.dig("user", "email")) if req.path == "/users/password" && req.post?
   end
 
   ### Throttle logins on API ###
@@ -69,7 +77,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle api logins by email", limit: 5, period: 20.seconds) do |req|
-    req.json_params["email"].to_s.downcase if req.path == "/api/v1/auth/login" && req.post?
+    req.normalized_email(req.json_params["email"]) if req.path == "/api/v1/auth/login" && req.post?
   end
 
   ### Throttle password resets on API ###
@@ -81,7 +89,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle api password resets by email", limit: 5, period: 20.seconds) do |req|
-    req.json_params["email"].to_s.downcase if req.path == "/api/v1/password/forgot" && req.post?
+    req.normalized_email(req.json_params["email"]) if req.path == "/api/v1/password/forgot" && req.post?
   end
 
   self.throttled_responder = lambda do |_env|
