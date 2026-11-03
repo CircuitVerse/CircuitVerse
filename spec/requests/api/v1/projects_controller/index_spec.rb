@@ -91,5 +91,24 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         expect(response.parsed_body["data"].length).to eq(2)
       end
     end
+
+    context "when authenticated and projects are starred" do
+      let!(:starred_project) { FactoryBot.create(:project, project_access_type: "Public") }
+      let!(:unstarred_project) { FactoryBot.create(:project, project_access_type: "Public") }
+
+      before do
+        FactoryBot.create(:star, user: user, project: starred_project)
+        token = get_auth_token(user)
+        get "/api/v1/projects", headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "sets is_starred appropriately for starred and unstarred projects" do
+        expect(response).to have_http_status(:ok)
+        starred_data = response.parsed_body["data"].find { |p| p["id"] == starred_project.id.to_s }
+        unstarred_data = response.parsed_body["data"].find { |p| p["id"] == unstarred_project.id.to_s }
+        expect(starred_data["attributes"]["is_starred"]).to be(true)
+        expect(unstarred_data["attributes"]["is_starred"]).to be(false)
+      end
+    end
   end
 end
