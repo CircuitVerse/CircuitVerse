@@ -1,0 +1,89 @@
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h3 class="mb-0"><%= t("groups.show.subgroups.heading") %></h3>
+  <button type="button" class="btn primary-button groups-primary-button" data-bs-toggle="modal" data-bs-target="#create-subgroup-modal">
+    <%= t("groups.show.subgroups.add_btn") %>
+  </button>
+</div>
+<% if group.subgroups.blank? %>
+  <span class="null-text"><%= t("groups.show.subgroups.none_html") %></span>
+<% end %>
+<ul class="list-unstyled">
+  <% group.subgroups.includes(:group_members).each do |subgroup| %>
+    <li class="d-flex justify-content-between align-items-center py-2">
+      <% progress = subgroup.progress %>
+      <span>
+        <%= link_to subgroup.name, group_path(subgroup) %>
+        <small class="text-muted"><%= t("groups.show.subgroups.progress", assignments: t("groups.show.subgroups.assignments_count", count: progress[:assignments]), **progress.slice(:submissions, :graded)) %></small>
+      </span>
+      <span>
+        <button type="button" class="btn primary-button" data-bs-toggle="modal" data-bs-target="#manage-subgroup-<%= subgroup.id %>">
+          <%= t("groups.show.subgroups.manage_btn") %>
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-subgroup-<%= subgroup.id %>">
+          <%= t("delete") %>
+        </button>
+      </span>
+    </li>
+
+    <div id="manage-subgroup-<%= subgroup.id %>" class="modal fade" role="dialog">
+      <div class="modal-dialog primary-modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header primary-modal-header">
+            <h4 class="modal-title"><%= t("groups.show.subgroups.manage_heading", name: subgroup.name) %></h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+          </div>
+          <%= form_with(url: update_members_group_subgroup_path(group, subgroup), method: :patch) do |form| %>
+            <div class="modal-body">
+              <% selected = subgroup.group_members.member.pluck(:user_id) %>
+              <% group.group_members.member.includes(:user).each do |member| %>
+                <div class="form-check">
+                  <%= check_box_tag "user_ids[]", member.user_id, selected.include?(member.user_id), id: "subgroup-#{subgroup.id}-user-#{member.user_id}", class: "form-check-input" %>
+                  <%= label_tag "subgroup-#{subgroup.id}-user-#{member.user_id}", member.user.name, class: "form-check-label" %>
+                </div>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <%= form.submit t("groups.show.subgroups.save_btn"), class: "btn primary-button" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div id="delete-subgroup-<%= subgroup.id %>" class="modal fade" role="dialog">
+      <div class="modal-dialog primary-modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header primary-modal-header">
+            <h4 class="modal-title"><%= t("delete") %></h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+          </div>
+          <div class="modal-body"><%= t("groups.show.subgroups.delete_message") %></div>
+          <div class="modal-footer">
+            <%= button_to t("delete"), group_subgroup_path(group, subgroup), method: :delete, class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</ul>
+
+<div id="create-subgroup-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("groups.show.subgroups.add_btn") %></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+      </div>
+      <%= form_with(model: Group.new, url: group_subgroups_path(group)) do |form| %>
+        <div class="modal-body">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: "form-control", required: true %>
+        </div>
+        <div class="modal-footer">
+          <%= form.submit t("groups.show.subgroups.create_btn"), class: "btn primary-button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<hr>
