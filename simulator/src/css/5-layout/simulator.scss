@@ -48,8 +48,9 @@
 
 #MessageDiv {
   position: absolute;
-  left: 30px;
-  bottom: 30px;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 110;
 }
 
