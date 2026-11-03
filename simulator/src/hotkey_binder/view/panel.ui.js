@@ -1,5 +1,6 @@
 import { defaultKeys } from '../defaultKeys';
 import { setUserKeys } from '../model/actions';
+import { storageGet } from '../model/utils';
 
 /**
  * function to generate the specific HTML for the hotkey panel
@@ -40,7 +41,7 @@ export const heading = `<div id="heading">
 export const updateHTML = (mode) => {
     let x = 0;
     if (mode == "user") {
-        const userKeys = localStorage.get("userKeys");
+        const userKeys = storageGet(localStorage, "userKeys");
         while ($("#preference").children()[x]) {
             $("#preference").children()[x].children[1].children[1].innerText =
                 userKeys[
@@ -50,8 +51,8 @@ export const updateHTML = (mode) => {
             x++;
         }
     } else if (mode == "default") {
+        const defaultKeys = storageGet(localStorage, "defaultKeys");
         while ($("#preference").children()[x]) {
-            const defaultKeys = localStorage.get("defaultKeys");
             $("#preference").children()[x].children[1].children[1].innerText =
                 defaultKeys[
                     $("#preference").children()[x]
