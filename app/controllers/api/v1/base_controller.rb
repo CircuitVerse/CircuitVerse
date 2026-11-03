@@ -67,9 +67,12 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def paginate(resource)
+    page_params = params.to_unsafe_h["page"]
+    page_number = page_params.is_a?(Hash) ? page_params["number"] : page_params
+    page_size = page_params.is_a?(Hash) ? page_params["size"] : nil
     resource.paginate(
-      page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
-      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
+      page: (page_number || 1).to_i,
+      per_page: (page_size || DEFAULT_PER_PAGE).to_i
     )
   end
 
