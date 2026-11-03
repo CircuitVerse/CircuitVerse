@@ -34,10 +34,8 @@ module Logix
         config.i18n.default_locale = :en
         config.i18n.fallbacks = true
 
-        # configuring middleware
-        config.middleware.use Rack::Attack
-        # configuring middleware
-           config.middleware.use Rack::Attack
+        # Rack::Attack is inserted into the middleware stack by the rack-attack gem's
+        # Railtie; throttling rules live in config/initializers/rack_attack.rb.
 
            # Site config
            config.site_url = "https://circuitverse.org/"
