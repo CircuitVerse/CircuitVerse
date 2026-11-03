@@ -25,6 +25,9 @@
     </div>
   </div>
   <% end %>
+  <% if @project.assignment_id.present? %>
+    <%= link_to t("projects.grading_result.heading"), grading_result_user_project_path(@project.author_id, @project) %>
+  <% end %>
   <br>
   <div class="row center-row">
     <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
