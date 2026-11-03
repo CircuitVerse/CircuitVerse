@@ -1,13 +1,33 @@
 # frozen_string_literal: true
 
 class LtiController < ApplicationController
+  # Scopes the message verifier so a state signed for OIDC login can't be replayed
+  # against any other purpose that ends up using Rails.application.message_verifier.
+  LTI_STATE_PURPOSE = "lti_oidc_state"
+  LTI_STATE_TTL = 5.minutes
+
   skip_after_action :verify_authorized
 
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
-  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config]
+  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config oidc_login]
   after_action :allow_iframe_lti, only: %i[launch]
+
+  # Step 1 of the LTI 1.3 handshake; the launch verifies the nonce and state.
+  def oidc_login
+    deployment = find_oidc_deployment
+    return head :not_found if deployment.blank?
+
+    nonce = SecureRandom.hex(16)
+    state = lti_state_verifier.generate(
+      { "nonce" => nonce, "deployment_id" => deployment.id },
+      purpose: LTI_STATE_PURPOSE,
+      expires_in: LTI_STATE_TTL
+    )
+
+    redirect_to oidc_authorize_url(deployment, nonce, state), allow_other_host: true
+  end
 
   def jwks
     render json: { keys: [Lti::KeyManager.public_jwk] }
@@ -69,8 +89,74 @@ class LtiController < ApplicationController
 
   private
 
+    # LTI 1.3 stays dark until an operator opts in; LTI 1.1 is unaffected.
     def verify_lti_advantage_enabled
       head :not_found unless Flipper.enabled?(:lti_advantage)
+    end
+
+    # An LMS-initiated login cannot carry a CSRF token of ours. Rather than
+    # disabling the check for the action, treat a well-formed initiation as
+    # verified: it reads no session and writes nothing, and the signed state it
+    # hands back is what protects the launch that follows.
+    def verified_request?
+      super || (action_name == "oidc_login" && params[:iss].present? && params[:login_hint].present?)
+    end
+
+    # iss and login_hint are required on every initiation; the optional claims
+    # only narrow the lookup when a platform registers CircuitVerse twice. An
+    # ambiguous match is refused rather than guessed at, since the wrong pick
+    # would send the launch to another registration's client_id.
+    def find_oidc_deployment
+      return nil if params[:iss].blank? || params[:login_hint].blank?
+
+      scope = LtiDeployment.where(issuer: params[:iss])
+      scope = scope.where(client_id: params[:client_id]) if params[:client_id].present?
+      scope = scope.where(deployment_id: params[:lti_deployment_id]) if params[:lti_deployment_id].present?
+
+      matches = scope.limit(2).to_a
+      matches.first if matches.one? && valid_auth_endpoint?(matches.first.auth_login_url)
+    end
+
+    # OIDC requires TLS on the authorization endpoint. Plain http is tolerated
+    # outside production so local LMS containers keep working, but anything that
+    # is not http(s) must never reach redirect_to with allow_other_host.
+    def valid_auth_endpoint?(url)
+      uri = URI.parse(url.to_s)
+      return false if uri.host.blank?
+
+      uri.is_a?(URI::HTTPS) || (uri.is_a?(URI::HTTP) && !Rails.env.production?)
+    rescue URI::InvalidURIError
+      false
+    end
+
+    # Some platforms register an authorization endpoint that already carries
+    # query parameters, so merge rather than replace. String keys throughout,
+    # or a platform's own "scope" would survive alongside ours as a duplicate.
+    def oidc_authorize_url(deployment, nonce, state)
+      uri = URI(deployment.auth_login_url)
+      query = URI.decode_www_form(uri.query.to_s).to_h
+                 .merge(oidc_request_params(deployment, nonce, state)).compact
+      uri.query = URI.encode_www_form(query)
+      uri.to_s
+    end
+
+    def oidc_request_params(deployment, nonce, state)
+      {
+        "scope" => "openid",
+        "response_type" => "id_token",
+        "response_mode" => "form_post",
+        "prompt" => "none",
+        "client_id" => deployment.client_id,
+        "redirect_uri" => "#{request.base_url}/lti/launch",
+        "login_hint" => params[:login_hint],
+        "lti_message_hint" => params[:lti_message_hint],
+        "nonce" => nonce,
+        "state" => state
+      }
+    end
+
+    def lti_state_verifier
+      Rails.application.message_verifier(LTI_STATE_PURPOSE)
     end
 
     def tool_configuration
