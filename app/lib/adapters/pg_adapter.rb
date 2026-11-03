@@ -25,7 +25,7 @@ module Adapters
         base_results: base_project_results(relation, query_params),
         query_params: query_params,
         type: :project,
-        includes: %i[tags author]
+        includes: %i[tags author comment_thread]
       )
     end
 
