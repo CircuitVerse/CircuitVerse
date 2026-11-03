@@ -151,6 +151,22 @@ describe "Project", type: :system do
       click_on "Add Collaborators"
       expect(page).to have_text("1 user(s) will be invited")
     end
+
+    it "truncates pasted collaborator emails to 254 characters" do
+      long_email = "#{'a' * 64}@#{'b' * 185}.com.extra"
+      visit user_project_path(private_project.author, private_project)
+      click_on "+ Add a Collaborator"
+      page.execute_script(<<~JS)
+        const input = document.querySelector('#project_email_input_collaborator');
+        const pasteEvent = new Event('paste', { bubbles: true, cancelable: true });
+        pasteEvent.clipboardData = {
+          getData: () => '#{long_email}'
+        };
+        input.dispatchEvent(pasteEvent);
+      JS
+      expect(page).to have_css(".select2-selection__choice", text: long_email[0...254])
+      expect(page).not_to have_css(".select2-selection__choice", text: long_email)
+    end
   end
 
   def fill_in_input(editor, with:)
