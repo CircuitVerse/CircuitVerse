@@ -53,6 +53,9 @@ Rails.application.routes.draw do
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
+    resources :subgroups, only: %i[create destroy] do
+      member { patch :update_members }
+    end
     member do
       get "invite/:token", to: "groups#group_invite", as: "invite"
       put :generate_token
@@ -264,12 +267,16 @@ Rails.application.routes.draw do
       resources :grades, only: %i[update destroy]
       get "/groups/owned", to: "groups#groups_owned"
       resources :groups, only: %i[index show update destroy]
+      resources :subgroups, only: %i[show destroy] do
+        patch :members, action: :update_members, on: :member
+      end
       delete "/group/members/:id", to: "group_members#destroy"
       put "/group/members/:id", to: "group_members#update"
       patch "/group/members/:id", to: "group_members#update"
       resources :groups do
         resources :members, controller: "group_members", shallow: true, only: %i[index create]
         resources :assignments, shallow: true
+        resources :subgroups, only: %i[index create]
       end
       resources :assignments do
         member do
