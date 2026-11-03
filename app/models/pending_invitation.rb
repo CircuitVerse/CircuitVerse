@@ -5,6 +5,7 @@ class PendingInvitation < ApplicationRecord
   belongs_to :organization, optional: true
 
   validate :group_or_organization_present
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_nil: true
 
   after_commit :send_pending_invitation_mail, on: :create
 
