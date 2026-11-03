@@ -26,7 +26,11 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render "errors/not_found", status: :not_found
+    respond_to do |format|
+      format.html { render "errors/not_found", status: :not_found }
+      format.json { render json: { error: "Resource not found" }, status: :not_found }
+      format.all { head :not_found }
+    end
   end
 
   def switch_locale(&)
