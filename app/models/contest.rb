@@ -13,7 +13,7 @@ class Contest < ApplicationRecord
   validate  :deadline_must_be_in_future, unless: :completed?
   validates :status, presence: true
   validate  :only_one_live_contest, on: %i[create update], if: :live?
-  self.per_page = 8
+  PER_PAGE = 8
 
   private
 

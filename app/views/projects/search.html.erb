@@ -17,8 +17,6 @@
         <%= render(Project::ProjectCardComponent.new(project: project)) %>
       <% end %>
     </div>
-    <% unless @results.empty? %>
-      <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
-    <% end %>
+    <%= render "shared/prev_next_pagination", pagy: @pagy %>
   </div>
 <% end %>

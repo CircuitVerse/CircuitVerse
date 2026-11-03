@@ -6,11 +6,13 @@ RSpec.describe Contest::IndexPageComponent, type: :component do
   it "renders at least one contest card" do
     create(:contest, :completed)
 
-    contests = Contest.paginate(page: 1)
+    contests = Contest.order(id: :desc).limit(Contest::PER_PAGE)
+    pagy = Pagy.new(count: Contest.count, page: 1, limit: Contest::PER_PAGE)
 
     render_inline(
       described_class.new(
         contests: contests,
+        pagy: pagy,
         current_user: build_stubbed(:user),
         notice: nil
       )
