@@ -75,6 +75,20 @@ describe SimulatorController, type: :request do
     end
 
     describe "#edit" do
+      it "returns not acceptable for JSON requests" do
+        sign_in @user
+        get simulator_edit_user_project_path(@user, @project), as: :json
+
+        expect(response).to have_http_status(:not_acceptable)
+      end
+
+      it "preserves edit authorization for JSON requests" do
+        sign_in_random_user
+        get simulator_edit_user_project_path(@user, @project), as: :json
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
       context "when author is signed in" do
         it "allows access to edit page" do
           sign_in @user
@@ -117,6 +131,12 @@ describe SimulatorController, type: :request do
     end
 
     describe "#redirect_to_vue_simulator_if_enabled" do
+      it "returns not acceptable for JSON requests to the new simulator page" do
+        get simulator_new_path, as: :json
+
+        expect(response).to have_http_status(:not_acceptable)
+      end
+
       context "when vuesim is enabled for user and user opens black simualtor" do
         before do
           allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(true)

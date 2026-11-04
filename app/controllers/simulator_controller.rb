@@ -11,6 +11,7 @@ class SimulatorController < ApplicationController
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update]
+  before_action :ensure_html_format, only: %i[new edit]
   before_action :redirect_to_canonical_url, only: %i[show edit]
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
@@ -147,6 +148,10 @@ class SimulatorController < ApplicationController
   end
 
   private
+
+    def ensure_html_format
+      head :not_acceptable unless request.format.html?
+    end
 
     def redirect_to_canonical_url
       canonical_path = case action_name
