@@ -15,6 +15,7 @@ RSpec.describe "Admin::ContestsController#index", type: :request do
   it "points the close and edit buttons at the contest's own modals" do
     sign_in create(:user, admin: true)
     contest = create(:contest)
+    create(:contest, status: :completed)
 
     get admin_contests_path
 
