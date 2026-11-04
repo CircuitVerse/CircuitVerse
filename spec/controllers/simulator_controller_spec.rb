@@ -82,6 +82,13 @@ describe SimulatorController, type: :request do
         expect(response).to have_http_status(:not_acceptable)
       end
 
+      it "preserves edit authorization for JSON requests" do
+        sign_in_random_user
+        get simulator_edit_user_project_path(@user, @project), as: :json
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
       context "when author is signed in" do
         it "allows access to edit page" do
           sign_in @user

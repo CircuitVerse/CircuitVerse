@@ -7,11 +7,11 @@ class SimulatorController < ApplicationController
   skip_after_action :verify_authorized, only: %i[new create post_issue verilog_cv]
 
   before_action :authenticate_user!, only: %i[create update edit]
-  before_action :ensure_html_format, only: %i[new edit]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update]
+  before_action :ensure_html_format, only: %i[new edit]
   before_action :redirect_to_canonical_url, only: %i[show edit]
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
