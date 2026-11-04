@@ -51,6 +51,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   end
 
   # PATCH /api/v1/assignments/:id/reopen
+  # Reopens a closed assignment and restores student projects via the API.
   def reopen
     if @assignment.status == "open"
       api_error(status: 409, errors: "Project is already opened!")
@@ -58,20 +59,19 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       @assignment.status = "open"
       @assignment.deadline = 1.day.from_now
       @assignment.save!
+      @assignment.check_reopening_status
       render json: { message: "Assignment has been reopened!" }, status: :accepted
     end
   end
 
-  # PUT /api/v1/assignments/:id/close
+  # PATCH /api/v1/assignments/:id/close
+  # Closes an assignment and snapshots student submissions via the API.
   def close
     authorize @assignment
-    if @assignment.status == "closed"
-      api_error(status: 409, errors: "Assignment is already closed!")
-    else
-      @assignment.status = "closed"
-      @assignment.deadline = Time.zone.now
-      @assignment.save!
+    if @assignment.close!
       render json: { message: "Assignment has been closed!" }, status: :accepted
+    else
+      api_error(status: 409, errors: "Assignment is already closed!")
     end
   end
 

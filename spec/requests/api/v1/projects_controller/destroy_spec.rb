@@ -44,6 +44,20 @@ RSpec.describe Api::V1::ProjectsController, "#destroy", type: :request do
       end
     end
 
+    context "when authenticated user tries to delete own assignment submission" do
+      before do
+        project.update!(project_submission: true)
+        token = get_auth_token(user)
+        delete "/api/v1/projects/#{project.id}",
+               headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status :forbidden" do
+        expect(response).to have_http_status(:forbidden)
+        expect(Project.exists?(project.id)).to be(true)
+      end
+    end
+
     context "when authenticated user tries to destroy non existent project details" do
       before do
         token = get_auth_token(random_user)

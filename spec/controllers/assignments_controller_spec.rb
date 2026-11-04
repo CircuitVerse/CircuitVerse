@@ -107,9 +107,15 @@ describe AssignmentsController, type: :request do
 
       context "when assignment is open" do
         it "closes the assignment" do
+          project = create(:project, assignment: @assignment, author: @member)
           put close_group_assignment_path(@group, @assignment)
           @assignment.reload
           expect(@assignment.status).to eq("closed")
+
+          submission = @assignment.projects.find_by(author: @member)
+          expect(submission.project_submission).to be(true)
+          expect(submission.forked_project_id).to eq(project.id)
+          expect(project.reload.assignment_id).to be_nil
         end
       end
 
@@ -158,6 +164,19 @@ describe AssignmentsController, type: :request do
         put group_assignment_path(@group, @assignment), params: mentor_update_params
         @assignment.reload
         expect(@assignment.description).to eq("updated description")
+      end
+    end
+
+    context "when updating a closed assignment" do
+      it "keeps submissions frozen" do
+        sign_in @primary_mentor
+        project = create(:project, assignment: @assignment, author: @member)
+        @assignment.close!
+        put group_assignment_path(@group, @assignment), params: update_params
+
+        expect(@assignment.reload.status).to eq("closed")
+        expect(project.reload.assignment_id).to be_nil
+        expect(@assignment.projects.where(project_submission: true).count).to eq(1)
       end
     end
 
@@ -213,12 +232,15 @@ describe AssignmentsController, type: :request do
     end
 
     context "when primary_mentor is signed in" do
-      it "changes status to open" do
+      it "changes status to open and restores frozen projects" do
         sign_in @primary_mentor
-        expect(@closed_assignment.status).to eq("closed")
-        get reopen_group_assignment_path(@group, @closed_assignment)
-        @closed_assignment.reload
-        expect(@closed_assignment.status).to eq("open")
+        project = create(:project, assignment: @assignment, author: @member)
+        @assignment.close!
+        get reopen_group_assignment_path(@group, @assignment)
+
+        expect(@assignment.reload.status).to eq("open")
+        expect(project.reload.assignment_id).to eq(@assignment.id)
+        expect(@assignment.projects.where(project_submission: true)).to be_empty
       end
     end
 
