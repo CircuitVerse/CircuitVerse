@@ -29,6 +29,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
+      - name: Install libjitterentropy3-dev
+        # Ubuntu 26.04's libssl-dev references libjitterentropy.a without depending on it,
+        # so rugged's static OpenSSL link fails during bundle install.
+        # Remove once actions/runner-images#15068 is deployed.
+        run: sudo apt-get update && sudo apt-get install -y libjitterentropy3-dev
       - name: Install Ruby and Gems
         uses: ruby/setup-ruby@v1 # v1.115.3
         with:
