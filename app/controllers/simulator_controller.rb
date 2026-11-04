@@ -4,6 +4,7 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
+  before_action :ensure_html_format, only: %i[new edit]
   skip_after_action :verify_authorized, only: %i[new create post_issue verilog_cv]
 
   before_action :authenticate_user!, only: %i[create update edit]
@@ -147,6 +148,10 @@ class SimulatorController < ApplicationController
   end
 
   private
+
+    def ensure_html_format
+      head :not_acceptable unless request.format.html?
+    end
 
     def redirect_to_canonical_url
       canonical_path = case action_name
