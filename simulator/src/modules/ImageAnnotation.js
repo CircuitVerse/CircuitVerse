@@ -121,7 +121,7 @@ export default class ImageAnnotation extends CircuitElement {
     }
 
     async uploadImage() {
-        var file = await promptFile("image/*", false);
+        var file = await promptFile("image/png, image/jpeg, image/gif", false);
         if (!file) return;
         
         var formData=new FormData();
