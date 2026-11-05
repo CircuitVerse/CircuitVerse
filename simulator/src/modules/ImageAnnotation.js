@@ -146,10 +146,13 @@ export default class ImageAnnotation extends CircuitElement {
 
             });
 
-            showMessage('Image Uploaded');
-
-            this.imageUrl= response.url;
-            this.loadImage();
+            if (response && response.url) {// Gated check
+                showMessage('Image Uploaded');
+                this.imageUrl = response.url;
+                this.loadImage();
+            } else {
+                showMessage('Image Upload Failed');
+            }
 
         } catch (error) {
             showMessage('Image Upload Failed');
