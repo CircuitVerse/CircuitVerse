@@ -32,6 +32,23 @@ describe GroupMembersController, type: :request do
                                           .and change(PendingInvitation, :count).by(1)
         expect(GroupMember.last.user).not_to eq(@primary_mentor)
       end
+
+      it "normalizes emails with whitespace/mixed-case, adding existing users and creating pending invites" do
+        existing_user = FactoryBot.create(:user, email: "alice@example.com")
+        mixed_params = {
+          group_member: {
+            group_id: @group.id,
+            emails: [" ALICE@EXAMPLE.COM ", "  Bob_New@example.com  ", @already_present.email.upcase]
+          }
+        }
+        expect do
+          post group_members_path, params: mixed_params
+        end.to change(GroupMember, :count).by(1)
+                                          .and change(PendingInvitation, :count).by(1)
+
+        expect(GroupMember.where(group: @group, user: existing_user)).to exist
+        expect(PendingInvitation.where(group: @group, email: "bob_new@example.com")).to exist
+      end
     end
 
     context "when a mentor is logged in" do

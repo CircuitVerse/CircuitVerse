@@ -35,12 +35,13 @@ class GroupMembersController < ApplicationController
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
-    group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
+    raw_emails = group_member_params[:emails] || []
+    group_member_emails = raw_emails.map { |email| email.to_s.strip.downcase }.grep(Devise.email_regexp)
 
-    present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
-    newly_added = group_member_emails - present_members - [current_user&.email]
-    newly_added.each do |email|
-      email = email.strip
+    present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email).map(&:downcase)
+    current_user_email = current_user&.email&.downcase
+    newly_added = group_member_emails - present_members - [current_user_email].compact
+    newly_added.uniq.each do |email|
       user = User.find_by(email: email)
       if user.nil?
         PendingInvitation.where(group_id: @group.id, email: email).first_or_create
