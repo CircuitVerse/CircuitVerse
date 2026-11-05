@@ -46,6 +46,22 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
     end
   end
 
+  context "when the project has an ActiveStorage preview" do
+    it "renders the circuit_preview image" do
+      contest    = create(:contest, :live)
+      project    = create(:project)
+      submission = create(:submission, contest: contest, project: project)
+      project.circuit_preview.attach(io: Rails.root.join("spec/fixtures/files/profile.png").open,
+                                     filename: "preview.png", content_type: "image/png")
+
+      render_inline described_class.new(submission: submission,
+                                        contest: contest,
+                                        current_user: nil)
+
+      expect(page).to have_css("img[src^='/rails/active_storage/blobs/']")
+    end
+  end
+
   context "when contest is completed and current user is the author" do
     it "does not show Withdraw button" do
       contest    = create(:contest, status: :completed)
