@@ -1,0 +1,8 @@
+<div class="team-member-container team-link">
+  <div class="team-underline">
+    <a target="_blank" href="<%= member[:link] %>" aria-label="<%= member[:name] %>">
+      <%= image_tag member[:img], class: "about-contributor-image", alt: "User Image" %>
+      <p class="team-footer <%= 'underline' if underline %>"><%= member[:name] %></p>
+    </a>
+  </div>
+</div>

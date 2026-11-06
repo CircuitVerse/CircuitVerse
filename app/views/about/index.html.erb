@@ -40,11 +40,7 @@
     </div>
     <div class="row center-row teams-section ">
         <% @cores.each do |member| %>
-        <div class="team-member-container team-link ">
-          <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image" %><p class="team-footer "><%= member[:name] %></p></a>
-          </div>
-        </div>
+        <%= render(About::TeamSectionCardComponent.new(member: member)) %>
         <% end %>
         <br><br>
     </div>
@@ -60,11 +56,7 @@
     </div>
     <div class="row center-row teams-section">
         <% @mentors.each do |member| %>
-        <div class="team-member-container team-link">
-          <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
-          </div>
-        </div>
+        <%= render(About::TeamSectionCardComponent.new(member: member)) %>
         <% end %>
         <br><br>
     </div>
@@ -81,11 +73,7 @@
     </div>
     <div class="row center-row teams-section">
         <% @issues_triaging.each do |member| %>
-        <div class="team-member-container team-link">
-          <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img],alt: "User Image", class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
-          </div>
-        </div>
+        <%= render(About::TeamSectionCardComponent.new(member: member)) %>
         <% end %>
         <br><br>
     </div>
@@ -102,11 +90,7 @@
     </div>
     <div class="row center-row teams-section">
         <% @alumni.each do |member| %>
-        <div class="team-member-container team-link">
-          <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image " %><p class="team-footer underline"><%= member[:name] %></p></a>
-          </div>
-        </div>
+        <%= render(About::TeamSectionCardComponent.new(member: member, underline: true)) %>
         <% end %>
         <br><br>
     </div>
