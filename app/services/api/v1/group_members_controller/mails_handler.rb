@@ -27,18 +27,18 @@ class Api::V1::GroupMembersController
     # parse emails as valid, invalid or existing mails
     # @return [void]
     def parse
-      @mails.split(",").each do |email|
-        email = email.strip
+      @mails.to_s.split(",").each do |email|
+        email = email.strip.downcase
         if email.present? && Devise.email_regexp.match?(email)
-          @valid_mails.push(email)
-        else
-          @invalid_mails.push(email)
+          @valid_mails.push(email) unless @valid_mails.include?(email)
+        elsif email.present?
+          @invalid_mails.push(email) unless @invalid_mails.include?(email)
         end
       end
 
       @existing_mails = User.where(
         id: @group.group_members.pluck(:user_id)
-      ).pluck(:email)
+      ).pluck(:email).map(&:downcase)
     end
 
     # Create invitation or group_member for valid mails
