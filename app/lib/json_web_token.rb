@@ -2,8 +2,8 @@
 
 class JsonWebToken
   def self.encode(payload)
-    payload[:rememberme] ||= true
-    payload.reverse_merge!(meta(payload[:rememberme]))
+    remember_me = payload.fetch(:remember_me, true)
+    payload.reverse_merge!(meta(remember_me))
     JWT.encode(payload, private_key, "RS256")
   end
 

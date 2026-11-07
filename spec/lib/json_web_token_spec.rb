@@ -5,6 +5,8 @@ require "jwt"
 require "openssl"
 
 RSpec.describe JsonWebToken do
+  include ActiveSupport::Testing::TimeHelpers
+
   # Generate a fresh RSA key pair for tests
   let(:rsa_private) { OpenSSL::PKey::RSA.generate(2048) }
   let(:sample_payload) { { user_id: 1 } }
@@ -21,10 +23,29 @@ RSpec.describe JsonWebToken do
       expect(token).to be_a(String)
     end
 
-    it "contains rememberme key set to true by default" do
-      token = described_class.encode(sample_payload)
-      decoded_payload = JWT.decode(token, nil, false).first
-      expect(decoded_payload["rememberme"]).to be_truthy
+    def expiry_of(token)
+      JWT.decode(token, nil, false).first["exp"]
+    end
+
+    it "expires in 1 day when remember_me is false" do
+      freeze_time do
+        token = described_class.encode(sample_payload.merge(remember_me: false))
+        expect(expiry_of(token)).to eq(1.day.from_now.to_i)
+      end
+    end
+
+    it "expires in 2 weeks when remember_me is not given" do
+      freeze_time do
+        token = described_class.encode(sample_payload)
+        expect(expiry_of(token)).to eq(2.weeks.from_now.to_i)
+      end
+    end
+
+    it "expires in 2 weeks when remember_me is true" do
+      freeze_time do
+        token = described_class.encode(sample_payload.merge(remember_me: true))
+        expect(expiry_of(token)).to eq(2.weeks.from_now.to_i)
+      end
     end
   end
 
