@@ -33,6 +33,13 @@ RSpec.describe JsonWebToken do
         expect(expiry_of(token)).to eq(1.day.from_now.to_i)
       end
     end
+
+    it "expires in 2 weeks when remember_me is not given" do
+      freeze_time do
+        token = described_class.encode(sample_payload)
+        expect(expiry_of(token)).to eq(2.weeks.from_now.to_i)
+      end
+    end
   end
 
   describe ".decode" do
