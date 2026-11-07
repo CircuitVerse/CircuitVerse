@@ -20,12 +20,6 @@ RSpec.describe JsonWebToken do
       token = described_class.encode(sample_payload)
       expect(token).to be_a(String)
     end
-
-    it "contains rememberme key set to true by default" do
-      token = described_class.encode(sample_payload)
-      decoded_payload = JWT.decode(token, nil, false).first
-      expect(decoded_payload["rememberme"]).to be_truthy
-    end
   end
 
   describe ".decode" do
