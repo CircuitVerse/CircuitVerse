@@ -67,9 +67,10 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def paginate(resource)
+    page_params = pagination_params
     resource.paginate(
-      page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
-      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
+      page: page_params[:number],
+      per_page: page_params[:size]
     )
   end
 
@@ -89,6 +90,23 @@ class Api::V1::BaseController < ActionController::API
   end
 
   private
+
+    def pagination_params
+      page_params = params.to_unsafe_h["page"]
+      page_params = {} unless page_params.is_a?(Hash)
+
+      {
+        number: positive_integer_or_default(page_params["number"], 1),
+        size: positive_integer_or_default(page_params["size"], DEFAULT_PER_PAGE)
+      }
+    end
+
+    def positive_integer_or_default(value, default)
+      number = Integer(value.to_s, 10)
+      number.positive? ? number : default
+    rescue ArgumentError, TypeError
+      default
+    end
 
     def paginated_url(base_url, page)
       separator = base_url.index("?").nil? ? "?" : "&"
