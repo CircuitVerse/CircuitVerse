@@ -46,6 +46,14 @@ describe ProjectPolicy do
       end
     end
 
+    context "for a visitor with mismatched id" do
+      let(:user) { FactoryBot.create(:user) }
+
+      it "does not grant author_access to non-author" do
+        expect(subject).not_to permit(:author_access)
+      end
+    end
+
     context "for admin" do
       let(:user) { FactoryBot.create(:user, admin: true) }
 
