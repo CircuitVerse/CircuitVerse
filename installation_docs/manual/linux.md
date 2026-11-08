@@ -25,11 +25,13 @@ cd CircuitVerse
      sudo apt install curl gnupg
      gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
      curl -sSL https://get.rvm.io | bash -s stable
+     source ~/.rvm/scripts/rvm
      ```
-- Ruby 3.2.1
+- Ruby 4.0.9
      ```bash
-     rvm install 3.2.1
-     rvm use 3.2.1
+     rvm get head
+     rvm install 4.0.9
+     rvm use 4.0.9
      ```
 - [Redis 7.0 (at least)](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
      ```bash
@@ -79,19 +81,20 @@ cd CircuitVerse
 
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
-3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` to create the template): 
+     * **Note:** If this fails, make sure Ruby is up to date. You may need to run `rvm use 4.0.9` in each new terminal, or add `--default`
+4. Install Yarn dependencies: `yarn`
+5. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` to create the template): 
      * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
      * **Note:** The Postgres credentials need to be updated to your currently running database
-5. Create database: `bundle exec rails db:create`
-6. Run database migrations: `bundle exec rails db:migrate`
-7. Seed the database with some data: `bundle exec rails db:seed`
-8. Generate RSA keypairs
+6. Create database: `bundle exec rails db:create`
+7. Run database migrations: `bundle exec rails db:migrate`
+8. Seed the database with some data: `bundle exec rails db:seed`
+9. Generate RSA keypairs
      ```bash
      openssl genrsa -out ./config/private.pem 2048
      openssl rsa -in ./config/private.pem -outform PEM -pubout -out ./config/public.pem
      ```
-9. Run `bin/dev` to run application server, background job queue and asset compiler
+10. Run `bin/dev` to run application server, background job queue and asset compiler
 
 Navigate to `localhost:3000` in your web browser to access the website.
 
