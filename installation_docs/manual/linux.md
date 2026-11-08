@@ -25,6 +25,7 @@ cd CircuitVerse
      sudo apt install curl gnupg
      gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
      curl -sSL https://get.rvm.io | bash -s stable
+     source ~/.rvm/scripts/rvm
      ```
 - Ruby 4.0.9
      ```bash
@@ -80,7 +81,7 @@ cd CircuitVerse
 
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
-     * **Note:** If this fails, make sure Ruby is up to date. You may need to run `rvm use 4.0.x` in each new terminal, or add `--default`
+     * **Note:** If this fails, make sure Ruby is up to date. You may need to run `rvm use 4.0.9` in each new terminal, or add `--default`
 4. Install Yarn dependencies: `yarn`
 5. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` to create the template): 
      * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
