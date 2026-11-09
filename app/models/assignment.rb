@@ -15,6 +15,16 @@ class Assignment < ApplicationRecord
   after_create_commit :notify_recipient
 
   enum :grading_scale, { no_scale: 0, letter: 1, percent: 2, custom: 3 }
+
+  LETTER_GRADE_SCORES = {
+    "A" => 1.0,
+    "B" => 0.8,
+    "C" => 0.6,
+    "D" => 0.4,
+    "E" => 0.2,
+    "F" => 0.0
+  }.freeze
+
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
 
@@ -58,6 +68,22 @@ class Assignment < ApplicationRecord
 
   def graded?
     grading_scale != "no_scale"
+  end
+
+  # Maps a grade to the 0.0-1.0 score expected by the LMS (IMS Basic Outcomes).
+  # Returns nil when the grade cannot be mapped, so the caller can skip the passback.
+  def lms_score_for(grade)
+    value = grade.to_s.strip
+    return nil if value.blank?
+
+    if percent?
+      number = Float(value, exception: false)
+      return nil if number.nil?
+
+      number.clamp(0.0, 100.0) / 100.0
+    elsif letter?
+      LETTER_GRADE_SCORES[value.upcase]
+    end
   end
 
   def elements_restricted?

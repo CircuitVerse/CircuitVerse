@@ -65,4 +65,60 @@ RSpec.describe Assignment, type: :model do
       end
     end
   end
+
+  describe "#lms_score_for" do
+    context "with the percent scale" do
+      let(:assignment) { described_class.new(grading_scale: :percent) }
+
+      it "maps 0-100 to 0.0-1.0" do
+        expect(assignment.lms_score_for("85")).to eq(0.85)
+        expect(assignment.lms_score_for("100")).to eq(1.0)
+        expect(assignment.lms_score_for("0")).to eq(0.0)
+      end
+
+      it "clamps out-of-range values" do
+        expect(assignment.lms_score_for("150")).to eq(1.0)
+        expect(assignment.lms_score_for("-5")).to eq(0.0)
+      end
+
+      it "returns nil for non-numeric or blank grades" do
+        expect(assignment.lms_score_for("A")).to be_nil
+        expect(assignment.lms_score_for("")).to be_nil
+        expect(assignment.lms_score_for(nil)).to be_nil
+      end
+    end
+
+    context "with the letter scale" do
+      let(:assignment) { described_class.new(grading_scale: :letter) }
+
+      it "maps each letter to a score" do
+        expect(assignment.lms_score_for("A")).to eq(1.0)
+        expect(assignment.lms_score_for("B")).to eq(0.8)
+        expect(assignment.lms_score_for("F")).to eq(0.0)
+      end
+
+      it "ignores case and surrounding whitespace" do
+        expect(assignment.lms_score_for(" a ")).to eq(1.0)
+      end
+
+      it "returns nil for unknown or blank grades" do
+        expect(assignment.lms_score_for("Z")).to be_nil
+        expect(assignment.lms_score_for("")).to be_nil
+      end
+    end
+
+    context "with the custom scale" do
+      it "returns nil" do
+        assignment = described_class.new(grading_scale: :custom)
+        expect(assignment.lms_score_for("Excellent work")).to be_nil
+      end
+    end
+
+    context "with no scale" do
+      it "returns nil" do
+        assignment = described_class.new(grading_scale: :no_scale)
+        expect(assignment.lms_score_for("A")).to be_nil
+      end
+    end
+  end
 end
