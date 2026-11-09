@@ -65,7 +65,17 @@ class GradesController < ApplicationController
       return if project.assignment_id != assignment.id
       return unless lti_11_context_for_project?(project)
 
-      score = grade.to_f / 100 # 0-1 scale per IMS Basic Outcomes
+      # 0-1 scale per IMS Basic Outcomes; nil means the grade cannot be mapped
+      score = assignment.lms_score_for(grade)
+      if score.nil?
+        Rails.logger.warn(
+          "LTI grade passback skipped for assignment #{assignment.id}: " \
+          "grade #{grade.inspect} cannot be mapped to a score " \
+          "on the #{assignment.grading_scale} scale"
+        )
+        return
+      end
+
       LtiScoreSubmission.new(
         assignment: assignment,
         lis_result_sourced_id: project.lis_result_sourced_id,
