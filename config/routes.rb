@@ -130,7 +130,7 @@ Rails.application.routes.draw do
   # projects
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
-    get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
+    post "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
     get "tags/:tag", to: redirect('/tags/%{tag}'), as: "legacy_tag"
   end
 
@@ -190,7 +190,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :collaborations, only: %i[create destroy update]
+  resources :collaborations, only: %i[create destroy]
 
   resources :comment_threads, only: [] do
     resources :comments, only: %i[create]
@@ -245,7 +245,7 @@ Rails.application.routes.draw do
           patch :update_circuit, path: "update_circuit"
         end
         member do
-          get "toggle-star", to: "projects#toggle_star"
+          post "toggle-star", to: "projects#toggle_star"
           post "fork", to: "projects#create_fork"
           get "image_preview", to: "projects#image_preview"
           get :circuit_data
