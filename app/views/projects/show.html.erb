@@ -6,12 +6,12 @@
      title: yield(:title),
      description: @project.description,
      image: {
-       src: "#{Rails.configuration.site_url}#{@project.image_preview}"
+       src: "#{Rails.configuration.site_url}#{@project.preview_path}"
      }
    } %>
 <% set_meta_tags og: {
      title: yield(:title),
-     image: "#{Rails.configuration.site_url}#{@project.image_preview}",
+     image: "#{Rails.configuration.site_url}#{@project.preview_path}",
      description: @project.description,
      type: "article",
      site_name: Rails.configuration.site_name
