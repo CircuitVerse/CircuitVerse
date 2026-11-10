@@ -421,7 +421,7 @@ export function validateBinding(data, scope) {
 }
 
 function showBindingError(missing) {
-    showMessage(`Testbench: Missing from circuit: ${escapeHtml(missing.join(', '))}. Click Validate to know more`);
+    showMessage(`Testbench: Missing from circuit: ${missing.join(', ')}. Click Validate to know more`);
 }
 
 function bindingOk(data, scope) {
