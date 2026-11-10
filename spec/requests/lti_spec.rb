@@ -101,6 +101,27 @@ describe LtiController, type: :request do
       end
     end
 
+    context "when the launch presentation return url is not absolute" do
+      it "returns success and leaves the lms domain unset for a relative url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "launch_presentation_return_url" => "/courses/1")
+        expect(response.code).to eq("200")
+        expect(session[:lms_domain]).to be_nil
+      end
+
+      it "returns success and leaves the lms domain unset for a malformed url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "launch_presentation_return_url" => "http://[invalid")
+        expect(response.code).to eq("200")
+        expect(session[:lms_domain]).to be_nil
+      end
+
+      it "stores the origin of an absolute url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email)
+        expect(session[:lms_domain]).to eq("http://#{host}:#{port}/")
+      end
+    end
+
     def launch_uri
       # required for generation of LTI parameters
       launch_url = "http://#{host}:#{port}/lti/launch"
