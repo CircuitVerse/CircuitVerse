@@ -328,6 +328,7 @@ const buttonListenerFunctions = {
             return;
         }
         const results = runAll(globalScope.testbenchData.testData, globalScope);
+        if (!results) return;
         const { passed } = results.summary;
         const { total } = results.summary;
         const resultString = JSON.stringify(results.detailed);
@@ -365,6 +366,7 @@ const buttonListenerFunctions = {
     computeCase: () => {
         setUICurrentCase(globalScope.testbenchData);
         const result = runSingleTest(globalScope.testbenchData, globalScope);
+        if (!result) return;
         setUIResult(globalScope.testbenchData, result);
     },
 };
@@ -386,6 +388,36 @@ export function setupTestbenchUI() {
     $('.tb-test-null').hide();
     $('.tb-test-not-null').show();
 }
+/**
+ * Checks that every test input/output label (and RST for sequential tests)
+ * exists in the circuit. Does not modify the circuit.
+ * @param {Object} data - Object containing Test Data
+ * @param {Scope} scope - the circuit
+ * @returns {{ok: boolean, missing: string[]}}
+ */
+export function validateBinding(data, scope) {
+    const missing = [];
+    const inputLabels = new Set(scope.Input.map((i) => i.label.trim()));
+    const outputLabels = new Set(scope.Output.map((o) => o.label.trim()));
+
+    data.groups[0].inputs.forEach((dataInput) => {
+        const label = dataInput.label.trim();
+        if (!inputLabels.has(label)) missing.push(label);
+    });
+
+    data.groups[0].outputs.forEach((dataOutput) => {
+        const label = dataOutput.label.trim();
+        if (!outputLabels.has(label)) missing.push(label);
+    });
+
+    if (data.type === 'seq' && !inputLabels.has('RST')) missing.push('RST');
+
+    return { ok: missing.length === 0, missing };
+}
+
+function showBindingError(missing) {
+    showMessage(`Testbench: Missing from circuit: ${escapeHtml(missing.join(', '))}. Click Validate to know more`);
+}
 
 /**
  * Run all the tests automatically. Called by runTestBench()
@@ -393,6 +425,11 @@ export function setupTestbenchUI() {
  * @param {Scope=} scope - the circuit
  */
 export function runAll(data, scope = globalScope) {
+    const binding = validateBinding(data, scope);
+    if (!binding.ok) {
+        showBindingError(binding.missing);
+        return null;
+    }
     // Stop the clocks
     // TestBench will now take over clock toggling
     changeClockEnable(false);
@@ -474,6 +511,11 @@ function runSingleCombinational(testbenchData, scope) {
     const data = testbenchData.testData;
     const groupIndex = testbenchData.currentGroup;
     const caseIndex = testbenchData.currentCase;
+    const binding = validateBinding(data, scope);
+    if (!binding.ok) {
+        showBindingError(binding.missing);
+        return undefined;
+    }
 
     const { inputs, outputs } = bindIO(data, scope);
     const group = data.groups[groupIndex];
@@ -502,6 +544,11 @@ function runSingleSequential(testbenchData, scope) {
     const data = testbenchData.testData;
     const groupIndex = testbenchData.currentGroup;
     const caseIndex = testbenchData.currentCase;
+    const binding = validateBinding(data, scope);
+    if (!binding.ok) {
+        showBindingError(binding.missing);
+        return undefined;
+    }
 
     const { inputs, outputs, reset } = bindIO(data, scope);
     const group = data.groups[groupIndex];
