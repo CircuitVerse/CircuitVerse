@@ -23,6 +23,8 @@ class PushSubscriptionController < ApplicationController
   def test
     current_user.push_subscriptions.find_each do |subscription|
       subscription.send_push_notification(push_test_params[:message])
+    rescue StandardError => e
+      Rails.logger.error("Push notification failed for subscription #{subscription.id}: #{e.message}")
     end
     head :no_content
   end
