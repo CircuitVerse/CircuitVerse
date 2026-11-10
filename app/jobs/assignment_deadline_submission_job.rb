@@ -11,7 +11,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
     assignment.with_lock do
       next if assignment.nil? || (assignment.status == "closed")
 
-      if Time.zone.now - assignment.deadline >= -10 && (assignment.status == "open")
+      if Time.zone.now - assignment.deadline >= -10 && %w[open reopening].include?(assignment.status)
         assignment.projects.each do |proj|
           next unless proj.project_submission == false
 

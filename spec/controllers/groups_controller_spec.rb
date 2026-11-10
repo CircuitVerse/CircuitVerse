@@ -60,6 +60,33 @@ describe GroupsController, type: :request do
       end
     end
 
+    context "group member is signed in and the reopened assignment has submissions" do
+      before do
+        @assignment = FactoryBot.create(:assignment, group: @group,
+                                                     status: "reopening", deadline: 2.days.ago)
+        @project = FactoryBot.create(:project, assignment: @assignment, author: @user)
+        @project.circuit_preview.attach(io: StringIO.new("preview"), filename: "preview.png",
+                                        content_type: "image/png")
+        sign_in get_group_member(@group)
+      end
+
+      it "snapshots the submission and closes the assignment" do
+        get group_path(@group)
+
+        @assignment.reload
+        expect(@assignment.status).to eq("closed")
+        expect(@assignment.projects.count).to eq(1)
+        expect(@assignment.projects.first.project_submission).to be(true)
+        expect(@project.reload.assignment_id).to be_nil
+      end
+
+      it "does not create another snapshot on a repeated visit" do
+        get group_path(@group)
+
+        expect { get group_path(@group) }.not_to change(Project, :count)
+      end
+    end
+
     context "when a random user is signed in" do
       it "throws not authorized error" do
         sign_in_random_user

@@ -38,5 +38,30 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
         expect(@assignment.status).to eq("closed")
       end
     end
+
+    describe "when the assignment is reopening" do
+      before do
+        @assignment.update!(status: "reopening", deadline: Time.zone.now - 10)
+        @project = FactoryBot.create(:project, assignment: @assignment, author: @primary_mentor)
+        @project.circuit_preview.attach(io: StringIO.new("preview"), filename: "preview.png",
+                                        content_type: "image/png")
+      end
+
+      it "snapshots the projects, detaches the originals and closes the assignment" do
+        described_class.perform_now(@assignment.id)
+
+        @assignment.reload
+        expect(@assignment.status).to eq("closed")
+        expect(@assignment.projects.count).to eq(1)
+        expect(@assignment.projects.first.project_submission).to be(true)
+        expect(@project.reload.assignment_id).to be_nil
+      end
+
+      it "does not create another snapshot when run again" do
+        described_class.perform_now(@assignment.id)
+
+        expect { described_class.perform_now(@assignment.id) }.not_to change(Project, :count)
+      end
+    end
   end
 end
