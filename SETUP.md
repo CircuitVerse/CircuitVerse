@@ -111,6 +111,22 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 
 That's it! The CircuitVerse application will automatically use the `yosys` binary via the bundled gem.
 
+## Sidekiq Redis network timeouts
+
+If Redis reads time out, investigate the failing operation, Redis latency, and
+worker resource usage first. A read timeout alone does not identify the cause.
+
+For deployments that need a different network timeout, set
+`SIDEKIQ_REDIS_NETWORK_TIMEOUT` to a positive, finite number of seconds (for
+example, `5` or `2.5`) in both the web and Sidekiq worker environments, then restart
+those processes. Sidekiq applies this setting to Redis connection, read, and write
+timeouts. Blocking job-fetch operations add their command wait to the read timeout.
+
+Omit this variable to retain Sidekiq's defaults. Invalid or non-positive values
+stop initialization rather than silently enabling unbounded waits. This setting
+does not change database selection, retries, or Redis URL/provider resolution.
+It is latency tuning, not a substitute for diagnosing the underlying incident.
+
 ## Distributed Tracing using OpenTelemetry
 
 Refer [otel docs](./.otel)
