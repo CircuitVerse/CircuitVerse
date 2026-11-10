@@ -278,6 +278,7 @@ export function updateTestbenchUI() {
 const buttonListenerFunctions = {
 
     previousCaseButton: () => {
+        if (!bindingOk(globalScope.testbenchData.testData, globalScope)) return;
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
             showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
@@ -288,6 +289,7 @@ const buttonListenerFunctions = {
     },
 
     nextCaseButton: () => {
+        if (!bindingOk(globalScope.testbenchData.testData, globalScope)) return;
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
             showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
@@ -298,6 +300,7 @@ const buttonListenerFunctions = {
     },
 
     previousGroupButton: () => {
+        if (!bindingOk(globalScope.testbenchData.testData, globalScope)) return;
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
             showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
@@ -308,6 +311,7 @@ const buttonListenerFunctions = {
     },
 
     nextGroupButton: () => {
+        if (!bindingOk(globalScope.testbenchData.testData, globalScope)) return;
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
             showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
@@ -322,6 +326,7 @@ const buttonListenerFunctions = {
     },
 
     runAllButton: () => {
+        if (!bindingOk(globalScope.testbenchData.testData, globalScope)) return;
         const isValid = validate(globalScope.testbenchData.testData, globalScope);
         if (!isValid.ok) {
             showMessage('Testbench: Some elements missing from circuit. Click Validate to know more');
@@ -417,6 +422,12 @@ export function validateBinding(data, scope) {
 
 function showBindingError(missing) {
     showMessage(`Testbench: Missing from circuit: ${escapeHtml(missing.join(', '))}. Click Validate to know more`);
+}
+
+function bindingOk(data, scope) {
+    const binding = validateBinding(data, scope);
+    if (!binding.ok) showBindingError(binding.missing);
+    return binding.ok;
 }
 
 /**
