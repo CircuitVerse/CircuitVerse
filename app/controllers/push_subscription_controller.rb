@@ -8,11 +8,9 @@ class PushSubscriptionController < ApplicationController
 
   # POST /push/subscription/new
   def create
-    attrs = push_subscription_params
-    subscription = current_user.push_subscriptions.find_or_initialize_by(endpoint: attrs[:endpoint])
-    subscription.assign_attributes(auth: attrs[:auth], p256dh: attrs[:p256dh])
+    subscription = save_subscription(push_subscription_params)
 
-    if subscription.save
+    if subscription.errors.empty?
       render json: {
         status: "ok"
       }, status: :created
@@ -37,5 +35,16 @@ class PushSubscriptionController < ApplicationController
 
     def push_test_params
       params.expect(push: [:message])
+    end
+
+    def save_subscription(attrs)
+      subscription = current_user.push_subscriptions.find_or_initialize_by(endpoint: attrs[:endpoint])
+      subscription.assign_attributes(auth: attrs[:auth], p256dh: attrs[:p256dh])
+      subscription.save
+      subscription
+    rescue ActiveRecord::RecordNotUnique
+      subscription = current_user.push_subscriptions.find_by!(endpoint: attrs[:endpoint])
+      subscription.update(auth: attrs[:auth], p256dh: attrs[:p256dh])
+      subscription
     end
 end
