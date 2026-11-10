@@ -401,23 +401,26 @@ export function setupTestbenchUI() {
  * @returns {{ok: boolean, missing: string[]}}
  */
 export function validateBinding(data, scope) {
-    const missing = [];
+    const missing = new Set();
     const inputLabels = new Set(scope.Input.map((i) => i.label.trim()));
     const outputLabels = new Set(scope.Output.map((o) => o.label.trim()));
 
-    data.groups[0].inputs.forEach((dataInput) => {
-        const label = dataInput.label.trim();
-        if (!inputLabels.has(label)) missing.push(label);
+    data.groups.forEach((group) => {
+        group.inputs.forEach((dataInput) => {
+            const label = dataInput.label.trim();
+            if (!inputLabels.has(label)) missing.add(label);
+        });
+
+        group.outputs.forEach((dataOutput) => {
+            const label = dataOutput.label.trim();
+            if (!outputLabels.has(label)) missing.add(label);
+        });
     });
 
-    data.groups[0].outputs.forEach((dataOutput) => {
-        const label = dataOutput.label.trim();
-        if (!outputLabels.has(label)) missing.push(label);
-    });
+    if (data.type === 'seq' && !inputLabels.has('RST')) missing.add('RST');
 
-    if (data.type === 'seq' && !inputLabels.has('RST')) missing.push('RST');
-
-    return { ok: missing.length === 0, missing };
+    const missingList = [...missing];
+    return { ok: missingList.length === 0, missing: missingList };
 }
 
 function showBindingError(missing) {

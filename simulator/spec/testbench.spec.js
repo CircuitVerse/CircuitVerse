@@ -62,6 +62,35 @@ describe('validateBinding', () => {
         const res = validateBinding(makeData('seq'), makeScope({ inputs: [], outputs: [] }));
         expect(res.missing).toEqual(['A', 'Y', 'RST']);
     });
+
+    test('reports a missing input in a later group', () => {
+        const data = makeData();
+        data.groups.push({
+            n: 2,
+            inputs: [{ label: 'B', bitWidth: 1, values: ['0'] }],
+            outputs: [{ label: 'Y', bitWidth: 1, values: ['0'] }],
+        });
+        const res = validateBinding(data, makeScope());
+        expect(res).toEqual({ ok: false, missing: ['B'] });
+    });
+
+    test('reports a missing output in a later group', () => {
+        const data = makeData();
+        data.groups.push({
+            n: 2,
+            inputs: [{ label: 'A', bitWidth: 1, values: ['0'] }],
+            outputs: [{ label: 'Z', bitWidth: 1, values: ['0'] }],
+        });
+        const res = validateBinding(data, makeScope());
+        expect(res).toEqual({ ok: false, missing: ['Z'] });
+    });
+
+    test('does not repeat a label missing in several groups', () => {
+        const data = makeData();
+        data.groups.push({ ...data.groups[0], n: 2 });
+        const res = validateBinding(data, makeScope({ inputs: [] }));
+        expect(res.missing).toEqual(['A']);
+    });
 });
 
 describe('runAll with missing labels', () => {
