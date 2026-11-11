@@ -94,5 +94,6 @@ bn:
       fork_notification: "%{user} আপনার প্রকল্প %{project} ফর্ক করেছেন"
       star_notification: "%{user} আপনার প্রকল্প %{project} -এ স্টার দিয়েছেন"
       new_assignment_notification: "আপনাকে একটি নতুন অ্যাসাইনমেন্ট '%{assignment_name}' নিয়োগ করা হয়েছে"
+      assignment_collaborator_notification: "%{user} আপনাকে '%{group}' গ্রুপে অ্যাসাইনমেন্ট '%{assignment_name}'-এর সহযোগী হিসেবে যোগ করেছেন। অনুগ্রহ করে %{deadline}-এর মধ্যে শেষ করুন"
       forum_thread_notification: "%{user} একটি নতুন থ্রেড '%{thread}' পোস্ট করেছেন"
       comment_notif: "%{user} থ্রেড '%{thread}' -এ মন্তব্য করেছেন"

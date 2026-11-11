@@ -49,7 +49,8 @@ class Api::V1::CollaboratorsController
         user = User.find_by(email: email)
         if user.present?
           added_mails.push(email)
-          Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
+          collaboration = Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
+          collaboration.notify_assignment_collaborator(@current_user) if collaboration.previously_new_record?
         end
       end
       # returns added_mails

@@ -93,5 +93,6 @@ ne:
       fork_notification: "%{user} ले तपाईंको परियोजना %{project} को फोर्क गर्यो"
       star_notification: "%{user} ले तपाईंको परियोजना %{project} मा स्टार थप्यो"
       new_assignment_notification: "तपाईंलाई नयाँ असाइनमेन्ट '%{assignment_name}' दिइएको छ"
+      assignment_collaborator_notification: "%{user} ले '%{group}' समूहमा असाइनमेन्ट '%{assignment_name}' का लागि तपाईंंलाई सहयोगी बनाउनुभयो। कृपया %{deadline} सम्ममा पूरा गर्नुहोस्"
       forum_thread_notification: "%{user} ले नयाँ थ्रेड पोस्ट गर्यो '%{thread}'"
       comment_notif: "%{user} ले थ्रेडमा टिप्पणी गर्यो '%{thread}'"

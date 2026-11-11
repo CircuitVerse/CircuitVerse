@@ -20,6 +20,35 @@ describe CollaborationsController, type: :request do
         emails: [@new_collaboration.email, @user.email] } }
     end
 
+    context "author is logged in and the project belongs to an assignment" do
+      before do
+        @group = FactoryBot.create(:group, primary_mentor: @author)
+        @assignment = FactoryBot.create(:assignment, group: @group,
+                                                     name: "Lab 1", deadline: 3.days.from_now)
+        @project.update!(assignment: @assignment)
+        @collaboration = FactoryBot.create(:collaboration, project: @project, user: @user)
+        sign_in @author
+      end
+
+      it "notifies the added collaborator about the assignment" do
+        expect do
+          post collaborations_path, params: create_params
+        end.to change(NoticedNotification, :count).by(1)
+
+        notification = NoticedNotification.order(:created_at).last
+        expect(notification.type).to eq("AssignmentCollaboratorNotification")
+        expect(notification.recipient).to eq(@new_collaboration)
+        expect(notification.params[:assignment]).to eq(@assignment)
+        expect(notification.params[:user]).to eq(@author)
+      end
+
+      it "does not notify anyone when the collaboration already exists" do
+        post collaborations_path, params: { collaboration: { project_id: @project.id,
+                                                             emails: [@user.email] } }
+        expect(NoticedNotification.where(type: "AssignmentCollaboratorNotification").count).to eq(0)
+      end
+    end
+
     context "author is logged in" do
       before do
         FactoryBot.create(:collaboration, project: @project, user: @user)

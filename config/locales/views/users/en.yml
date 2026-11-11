@@ -97,5 +97,6 @@ en:
       fork_notification: "%{user} forked your Project %{project}"
       star_notification: "%{user} starred your Project %{project}"
       new_assignment_notification: "You have been assigned a new assignment '%{assignment_name}'"
+      assignment_collaborator_notification: "%{user} added you as a collaborator for the assignment '%{assignment_name}' in group '%{group}'. Please complete it before %{deadline}"
       forum_thread_notification: "%{user} posted a new thread '%{thread}'"
       comment_notif: "%{user} commented on thread '%{thread}'"

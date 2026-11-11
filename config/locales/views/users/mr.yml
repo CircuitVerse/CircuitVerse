@@ -93,5 +93,6 @@ mr:
       fork_notification: "%{user} ने तुमचा प्रकल्प  फोर्क केला %{project}"
       star_notification: "%{user} ने तुमच्या प्रकल्पाला तारांकित केले %{project}"
       new_assignment_notification: "तुम्हाला एक नवीन कार्य नियुक्त केले गेले आहे! - '%{assignment_name}'"
+      assignment_collaborator_notification: "%{user} ने '%{group}' गटामध्ये असाइनमेंट '%{assignment_name}' साठी तुम्हाला सहयोगी म्हणून जोडले. कृपया ते %{deadline} पूर्वी पूर्ण करा"
       forum_thread_notification: "%{user} ने नवीन धागा '%{thread}' पोस्ट केला"
       comment_notif: "%{user} ने '%{thread}' वर ​​टिप्पणी केली"

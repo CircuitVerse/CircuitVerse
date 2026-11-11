@@ -28,7 +28,8 @@ class CollaborationsController < ApplicationController
       if user.nil?
         # PendingInvitation.where(group_id:@group.id,email:email).first_or_create
       else
-        Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
+        collaboration = Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
+        collaboration.notify_assignment_collaborator(current_user) if collaboration.previously_new_record?
       end
     end
 
@@ -58,7 +59,6 @@ class CollaborationsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_collaboration
       @collaboration = Collaboration.find(params.expect(:id))
     end
