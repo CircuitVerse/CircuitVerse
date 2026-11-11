@@ -1,0 +1,28 @@
+name: Deploy Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    if: ${{ github.event.release.target_commitish == 'master' }}
+
+    steps:
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.PRODVM_SSH_PRIVATE_KEY }}
+
+      - name: Trust remote host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ vars.VM_HOST }}" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Run deployment script on remote server
+        run: |
+          ssh -o BatchMode=yes -o ConnectTimeout=30 "${{ vars.VM_USER }}@${{ vars.VM_HOST }}" \
+          "cd '${{ vars.CIRCUITVERSE_WORKDIR }}' && RELEASE_COMMIT='${{ github.event.release.target_commitish }}' bash update-with-release.sh"
