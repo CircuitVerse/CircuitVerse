@@ -21,8 +21,8 @@ class GroupsController < ApplicationController
     @group_member = @group.group_members.new
     @group.assignments.each do |assignment|
       if (assignment.status == "reopening") && (assignment.deadline < Time.zone.now)
-        assignment.status = "closed"
-        assignment.save
+        AssignmentDeadlineSubmissionJob.perform_now(assignment.id)
+        assignment.reload
       end
     end
   end

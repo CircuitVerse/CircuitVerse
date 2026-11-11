@@ -38,5 +38,43 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
         expect(@assignment.status).to eq("closed")
       end
     end
+
+    describe "when the assignment is reopening" do
+      before do
+        @assignment.update!(status: "reopening", deadline: Time.zone.now - 10)
+        @project = FactoryBot.create(:project, assignment: @assignment, author: @primary_mentor)
+        @project.circuit_preview.attach(io: StringIO.new("preview"), filename: "preview.png",
+                                        content_type: "image/png")
+      end
+
+      it "snapshots the projects, detaches the originals and closes the assignment" do
+        described_class.perform_now(@assignment.id)
+
+        @assignment.reload
+        expect(@assignment.status).to eq("closed")
+        expect(@assignment.projects.count).to eq(1)
+        expect(@assignment.projects.first.project_submission).to be(true)
+        expect(@project.reload.assignment_id).to be_nil
+      end
+
+      it "does not create another snapshot when run again" do
+        described_class.perform_now(@assignment.id)
+
+        expect { described_class.perform_now(@assignment.id) }.not_to change(Project, :count)
+      end
+
+      it "keeps the submission's circuit data when the detached original is edited" do
+        @project.create_project_datum!(data: '{"simulatorVersion":"legacy","scopes":[{"name":"seeded"}]}')
+
+        described_class.perform_now(@assignment.id)
+
+        submission = @assignment.reload.projects.find_by(project_submission: true)
+        submitted_data = submission.project_datum.data
+        expect(submitted_data).to include("seeded")
+
+        @project.reload.project_datum.update!(data: '{"simulatorVersion":"legacy","scopes":[{"name":"edited"}]}')
+        expect(submission.reload.project_datum.data).to eq(submitted_data)
+      end
+    end
   end
 end
