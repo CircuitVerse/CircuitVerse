@@ -107,6 +107,7 @@ describe LtiController, type: :request do
                     "launch_presentation_return_url" => "/courses/1")
         expect(response.code).to eq("200")
         expect(session[:lms_domain]).to be_nil
+        expect(response.headers["X-FRAME-OPTIONS"]).to be_nil
       end
 
       it "returns success and leaves the lms domain unset for a malformed url" do
@@ -114,11 +115,13 @@ describe LtiController, type: :request do
                     "launch_presentation_return_url" => "http://[invalid")
         expect(response.code).to eq("200")
         expect(session[:lms_domain]).to be_nil
+        expect(response.headers["X-FRAME-OPTIONS"]).to be_nil
       end
 
       it "stores the origin of an absolute url" do
         lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email)
         expect(session[:lms_domain]).to eq("http://#{host}:#{port}/")
+        expect(response.headers["X-FRAME-OPTIONS"]).to eq("ALLOW-FROM http://#{host}:#{port}/")
       end
     end
 
