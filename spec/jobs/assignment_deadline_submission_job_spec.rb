@@ -62,6 +62,19 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
 
         expect { described_class.perform_now(@assignment.id) }.not_to change(Project, :count)
       end
+
+      it "keeps the submission's circuit data when the detached original is edited" do
+        @project.create_project_datum!(data: '{"simulatorVersion":"legacy","scopes":[{"name":"seeded"}]}')
+
+        described_class.perform_now(@assignment.id)
+
+        submission = @assignment.reload.projects.find_by(project_submission: true)
+        submitted_data = submission.project_datum.data
+        expect(submitted_data).to include("seeded")
+
+        @project.reload.project_datum.update!(data: '{"simulatorVersion":"legacy","scopes":[{"name":"edited"}]}')
+        expect(submission.reload.project_datum.data).to eq(submitted_data)
+      end
     end
   end
 end

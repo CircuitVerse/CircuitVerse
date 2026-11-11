@@ -87,6 +87,37 @@ describe GroupsController, type: :request do
       end
     end
 
+    context "when the reopened assignment project has circuit data" do
+      before do
+        @assignment = FactoryBot.create(:assignment, group: @group,
+                                                     status: "reopening", deadline: 2.days.ago)
+        @project = FactoryBot.create(:project, assignment: @assignment, author: @user)
+        @project.circuit_preview.attach(io: StringIO.new("preview"), filename: "preview.png",
+                                        content_type: "image/png")
+        @project.create_project_datum!(data: '{"simulatorVersion":"legacy","scopes":[{"name":"seeded"}]}')
+        sign_in get_group_member(@group, @user)
+      end
+
+      it "keeps the submission's data after the detached original is edited through the simulator" do
+        get group_path(@group)
+
+        submission = @assignment.reload.projects.find_by(project_submission: true)
+        submitted_data = submission.project_datum.data
+        expect(submitted_data).to include("seeded")
+
+        post "/simulator/update_data", params: {
+          id: @project.reload.id,
+          name: "Updated Name",
+          image: "",
+          data: '{"simulatorVersion":"legacy","scopes":[{"name":"edited"}]}'
+        }
+        expect(response.status).to eq(200)
+        expect(@project.reload.project_datum.data).to include("edited")
+
+        expect(submission.reload.project_datum.data).to eq(submitted_data)
+      end
+    end
+
     context "when a random user is signed in" do
       it "throws not authorized error" do
         sign_in_random_user
