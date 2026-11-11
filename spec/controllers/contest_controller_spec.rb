@@ -8,7 +8,6 @@ RSpec.describe ContestsController, type: :controller do
 
   before do
     sign_in user
-    enable_contests!
   end
 
   describe "GET #index" do

@@ -2,9 +2,13 @@
 
 class FeaturedCircuitsController < ApplicationController
   include UsersCircuitverseHelper
+  include AdminAuthorizable
+
+  skip_after_action :verify_authorized, only: [:index]
 
   before_action :authenticate_user!, except: [:index]
-  before_action :set_and_authorize_featured, except: [:index]
+  before_action :authorize_admin, except: [:index]
+  before_action :set_featured, except: [:index]
 
   def index
     @projects = Project
@@ -27,8 +31,7 @@ class FeaturedCircuitsController < ApplicationController
 
   private
 
-    def set_and_authorize_featured
-      authorize FeaturedCircuit, :admin?
+    def set_featured
       @featured_circuit = FeaturedCircuit.find_by(project_id: featured_circuit_params[:project_id])
     end
 

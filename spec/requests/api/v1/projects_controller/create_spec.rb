@@ -66,7 +66,7 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
     end
 
     context "when there is error in saving project" do
-      it "returns status unprocessable_entity" do
+      it "returns status unprocessable_content" do
         expect do
           token = get_auth_token(user)
           allow(Project).to receive(:new).and_wrap_original do |m, *args, **kwargs|
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
                params: { image: "", name: "Test Name" }, as: :json
         end.not_to change(Project, :count)
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body["status"]).to eq("error")
         expect(response.parsed_body["status"]["error"]).not_to be_empty
       end

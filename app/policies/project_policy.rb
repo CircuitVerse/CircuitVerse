@@ -3,6 +3,8 @@
 class ProjectPolicy < ApplicationPolicy
   attr_reader :user, :project
 
+  # Intentionally does not call super: this policy must evaluate for
+  # anonymous users so public projects remain viewable without login.
   def initialize(user, project)
     @user = user
     @project = project

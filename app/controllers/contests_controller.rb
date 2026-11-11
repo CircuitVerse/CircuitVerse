@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class ContestsController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!, except: %i[index show leaderboard]
-  before_action :check_contests_feature_flag
   before_action :set_contest, only: %i[show leaderboard]
   before_action :set_user_count, only: :show
 
@@ -42,12 +43,6 @@ class ContestsController < ApplicationController
 
     def set_contest
       @contest = Contest.find(params.expect(:id))
-    end
-
-    def check_contests_feature_flag
-      return if Flipper.enabled?(:contests, current_user)
-
-      redirect_to root_path, alert: t("feature_not_available")
     end
 
     def set_user_count

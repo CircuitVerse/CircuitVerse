@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AboutController < ApplicationController
+  skip_after_action :verify_authorized
+
   def index
     @cores = [
       { name: "Aboobacker MK",

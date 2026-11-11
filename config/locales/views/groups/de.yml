@@ -27,6 +27,7 @@ de:
       no_mentors_html: "Es sind keine Mentoren in dieser Gruppe, klicken Sie <strong>+ Mentor</strong> Button um Mentoren hinzuzufügen."
       no_members_html: "Es gibt keine Mitglieder in dieser Gruppe, klicken Sie <strong>+ Mitglieder hinzufügen</strong> , um Mitglieder hinzuzufügen."
       no_assignments_html: "Es gibt keine Aufgaben in der Gruppe, klicken Sie auf <strong>+ Aufgabe</strong> um eine Aufgabe zu starten."
+      back_to_organization: "Zurück zu %{organization}"
       assignment:
         heading: "ASSIGNMENTEN:"
         add_assignment_btn: "+ Aufgabe hinzufügen"

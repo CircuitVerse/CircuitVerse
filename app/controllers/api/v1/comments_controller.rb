@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::CommentsController < Api::V1::BaseController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!, except: %i[index]
   before_action :load_index_resource, only: %i[index]
   before_action :load_create_resource, only: %i[create]
@@ -9,7 +11,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # GET /api/v1/threads/:thread_id/comments
   def index
-    @comments = @commontator_thread.comments
+    @comments = @comment_thread.comments
     @options[:links] = link_attrs(paginate(@comments), api_v1_thread_comments_url)
     render json: Api::V1::CommentSerializer.new(paginate(@comments), @options)
   end
@@ -17,9 +19,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
   # POST /api/v1/threads/:thread_id/comments
   def create
     if @comment.save
-      sub = @commontator_thread.config.thread_subscription.to_sym
-      @commontator_thread.subscribe(current_user) if %i[a b].include? sub
-      Commontator::Subscription.comment_created(@comment)
+      @comment_thread.subscribe(current_user)
       render json: Api::V1::CommentSerializer.new(@comment, @options), status: :created
     else
       api_error(status: 422, errors: @comment.errors)
@@ -71,8 +71,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # PUT /api/v1/comments/:id/downvote
   def downvote
-    security_transgression_unless @comment.can_be_voted_on_by?(current_user) &&
-                                  @comment.thread.config.comment_voting.to_sym == :ld
+    security_transgression_unless @comment.can_be_voted_on_by?(current_user)
 
     @comment.downvote_from current_user
     render json: { message: "comment downvoted" }
@@ -89,26 +88,26 @@ class Api::V1::CommentsController < Api::V1::BaseController
   private
 
     def load_index_resource
-      @commontator_thread = Commontator::Thread.find(params.expect(:thread_id))
-      @project = @commontator_thread.commontable
+      @comment_thread = CommentThread.find(params.expect(:thread_id))
+      @project = @comment_thread.commontable
       security_transgression_unless @project.project_access_type == "Public" \
                                     || (current_user && @project.author == current_user \
-                                    && @commontator_thread.can_be_read_by?(current_user))
+                                    && @comment_thread.can_be_read_by?(current_user))
     end
 
     def load_create_resource
-      @commontator_thread = Commontator::Thread.find(params.expect(:thread_id))
-      security_transgression_unless @commontator_thread.can_be_read_by? current_user
+      @comment_thread = CommentThread.find(params.expect(:thread_id))
+      security_transgression_unless @comment_thread.can_be_read_by? current_user
 
-      @comment = Commontator::Comment.new(
-        thread: @commontator_thread, creator: current_user, body: params.dig(:comment, :body)
+      @comment = Comment.new(
+        thread: @comment_thread, creator: current_user, body: params.dig(:comment, :body)
       )
       security_transgression_unless @comment.can_be_created_by?(current_user)
     end
 
     def set_comment_and_thread
-      @comment = Commontator::Comment.find(params.expect(:id))
-      @commontator_thread = @comment.thread
+      @comment = Comment.find(params.expect(:id))
+      @comment_thread = @comment.thread
     end
 
     def set_options

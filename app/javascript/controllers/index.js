@@ -5,6 +5,7 @@
 import { application } from './application';
 
 import AssignmentController from './assignment_controller';
+import CommentsController from './comments_controller';
 import ContestController from './contest_controller';
 import ExploreController from './explore_controller';
 import GroupsController from './groups_controller';
@@ -16,6 +17,7 @@ import SearchFiltersController from './search_filters_controller';
 import OrganizationFormController from "./organization_form_controller";
 
 application.register('assignment', AssignmentController);
+application.register('comments', CommentsController);
 application.register('contest', ContestController);
 application.register('explore', ExploreController);
 application.register('groups', GroupsController);

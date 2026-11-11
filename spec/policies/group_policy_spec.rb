@@ -54,4 +54,22 @@ describe GroupPolicy do
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.not_to permit(:mentor_access) }
   end
+
+  context "when the user is a site admin" do
+    let(:user) { FactoryBot.create(:user, admin: true) }
+    let(:group) { @group }
+
+    it { is_expected.to permit(:show_access) }
+    it { is_expected.to permit(:admin_access) }
+    it { is_expected.to permit(:mentor_access) }
+  end
+
+  context "when the user is not logged in" do
+    let(:user) { nil }
+    let(:group) { @group }
+
+    it "raises Pundit::NotAuthorizedError" do
+      expect { described_class.new(user, group) }.to raise_error(Pundit::NotAuthorizedError)
+    end
+  end
 end

@@ -29,6 +29,7 @@ tmp
 
 /node_modules
 /yarn-error.log
+/bun.lock
 
 .byebug_history
 
@@ -91,19 +92,10 @@ config/credentials.yml.enc
 !.vscode/launch.json
 
 
-# Vite Ruby
-/public/vite*
-node_modules
-# Vite uses dotenv and suggests to ignore local-only env files. See
-# https://vitejs.dev/guide/env-and-mode.html#env-files
-*.local
-
 # ignore rbs collection
 .gem_rbs_collection
 
 # Ignore .vscode/settings.json
 .vscode/settings.json
 
-# Ignore yarn
-.yarn
 vendor

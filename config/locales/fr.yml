@@ -1,6 +1,19 @@
 fr:
   notifications:
     not_found: "Notification introuvable"
+  comments:
+    deleted_by: "Commentaire supprimé par %{deleter_name}."
+    thread_closed: "Sujet de commentaire fermé."
+    thread_reopened: "Sujet de commentaire réouvert."
+    thread_already_closed: "Le sujet de commentaire est déjà fermé."
+    thread_already_open: "Le sujet de commentaire est déjà ouvert."
+  activerecord:
+    attributes:
+      comment:
+        body: Commenter
+  errors:
+    messages:
+      double_posted: "est un doublon d'un autre commentaire."
   edit: "Modifier"
   show: "Afficher"
   delete: "Supprimez"

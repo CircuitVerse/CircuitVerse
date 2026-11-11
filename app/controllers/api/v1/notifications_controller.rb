@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::NotificationsController < Api::V1::BaseController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!
 
   # GET /api/v1/notifications

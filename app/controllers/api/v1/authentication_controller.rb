@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
+  skip_after_action :verify_authorized
+
   before_action :set_oauth_user, only: %i[oauth_signup oauth_login]
   before_action :check_block_registration, only: %i[signup oauth_signup]
 

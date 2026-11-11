@@ -7,7 +7,7 @@ RSpec.describe "Contests::Submissions#create edge cases", type: :request do
   let(:contest) { create(:contest, status: :live) }
   let(:project) { create(:project, author: user) }
 
-  before { sign_in user; enable_contests! }
+  before { sign_in user }
 
   it "rejects a second submission of the same project" do
     2.times do

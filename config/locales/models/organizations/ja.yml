@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        organization:
+          attributes:
+            logo:
+              invalid_content_type: "PNG、JPEG、または SVG 画像である必要があります"
+              file_size_exceeded: "2 MBを超えてはいけません"
+            links:
+              invalid_urls: "有効な http または https URL でなければなりません"
+              too_many: "%{count} 以上のリンクを持つことはできません"

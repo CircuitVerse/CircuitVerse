@@ -23,6 +23,7 @@ ja:
       group_members_heading: "メンバー:"
       add_members_btn: "+ メンバーを追加"
       add_mentors_btn: "+ メンターを追加"
+      back_to_organization: "%{organization} に戻る"
       assignment:
         heading: "譲渡:"
         add_assignment_btn: "+ 課題を追加"

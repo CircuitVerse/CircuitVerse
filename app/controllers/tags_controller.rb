@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :set_tag!
 
   PER_PAGE = ExploreController::RECENT_LIMIT
@@ -12,7 +14,8 @@ class TagsController < ApplicationController
   private
 
     def set_tag!
-      @tag = Tag.find_by!(name: params.expect(:tag))
+      @tag = Tag.named(params.expect(:tag))
+      raise ActiveRecord::RecordNotFound if @tag.nil?
     end
 
     # rubocop:disable Metrics/MethodLength

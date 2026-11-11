@@ -3,10 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "Explore tabs", :js, type: :system do
-  before do
-    Flipper.enable(:circuit_explore_page)
-  end
-
   # rubocop:disable RSpec/MultipleExpectations
   it "switches sections without reload" do
     visit "/explore"

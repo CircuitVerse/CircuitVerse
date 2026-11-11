@@ -1,6 +1,19 @@
 ar:
   notifications:
     not_found: "لم يتم العثور على الإشعار"
+  comments:
+    deleted_by: "تم حذف التعليق بواسطة %{deleter_name}."
+    thread_closed: "تم إغلاق موضوع التعليق."
+    thread_reopened: "تم إعادة فتح موضوع التعليق."
+    thread_already_closed: "موضوع التعليق مغلق بالفعل."
+    thread_already_open: "موضوع التعليق مفتوح بالفعل."
+  activerecord:
+    attributes:
+      comment:
+        body: تعليق
+  errors:
+    messages:
+      double_posted: "هو تكرار لتعليق آخر."
   edit: "تحرير"
   show: "إظهار"
   delete: "حذف"

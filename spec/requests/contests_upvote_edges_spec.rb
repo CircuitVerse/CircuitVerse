@@ -10,7 +10,6 @@ RSpec.describe "Contests::Submissions::Votes#create edge cases", type: :request 
 
   before do
     sign_in user
-    enable_contests!
   end
 
   it "rejects voting on completed contest" do

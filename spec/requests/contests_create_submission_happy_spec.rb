@@ -7,7 +7,7 @@ RSpec.describe "Contests::Submissions#create happy path", type: :request do
   let(:contest) { create(:contest, status: :live) }
   let(:project) { create(:project, author: user) }
 
-  before { sign_in user; enable_contests! }
+  before { sign_in user }
 
   it "creates a submission and redirects with a notice" do
     expect do

@@ -11,12 +11,10 @@
       </ul>
     </div>
   <% end %>
-
   <div class="border-bottom pb-3 mb-4">
     <h2 class="h5 fw-semibold mb-1"><%= t("organizations.form.details_heading") %></h2>
     <p class="text-secondary small mb-0"><%= t("organizations.form.details_subheading") %></p>
   </div>
-
   <%# Name %>
   <div class="mb-3">
     <label class="form-label fw-semibold" for="organization_name">
@@ -30,17 +28,15 @@
     </div>
     <div class="text-end"><small id="org-name-counter" class="form-text"></small></div>
   </div>
-
   <%# Description %>
   <div class="mb-3">
     <%= form.label :description, t("organizations.form.description_label"),
           class: "form-label fw-semibold", for: "org-description-input" %>
     <div class="form-text mt-0 mb-2"><%= t("organizations.form.description_hint") %></div>
     <%= form.text_area :description, class: "form-control", id: "org-description-input",
-          maxlength: 160, rows: 3, placeholder: t("organizations.form.description_placeholder") %>
+          maxlength: 350, rows: 5, placeholder: t("organizations.form.description_placeholder") %>
     <div class="text-end"><small id="org-description-counter" class="form-text"></small></div>
   </div>
-
   <%# Location %>
   <div class="mb-3">
     <label class="form-label fw-semibold" for="organization_location"><%= t("organizations.form.location_label") %></label>
@@ -52,16 +48,6 @@
     </div>
     <div class="text-end"><small id="org-location-counter" class="form-text"></small></div>
   </div>
-
-  <%# Visibility %>
-  <div class="mb-3">
-    <%= form.label :private, t("organizations.form.visibility_label"), class: "form-label fw-semibold" %>
-    <div class="form-text mt-0 mb-2"><%= t("organizations.form.visibility_hint") %></div>
-    <%= form.select :private,
-          [[t("organizations.form.visibility_private"), true], [t("organizations.form.visibility_public"), false]],
-          {}, { id: "organization_private", class: "form-select" } %>
-  </div>
-
   <%# External Links %>
   <div class="mb-3">
     <label class="form-label fw-semibold"><%= t("organizations.form.links_label") %></label>
@@ -86,12 +72,11 @@
         </div>
       <% end %>
     </div>
-    <button type="button" id="organizations-add-link-btn" class="btn btn-sm btn-outline-success"
-            aria-label="<%= t('organizations.form.add_link') %>">
-      <i class="fa fa-plus me-1" aria-hidden="true"></i> <%= t("organizations.form.add_link") %>
-    </button>
+    <button type="button" id="organizations-add-link-btn" class="btn btn-sm primary-button org-form-add-link-button"
+        aria-label="<%= t('organizations.form.add_link') %>">
+  <i class="fa fa-plus me-1" aria-hidden="true"></i> <%= t("organizations.form.add_link") %>
+</button>
   </div>
-
   <%# Logo %>
   <div class="mb-3">
     <%= form.label :logo, t("organizations.form.logo_label"), class: "form-label fw-semibold" %>
@@ -110,7 +95,18 @@
         <%= form.label :remove_logo, t("organizations.form.remove_logo"), class: "form-check-label small", for: "organization_remove_logo" %>
       </div>
     <% end %>
+    <%# Uploaded logo preview (shown above the upload zone) %>
+    <div id="organization-upload-preview-box" class="d-none align-items-center gap-3 p-2 mb-2 border rounded bg-light">
+      <img id="organization-upload-preview" class="rounded border org-upload-preview-img" alt="" />
+      <div class="d-flex flex-column">
+        <span class="fw-semibold small"><%= t("organizations.form.selected_logo") %></span>
+        <span class="text-secondary small"><%= t("organizations.form.selected_logo_hint") %></span>
+      </div>
+    </div>
+
     <div class="org-upload-zone" id="organization-upload-zone" role="button" tabindex="0"
+         data-logo-invalid-type="<%= t('organizations.form.logo_invalid_type') %>"
+         data-logo-too-large="<%= t('organizations.form.logo_too_large') %>"
          onclick="document.getElementById('organization_logo').click()"
          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
       <i class="fa fa-cloud-upload-alt org-upload-zone__icon" aria-hidden="true"></i>
@@ -122,12 +118,11 @@
       <%= form.file_field :logo, id: "organization_logo", class: "d-none",
             accept: "image/png,image/jpeg,image/svg+xml" %>
     </div>
-    <p class="text-success small fw-semibold mt-2 mb-0" id="organization-upload-filename"></p>
+    <p id="organization-upload-error" class="text-danger small mt-2 mb-0 d-none" role="alert"></p>
   </div>
-
   <%# Actions %>
   <div class="d-flex justify-content-end gap-2 border-top pt-3 mt-4">
-    <%= link_to t("cancel"), cancel_path, class: "btn btn-outline-secondary" %>
+    <%= link_to t("cancel"), cancel_path, class: "btn primary-button org-form-cancel-button" %>
     <%= form.submit organization.persisted? ? t("organizations.form.update") : t("organizations.form.submit"), class: "btn primary-button" %>
   </div>
 <% end %>

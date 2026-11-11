@@ -1,0 +1,29 @@
+<% content_for :title, t("organizations.index.page_title") %>
+<div class="container org-index">
+  <div class="d-flex flex-column align-items-center text-center pt-4">
+    <h2 class="org-index-header-title"><%= t("organizations.index.heading") %></h2>
+    <p class="org-index-header-description text-body-secondary"><%= t("organizations.index.subtitle") %></p>
+    <div class="mt-2">
+      <%= link_to new_organization_path, class: "btn primary-button d-inline-flex align-items-center gap-1" do %>
+        <i class="fa fa-plus" aria-hidden="true"></i> <%= t("organizations.index.create_button") %>
+      <% end %>
+    </div>
+  </div>
+  <div class="org-index-page-line mt-3"></div>
+  <% if @organizations.blank? %>
+    <%= render "shared/no_results", message: t("organizations.index.empty_mine") %>
+  <% else %>
+    <div class="my-4">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% @organizations.each do |organization| %>
+          <div class="col">
+            <%= render(OrganizationCardComponent.new(organization: organization)) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="container pagination-cont">
+      <%= will_paginate @organizations, renderer: PaginateRenderer %>
+    </div>
+  <% end %>
+</div>

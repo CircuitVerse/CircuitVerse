@@ -50,7 +50,8 @@ describe OrganizationGroupPolicy do
     let(:user) { @co_mentor }
     let(:group) { @group }
 
-    it { is_expected.to permit(:manage) }
+    it { is_expected.not_to permit(:manage) }
+    it { is_expected.to permit(:view) }
   end
 
   context "when the user is a mentor but NOT assigned to this group" do
@@ -58,6 +59,7 @@ describe OrganizationGroupPolicy do
     let(:group) { @group }
 
     it { is_expected.not_to permit(:manage) }
+    it { is_expected.not_to permit(:view) }
   end
 
   context "when the user is a plain member" do
@@ -70,6 +72,7 @@ describe OrganizationGroupPolicy do
     let(:group) { @group }
 
     it { is_expected.not_to permit(:manage) }
+    it { is_expected.not_to permit(:view) }
   end
 
   context "when the user is not a member of the organization" do
@@ -77,5 +80,6 @@ describe OrganizationGroupPolicy do
     let(:group) { @group }
 
     it { is_expected.not_to permit(:manage) }
+    it { is_expected.not_to permit(:view) }
   end
 end

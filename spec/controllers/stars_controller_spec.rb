@@ -5,7 +5,7 @@ require "rails_helper"
 describe StarsController, type: :request do
   before do
     @user = FactoryBot.create(:user)
-    @project = FactoryBot.create(:project, author: FactoryBot.create(:user))
+    @project = FactoryBot.create(:project, :public, author: FactoryBot.create(:user))
     sign_in @user
   end
 
@@ -26,6 +26,16 @@ describe StarsController, type: :request do
 
         expect(Star.last.user_id).to eq(@user.id)
         expect(Star.last.user_id).not_to eq(other_user.id)
+      end
+    end
+
+    context "when project is private and user has no view access" do
+      it "does not create a star" do
+        private_project = FactoryBot.create(:project, author: FactoryBot.create(:user))
+        expect do
+          post stars_path, params: { star: { project_id: private_project.id } }
+        end.not_to change(Star, :count)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 

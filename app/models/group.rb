@@ -23,6 +23,14 @@ class Group < ApplicationRecord
     token_expires_at.present? && token_expires_at > Time.zone.now
   end
 
+  def add_member_to_organization(user)
+    return if organization.blank?
+
+    organization.organization_members.find_or_create_by!(user: user) do |member|
+      member.role = :member
+    end
+  end
+
   def reset_group_token
     transaction do
       regenerate_group_token

@@ -1,0 +1,12 @@
+ar:
+  activerecord:
+    errors:
+      models:
+        organization:
+          attributes:
+            logo:
+              invalid_content_type: "يجب أن تكون صورة PNG, JPEG, أو SVG"
+              file_size_exceeded: "يجب ألا تتجاوز 2 ميغابايت"
+            links:
+              invalid_urls: "يجب أن يكون صحيحًا > أو > عناوين URLs"
+              too_many: "لا يمكن أن يكون لديك أكثر من روابط %{count}"

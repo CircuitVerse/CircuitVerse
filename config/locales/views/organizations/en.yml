@@ -7,26 +7,38 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
+    index:
+      page_title: "Organizations"
+      heading: "Organizations"
+      subtitle: "Manage your groups, mentors, and students all in one place."
+      create_button: "Create Organization"
+      empty_mine: "You're not part of any organizations yet. Create one to get started."
+      logo_alt: "%{organization} logo"  
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
+      member_count_capped: "%{count}+ members"
       confirmation_mismatch: "Organization name did not match."
     tabs:
       nav_label: "Organization sections"
       overview: "Overview"
       members: "Members"
       settings: "Settings"
+    dashboard:
+      page_title: "Organizations / %{organization} - %{tab}"  
     overview:
       groups_heading: "Groups"
+      group_locked: "Members only"
       new_group_button: "New Group"
       logo_alt: "%{organization} logo"
       member_count:
         one: "1 member"
         other: "%{count} members"
+      member_count_capped: "%{count}+ members"
     social_links:
       logo_alt: "%{provider} logo"
       website: "Website"
-    members:
-      page_title: "Members - %{organization}"
     settings:
-      page_title: "Settings - %{organization}"
       danger_heading: "Danger Zone"
       danger_subheading: "Irreversible actions for this organization."
       delete_title: "Delete this organization"
@@ -49,10 +61,6 @@ en:
       location_label: "Location"
       location_hint: "Where is your organization based?"
       location_placeholder: "e.g. India, Delhi"
-      visibility_label: "Visibility"
-      visibility_hint: "Control who can view your organization."
-      visibility_private: "Private"
-      visibility_public: "Public"
       links_label: "External Links"
       links_hint: "Add up to 5 links to your organization's website or social profiles."
       links_placeholder: "https://example.com"
@@ -64,6 +72,10 @@ en:
       current_logo_alt: "%{organization} logo"
       replace_logo_hint: "Upload a new image below to replace"
       remove_logo: "Remove current logo"
+      selected_logo: "Selected Logo"
+      selected_logo_hint: "Preview of your selected logo. It will be saved when you submit."
+      logo_invalid_type: "Invalid file type. Please upload a PNG, JPG, or SVG."
+      logo_too_large: "File is too large. Maximum size is 2 MB."
       upload_click: "Click to upload"
       upload_drag: "or drag and drop"
       upload_hint: "PNG, JPG or SVG"
@@ -77,6 +89,12 @@ en:
   organization_members:
     create:
       success: "Member was successfully added."
+      invite_summary:
+        zero: "No valid email addresses were entered."
+        one: "1 email address processed: %{invited} invited, %{invalid} invalid, %{already} already a member."
+        other: "%{count} email addresses processed: %{invited} invited, %{invalid} invalid, %{already} already members."
+      limit_exceeded: "Only %{limit} invitations can be sent at once, so %{skipped} address(es) were not processed. Please invite them in another batch."
+      invite_failed: "Some invitations could not be sent. Please try again."
     update:
       success: "Member role was successfully updated."
     destroy:

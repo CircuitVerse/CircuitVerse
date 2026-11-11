@@ -2,8 +2,8 @@
 
 class Avo::Resources::Comment < Avo::BaseResource
   self.title = :id
-  self.includes = %i[creator thread parent]
-  self.model_class = ::Commontator::Comment
+  self.includes = %i[creator thread]
+  self.model_class = ::Comment
   self.devise_password_optional = true
 
   def fields
@@ -11,7 +11,6 @@ class Avo::Resources::Comment < Avo::BaseResource
     field :creator, as: :belongs_to, polymorphic_as: :creator, types: [::User], searchable: true
     field :editor, as: :belongs_to, polymorphic_as: :editor, types: [::User]
     field :thread, as: :belongs_to, searchable: true
-    field :parent, as: :belongs_to
 
     field :body, as: :textarea, required: true
     field :deleted_at, as: :date_time, readonly: true
@@ -20,7 +19,5 @@ class Avo::Resources::Comment < Avo::BaseResource
 
     field :created_at, as: :date_time, readonly: true, sortable: true, hide_on: %i[edit new]
     field :updated_at, as: :date_time, readonly: true, hide_on: %i[edit new]
-
-    field :children, as: :has_many, readonly: true
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AnnouncementsController < ApplicationController
+  include AdminAuthorizable
+
   before_action :authenticate_user!
   before_action :authorize_admin
 
@@ -42,10 +44,6 @@ class AnnouncementsController < ApplicationController
   end
 
   private
-
-    def authorize_admin
-      authorize Announcement.new, :admin?
-    end
 
     def announcement_params
       params.expect(announcement: %i[body link start_date end_date])

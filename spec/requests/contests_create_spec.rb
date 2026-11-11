@@ -7,7 +7,6 @@ RSpec.describe "Admin::Contests#create", type: :request do
 
   before do
     sign_in admin
-    enable_contests!
   end
 
   it "creates a new contest and redirects" do

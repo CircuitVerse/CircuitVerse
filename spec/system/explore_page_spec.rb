@@ -3,11 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "Explore page", :js, type: :system do
-  before do
-    enable_contests!
-    flipper_enable(:circuit_explore_page)
-  end
-
   it "renders sections and paginates Recent" do
     author = FactoryBot.create(:user)
     Array.new(25) do
