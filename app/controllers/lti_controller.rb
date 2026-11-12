@@ -49,13 +49,21 @@ class LtiController < ApplicationController
                                     lms_type: @lms_type,
                                     course_title_from_lms: @course_title_from_lms)
 
-        redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice
+        if lms_origin_unknown?
+          flash.now[:notice] = lms_auth_success_notice
+          @lti_breakout = true
+          render :open_incv, status: :ok,
+                             locals: { target_path: group_assignment_path(@group, @assignment) }
+        else
+          redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice
+        end
       elsif GroupMember.exists?(
         user_id: @user.id,
         group_id: @group.id
       ) # user is member of the group
         flash[:notice] = t(".notice_students_open_in_cv")
         create_project_if_student_present # create project with lis_result_sourced_id
+        @lti_breakout = lms_origin_unknown?
         render :open_incv, status: :ok
       else # user is not a member of the group
         flash[:notice] = t(".notice_ask_teacher")
@@ -119,7 +127,17 @@ class LtiController < ApplicationController
       @lms_type = params[:tool_consumer_info_product_family_code] # lms type
       @course_title_from_lms = params[:context_title] # course title
       lms_domain = params[:launch_presentation_return_url]
-      session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
+      session[:lms_domain] = lms_domain.present? ? lms_domain_root(lms_domain) : nil
+    end
+
+    def lms_domain_root(url)
+      URI.join(url, "/").to_s
+    rescue URI::Error
+      nil
+    end
+
+    def lms_origin_unknown?
+      session[:lms_domain].blank?
     end
 
     def store_lti_11_grade_context
@@ -155,6 +173,10 @@ class LtiController < ApplicationController
     def allow_iframe_lti
       return unless session[:is_lti]
 
-      response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
+      if session[:lms_domain].present?
+        response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
+      elsif @lti_breakout
+        response.headers.except! "X-Frame-Options"
+      end
     end
 end
