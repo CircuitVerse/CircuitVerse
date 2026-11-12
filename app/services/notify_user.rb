@@ -30,7 +30,7 @@ class NotifyUser
         star_notification
       when "ForkNotification"
         fork_notification
-      when "NewAssignmentNotification"
+      when "NewAssignmentNotification", "AssignmentCollaboratorNotification"
         new_assignment_notification
       when "ForumCommentNotification", "ForumThreadNotification"
         forum_discourse

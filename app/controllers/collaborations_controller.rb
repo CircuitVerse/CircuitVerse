@@ -28,7 +28,8 @@ class CollaborationsController < ApplicationController
       if user.nil?
         # PendingInvitation.where(group_id:@group.id,email:email).first_or_create
       else
-        Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
+        Collaboration.create_and_notify_assignment_collaborator(project: @project, user: user,
+                                                                added_by: current_user)
       end
     end
 
