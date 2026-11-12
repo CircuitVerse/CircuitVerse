@@ -17,7 +17,7 @@ RSpec.describe NotifyUser do
   end
 
   it "maps AssignmentCollaboratorNotification to the assignment page" do
-    assignment = create(:assignment)
+    assignment = create(:assignment, group: create(:group, primary_mentor: recipient))
     notification = NoticedNotification.create!(recipient: recipient,
                                                type: "AssignmentCollaboratorNotification",
                                                params: { assignment: assignment })
