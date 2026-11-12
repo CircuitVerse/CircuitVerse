@@ -22,6 +22,7 @@ export default class extends Controller {
 
     disconnect() {
         document.removeEventListener('click', this.boundOutside);
+        this.cancelPendingFocus();
     }
 
     updateOptionsForResource(event) {
@@ -63,6 +64,7 @@ export default class extends Controller {
     }
 
     close() {
+        this.cancelPendingFocus();
         this.optionsListTarget.classList.remove('show');
         this.element.classList.remove('open');
         this.updateExpandedState(false);
@@ -75,10 +77,14 @@ export default class extends Controller {
     }
 
     focusActiveOption() {
+        this.cancelPendingFocus();
         // The list is visibility:hidden until its CSS transition has started,
         // and hidden elements can't take focus, so wait two frames.
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
+        this.focusFrame = requestAnimationFrame(() => {
+            this.focusFrame = requestAnimationFrame(() => {
+                this.focusFrame = null;
+                // The list may have been closed (e.g. Escape) while we waited
+                if (!this.isOpen()) return;
                 const target = this.optionsListTarget.querySelector('.sorting-option.active button')
                     || this.optionsListTarget.querySelector('button');
                 if (target) {
@@ -88,6 +94,13 @@ export default class extends Controller {
         });
     }
 
+    cancelPendingFocus() {
+        if (this.focusFrame) {
+            cancelAnimationFrame(this.focusFrame);
+            this.focusFrame = null;
+        }
+    }
+    
     handleKeydown(event) {
         if (event.key !== 'Escape' || !this.isOpen()) return;
 
