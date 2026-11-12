@@ -43,14 +43,60 @@ export default class extends Controller {
         return this.allOptionsValue[this.currentResourceValue] || [];
     }
 
+    isOpen() {
+        return this.optionsListTarget.classList.contains('show');
+    }
+
     toggleOptions() {
-        this.optionsListTarget.classList.toggle('show');
-        this.element.classList.toggle('open');
+        if (this.isOpen()) {
+            this.close();
+        } else {
+            this.open();
+        }
+    }
+
+    open() {
+        this.optionsListTarget.classList.add('show');
+        this.element.classList.add('open');
+        this.updateExpandedState(true);
+        this.focusActiveOption();
     }
 
     close() {
         this.optionsListTarget.classList.remove('show');
         this.element.classList.remove('open');
+        this.updateExpandedState(false);
+    }
+
+    updateExpandedState(expanded) {
+        if (this.hasSortingTarget) {
+            this.sortingTarget.setAttribute('aria-expanded', String(expanded));
+        }
+    }
+
+    focusActiveOption() {
+        // The list is visibility:hidden until its CSS transition has started,
+        // and hidden elements can't take focus, so wait two frames.
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                const target = this.optionsListTarget.querySelector('.sorting-option.active button')
+                    || this.optionsListTarget.querySelector('button');
+                if (target) {
+                    target.focus();
+                }
+            });
+        });
+    }
+
+    handleKeydown(event) {
+        if (event.key !== 'Escape' || !this.isOpen()) return;
+
+        event.preventDefault();
+        this.close();
+        // Return focus to the sort button so keyboard users don't lose their place
+        if (this.hasSortingTarget) {
+            this.sortingTarget.focus();
+        }
     }
 
     handleOutsideClick(event) {
@@ -91,12 +137,20 @@ export default class extends Controller {
         currentOptions.forEach((option) => {
             const li = document.createElement('li');
             li.className = 'sorting-option';
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'sorting-option-button';
+            button.dataset.value = option.value;
+            button.dataset.action = 'click->search-sorting#selectOption';
+            button.textContent = option.label;
+
             if (option.value === this.selectedSortValue) {
                 li.classList.add('active');
+                button.setAttribute('aria-current', 'true');
             }
-            li.dataset.value = option.value;
-            li.dataset.action = 'click->search-sorting#selectOption';
-            li.textContent = option.label;
+
+            li.appendChild(button);
             this.optionsListTarget.appendChild(li);
         });
     }

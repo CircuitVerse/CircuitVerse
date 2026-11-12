@@ -80,9 +80,9 @@
             </div>
           </div>
         </div>
-        <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || RESOURCE_OPTIONS.first %>" data-action="search-bar:resource-changed@window->search-sorting#updateOptionsForResource">
+        <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || RESOURCE_OPTIONS.first %>" data-action="search-bar:resource-changed@window->search-sorting#updateOptionsForResource keydown->search-sorting#handleKeydown">
           <div class="d-flex sorting-buttons justify-content-center h-100">
-            <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
+            <button type="button" data-search-sorting-target="sorting" aria-haspopup="true" aria-expanded="false" aria-controls="sorting-options-list" data-action="click->search-sorting#toggleOptions">
               <span data-search-sorting-target="sortingText"><%= sort_by %></span>
               <%= helpers.image_tag "svgs/dropdown_arrow.svg", class: "select-arrow black-arrow", alt: "Dropdown arrow" %>
             </button>
@@ -91,7 +91,7 @@
               <%= helpers.image_tag "svgs/sort_desc.svg", class: "sort-arrow d-none", alt: "Sort descending", data: { search_sorting_target: "descIcon" } %>
             </button>
           </div>
-          <ul class="sorting-options" data-search-sorting-target="optionsList">
+          <ul class="sorting-options" id="sorting-options-list" data-search-sorting-target="optionsList">
           </ul>
           <%= hidden_field_tag :sort_by, sort_by, data: { search_sorting_target: "hiddenSortBy" } %>
           <%= hidden_field_tag :sort_direction, sort_direction, data: { search_sorting_target: "hiddenSortDirection" } %>
