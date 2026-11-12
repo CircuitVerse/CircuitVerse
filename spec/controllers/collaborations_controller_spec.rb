@@ -39,7 +39,7 @@ describe CollaborationsController, type: :request do
         expect(notification.type).to eq("AssignmentCollaboratorNotification")
         expect(notification.recipient).to eq(@new_collaboration)
         expect(notification.params[:assignment]).to eq(@assignment)
-        expect(notification.params[:user]).to eq(@author)
+        expect(notification.params[:user]).to eq(@author.name)
       end
 
       it "does not notify anyone when the collaboration already exists" do

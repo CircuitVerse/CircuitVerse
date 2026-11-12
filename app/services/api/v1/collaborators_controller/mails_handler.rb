@@ -47,11 +47,11 @@ class Api::V1::CollaboratorsController
       # checks if user exists and adds to added_mails
       newly_added.each do |email|
         user = User.find_by(email: email)
-        if user.present?
-          added_mails.push(email)
-          collaboration = Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
-          collaboration.notify_assignment_collaborator(@current_user) if collaboration.previously_new_record?
-        end
+        next if user.blank?
+
+        added_mails.push(email)
+        Collaboration.create_and_notify_assignment_collaborator(project: @project, user: user,
+                                                                added_by: @current_user)
       end
       # returns added_mails
       added_mails

@@ -3,13 +3,15 @@
 class AssignmentCollaboratorNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
 
+  # Builds the localized message for the notification.
+  # @return [String]
   def message
     assignment = params[:assignment]
     t("users.notifications.assignment_collaborator_notification",
-      user: params[:user]&.name,
+      user: params[:user],
       assignment_name: assignment&.name,
       group: assignment&.group&.name,
-      deadline: assignment&.deadline&.to_fs(:long))
+      deadline: assignment&.deadline&.strftime("%B %d, %Y %H:%M %:z"))
   end
 
   def icon
