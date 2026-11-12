@@ -127,7 +127,7 @@ class LtiController < ApplicationController
       @lms_type = params[:tool_consumer_info_product_family_code] # lms type
       @course_title_from_lms = params[:context_title] # course title
       lms_domain = params[:launch_presentation_return_url]
-      session[:lms_domain] = lms_domain_root(lms_domain) if lms_domain.present?
+      session[:lms_domain] = lms_domain.present? ? lms_domain_root(lms_domain) : nil
     end
 
     def lms_domain_root(url)

@@ -145,6 +145,15 @@ describe LtiController, type: :request do
         expect(session[:lms_domain]).to eq(expected_origin)
         expect(response.headers["X-FRAME-OPTIONS"]).to eq("ALLOW-FROM #{expected_origin}")
       end
+
+      it "clears the stored origin when a later launch omits the return url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email)
+        expect(session[:lms_domain]).to be_present
+
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "launch_presentation_return_url" => nil)
+        expect(session[:lms_domain]).to be_nil
+      end
     end
 
     def launch_uri
