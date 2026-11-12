@@ -7,7 +7,7 @@ RSpec.describe "Error pages", type: :request do
     get "/users/99999", params: { locale: "fr" }
 
     expect(response).to have_http_status(:not_found)
-    expect(response.body).to include("lang=fr")
+    expect(Nokogiri::HTML(response.body).at_css("html")["lang"]).to eq("fr")
   end
 
   it "links back to the local homepage instead of production" do
