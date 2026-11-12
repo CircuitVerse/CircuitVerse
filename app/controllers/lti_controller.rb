@@ -49,13 +49,21 @@ class LtiController < ApplicationController
                                     lms_type: @lms_type,
                                     course_title_from_lms: @course_title_from_lms)
 
-        redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice
+        if lms_origin_unknown?
+          flash.now[:notice] = lms_auth_success_notice
+          @lti_breakout = true
+          render :open_incv, status: :ok,
+                             locals: { target_path: group_assignment_path(@group, @assignment) }
+        else
+          redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice
+        end
       elsif GroupMember.exists?(
         user_id: @user.id,
         group_id: @group.id
       ) # user is member of the group
         flash[:notice] = t(".notice_students_open_in_cv")
         create_project_if_student_present # create project with lis_result_sourced_id
+        @lti_breakout = lms_origin_unknown?
         render :open_incv, status: :ok
       else # user is not a member of the group
         flash[:notice] = t(".notice_ask_teacher")
@@ -128,6 +136,10 @@ class LtiController < ApplicationController
       nil
     end
 
+    def lms_origin_unknown?
+      session[:lms_domain].blank?
+    end
+
     def store_lti_11_grade_context
       return unless @assignment.present? && params[:lis_outcome_service_url].present?
 
@@ -159,8 +171,12 @@ class LtiController < ApplicationController
     end
 
     def allow_iframe_lti
-      return unless session[:is_lti] && session[:lms_domain].present?
+      return unless session[:is_lti]
 
-      response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
+      if session[:lms_domain].present?
+        response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
+      elsif @lti_breakout
+        response.headers.except! "X-Frame-Options"
+      end
     end
 end
