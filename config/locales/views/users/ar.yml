@@ -92,4 +92,3 @@ ar:
       no_unread_notifications: "ليس لديك أي إشعارات غير مقروءة!"
       see_all: "شاهد الكل"
       new_assignment_notification: "لقد تم تعيينك مهمة جديدة '%{assignment_name}'"
-      assignment_collaborator_notification: "أضافك %{user} كمتعاون في المهمة '%{assignment_name}' ضمن المجموعة '%{group}'. يرجى إكمالها قبل %{deadline}"

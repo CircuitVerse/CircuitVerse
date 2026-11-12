@@ -97,6 +97,5 @@ fr:
       fork_notification: "%{user} a forcé votre projet %{project}"
       star_notification: "%{user} a mis en vedette votre projet %{project}"
       new_assignment_notification: "Vous avez été assigné un nouveau devoir '%{assignment_name}'"
-      assignment_collaborator_notification: "%{user} vous a ajouté comme collaborateur pour le devoir '%{assignment_name}' dans le groupe '%{group}'. Merci de le terminer avant le %{deadline}"
       forum_thread_notification: "%{user} a posté un nouveau sujet '%{thread}'"
       comment_notif: "%{user} a commenté le sujet '%{thread}'"

@@ -97,6 +97,5 @@ es:
       fork_notification: "%{user} bifurcó tu proyecto %{project}"
       star_notification: "%{user} protagonizó tu proyecto %{project}"
       new_assignment_notification: "Se le ha asignado una nueva tarea '%{assignment_name}'"
-      assignment_collaborator_notification: "%{user} te añadió como colaborador de la tarea '%{assignment_name}' en el grupo '%{group}'. Por favor complétala antes de %{deadline}"
       forum_thread_notification: "%{user} publicó un nuevo tema '%{thread}'"
       comment_notif: "%{user} comentó en el hilo '%{thread}'"

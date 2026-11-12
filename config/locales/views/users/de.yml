@@ -97,6 +97,5 @@ de:
       fork_notification: "%{user} hat Ihren Projekt- %{project} geforkt"
       star_notification: "%{user} hat Ihre Projekt- %{project} markiert"
       new_assignment_notification: "Ihnen wurde eine neue Aufgabe '%{assignment_name} ' zugewiesen"
-      assignment_collaborator_notification: "%{user} hat Sie als Mitbearbeiter der Aufgabe '%{assignment_name}' in der Gruppe '%{group}' hinzugefügt. Bitte erledigen Sie sie bis zum %{deadline}"
       forum_thread_notification: "%{user} hat einen neuen Thread '%{thread} ' geschrieben"
       comment_notif: "%{user} kommentierte den Thread '%{thread}'"

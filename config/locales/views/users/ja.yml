@@ -97,6 +97,5 @@ ja:
       fork_notification: "%{user} があなたのプロジェクト %{project} をフォークしました"
       star_notification: "%{user} があなたのプロジェクト %{project} でスター"
       new_assignment_notification: "新しい課題 '%{assignment_name} ' が割り当てられました"
-      assignment_collaborator_notification: "%{user} がグループ '%{group}' の課題 '%{assignment_name}' の共同作業者としてあなたを追加しました。%{deadline} までに完了してください"
       forum_thread_notification: "%{user} が新しいスレッド '%{thread} ' を投稿しました"
       comment_notif: "%{user} がスレッド '%{thread} ' にコメントしました"
