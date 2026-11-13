@@ -251,6 +251,7 @@ display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
   }
 }
 
