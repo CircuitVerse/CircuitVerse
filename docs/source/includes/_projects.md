@@ -959,7 +959,7 @@ You can star or unstar a project in `/api/v1/projects/:id/toggle-star`. Authenti
 | 404        | When the requested project identified by `id` does not exist. |
 
 ```http
-GET /api/v1/projects/:id/toggle-star HTTP/1.1
+POST /api/v1/projects/:id/toggle-star HTTP/1.1
 Accept: application/json
 Authorization: Token {token}
 Host: localhost
