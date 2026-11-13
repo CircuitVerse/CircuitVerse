@@ -441,7 +441,7 @@ GEM
       drb (~> 2.0)
       prism (~> 1.5)
     mize (0.6.1)
-    msgpack (1.8.3)
+    msgpack (1.8.7)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
