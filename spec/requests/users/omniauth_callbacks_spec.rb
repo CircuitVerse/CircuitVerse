@@ -55,14 +55,13 @@ RSpec.describe Users::OmniauthCallbacksController, type: :request do
     end
 
     context "with a registered email in different case" do
-      before do
-        FactoryBot.create(:user, email: "existing@example.com")
-        mock_github_auth(email: "Existing@Example.com")
-      end
+      let!(:user) { FactoryBot.create(:user, email: "existing@example.com") }
 
-      it "is not blocked" do
-        get callback_path
-        expect(flash[:alert]).not_to eq(I18n.t("registration_blocked"))
+      before { mock_github_auth(email: "Existing@Example.com") }
+
+      it "signs the existing user in without creating a new one" do
+        expect { get callback_path }.not_to change(User, :count)
+        expect(controller.current_user).to eq(user)
       end
     end
 
