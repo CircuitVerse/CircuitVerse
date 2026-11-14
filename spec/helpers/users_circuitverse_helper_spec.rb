@@ -61,5 +61,19 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       expect(user1.profile_picture.attached?).to be false
       expect(user_profile_picture(user1.profile_picture)).to eq("/images/thumb/Default.jpg")
     end
+
+    it "returns the path for the default image if the attachment is not persisted" do
+      user = FactoryBot.build(:user)
+      user.profile_picture.attach(
+        io: Rails.root.join("spec/fixtures/files/profile.png").open,
+        filename: "profile.png",
+        content_type: "image/png"
+      )
+      expect(user_profile_picture(user.profile_picture)).to eq("/images/thumb/Default.jpg")
+    end
+
+    it "returns the path for the default image if the attachment is nil" do
+      expect(user_profile_picture(nil)).to eq("/images/thumb/Default.jpg")
+    end
   end
 end
