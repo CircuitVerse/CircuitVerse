@@ -76,5 +76,21 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
+
+    context "when name contains unsafe HTML" do
+      before do
+        token = get_auth_token(user)
+        patch "/api/v1/projects/#{project.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: { project: { name: "<script>alert(1)</script>Evil Name" } }, as: :json
+      end
+
+      it "sanitizes the name before saving" do
+        expect(response).to have_http_status(:accepted)
+        project.reload
+        expect(project.name).not_to include("<script>")
+        expect(project.name).to include("Evil Name")
+      end
+    end
   end
 end
