@@ -51,16 +51,30 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def generic_callback(provider)
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    auth = request.env["omniauth.auth"]
+
+    if registration_blocked_for?(auth)
+      redirect_to new_user_session_path, alert: t("registration_blocked")
+      return
+    end
+
+    @user = User.from_omniauth(auth)
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
-    elsif Flipper.enabled?(:block_registration)
-      redirect_to new_user_session_path, alert: t("registration_blocked")
     else
-      session["devise.#{provider}_data"] =
-        request.env["omniauth.auth"].except(:extra).except("extra")
+      session["devise.#{provider}_data"] = auth.except(:extra).except("extra")
       redirect_to new_user_registration_url
     end
   end
+
+  private
+
+    # Existing users may still log in via OAuth; only new accounts are blocked.
+    def registration_blocked_for?(auth)
+      return false unless Flipper.enabled?(:block_registration)
+
+      email = auth.info["email"].to_s.downcase.strip
+      email.blank? || !User.exists?(email: email)
+    end
 end
