@@ -9,7 +9,7 @@ module UsersCircuitverseHelper
   end
 
   def user_profile_picture(attachment)
-    if attachment.attached?
+    if attachment&.attached? && !attachment.blob&.new_record?
       attachment
     else
       image_path("/images/thumb/Default.jpg")
