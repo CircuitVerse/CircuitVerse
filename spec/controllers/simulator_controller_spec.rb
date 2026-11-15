@@ -150,6 +150,14 @@ describe SimulatorController, type: :request do
           expect(response.status).to eq(403)
         end
       end
+
+      context "when requesting with unsupported format" do
+        it "returns not acceptable" do
+          sign_in @user
+          get "#{simulator_edit_path(@project)}.json"
+          expect(response).to have_http_status(:not_acceptable)
+        end
+      end
     end
 
     describe "#embed" do
