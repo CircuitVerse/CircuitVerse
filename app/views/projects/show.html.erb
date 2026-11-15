@@ -175,7 +175,7 @@
                     <%= link_to user.name, user, class: "anchor-text" %>
                   </div>
                 </div>
-                <% if policy(@project).author_access? %>
+                <% if policy(@project).author_access? || user == current_user %>
                   <div class="col-8 col-sm-8 col-md-5 col-lg-5">
                     <div class="projects-collaborators-data">
                       <%= user.email %>

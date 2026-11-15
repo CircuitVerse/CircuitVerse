@@ -44,13 +44,25 @@ class CollaborationsController < ApplicationController
   # DELETE /collaborations/1
   # DELETE /collaborations/1.json
   def destroy
-    authorize @collaboration.project, :author_access?
+    leaving = current_user.present? && @collaboration.user_id == current_user.id
+
+    # collaborators can remove themselves, everyone else needs author access
+    if leaving
+      skip_authorization
+    else
+      authorize @collaboration.project, :author_access?
+    end
 
     @collaboration.destroy
     respond_to do |format|
       format.html do
-        redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id),
-                    notice: "Collaboration was successfully destroyed."
+        # a collaborator who left may not be able to see a private project anymore
+        if leaving
+          redirect_to user_path(current_user), notice: "You have left the project."
+        else
+          redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id),
+                      notice: "Collaboration was successfully destroyed."
+        end
       end
       format.json { head :no_content }
     end
