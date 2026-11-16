@@ -331,8 +331,6 @@ export default async function save() {
     if(layoutModeGet())
         toggleLayoutMode();
 
-    projectSavedSet(true);
-
     $('.loadingIcon').fadeIn();
     const data = generateSaveData();
 
@@ -400,12 +398,14 @@ export default async function save() {
                 name: projectName,
             }),
             success(response) {
+                projectSavedSet(true);
                 showMessage(`We have saved your project: ${projectName} in our servers.`);
-                $('.loadingIcon').fadeOut();
                 localStorage.removeItem('recover');
             },
-            failure(err) {
+            error(err) {
                 showMessage("There was an error, we couldn't save to our servers");
+            },
+            complete() {
                 $('.loadingIcon').fadeOut();
             },
         });
