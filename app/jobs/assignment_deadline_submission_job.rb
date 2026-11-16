@@ -3,6 +3,12 @@
 class AssignmentDeadlineSubmissionJob < ApplicationJob
   queue_as :default
 
+  # Snapshots the projects of an expired assignment as submissions, detaches the
+  # originals from it, and marks the assignment as closed. Assignments that are
+  # already closed are left untouched.
+  #
+  # @param [Integer] assignment_id
+  # @return [void]
   def perform(assignment_id)
     assignment = Assignment.find_by(id: assignment_id)
 

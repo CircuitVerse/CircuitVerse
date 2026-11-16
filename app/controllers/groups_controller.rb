@@ -17,6 +17,9 @@ class GroupsController < ApplicationController
 
   # GET /groups/1
   # GET /groups/1.json
+  #
+  # Closes expired reopened assignments through AssignmentDeadlineSubmissionJob,
+  # so their projects are snapshotted before the status changes.
   def show
     @group_member = @group.group_members.new
     @group.assignments.each do |assignment|
