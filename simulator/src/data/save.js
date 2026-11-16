@@ -381,6 +381,7 @@ export default async function save() {
         );
 
         $('body').append(form);
+        projectSavedSet(true);
         form.submit();
     } else {
         // updates project - this part needs to be improved and optimised
