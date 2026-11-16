@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import '../src/setup';
 import { TestbenchData } from '../src/testbench';
 
 const sampleTestData = {
@@ -36,8 +37,9 @@ describe('TestbenchData navigation', () => {
     });
 
     test('goToFirstValidGroup inspects the first group regardless of current group', () => {
-        const tb = new TestbenchData(sampleTestData, 3, 0);
-        expect(() => tb.goToFirstValidGroup()).not.toThrow();
+        const tb = new TestbenchData(sampleTestData, 3, 1);
         expect(tb.goToFirstValidGroup()).toBe(true);
+        expect(tb.currentGroup).toBe(0);
+        expect(tb.currentCase).toBe(0);
     });
 });

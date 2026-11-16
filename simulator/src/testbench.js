@@ -149,8 +149,12 @@ export class TestbenchData {
         const newCase = new TestbenchData(this.testData, 0, 0);
         const caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
 
-        // If the first group is not empty, do nothing
-        if (caseCount > 0) return true;
+        // If the first group is not empty, start from it
+        if (caseCount > 0) {
+            this.currentGroup = newCase.currentGroup;
+            this.currentCase = newCase.currentCase;
+            return true;
+        }
 
         // Otherwise go next until non empty group
         const validExists = newCase.groupNext();
