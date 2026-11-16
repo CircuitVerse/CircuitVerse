@@ -331,8 +331,6 @@ export default async function save() {
     if(layoutModeGet())
         toggleLayoutMode();
 
-    projectSavedSet(true);
-
     $('.loadingIcon').fadeIn();
     const data = generateSaveData();
 
@@ -347,6 +345,7 @@ export default async function save() {
         else $('.loadingIcon').fadeOut();
         // eslint-disable-next-line camelcase
     } else if (__logix_project_id == "0") {
+        projectSavedSet(true);
         // Create new project - this part needs to be improved and optimised
         const form = $('<form/>', {
             action: '/simulator/create_data',
@@ -400,11 +399,13 @@ export default async function save() {
                 name: projectName,
             }),
             success(response) {
+                projectSavedSet(true);
                 showMessage(`We have saved your project: ${projectName} in our servers.`);
                 $('.loadingIcon').fadeOut();
                 localStorage.removeItem('recover');
             },
-            failure(err) {
+            error(err) {
+                projectSavedSet(false);
                 showMessage("There was an error, we couldn't save to our servers");
                 $('.loadingIcon').fadeOut();
             },
