@@ -158,7 +158,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
-  # GET /api/v1/projects/:id/toggle-star
+  # POST /api/v1/projects/:id/toggle-star
   def toggle_star
     authorize @project, :check_view_access?
     if @project.toggle_star(current_user)

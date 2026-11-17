@@ -69,34 +69,16 @@ describe CollaborationsController, type: :request do
 
   describe "#update" do
     before do
-      @new_project = FactoryBot.create(:project)
       @collaboration = FactoryBot.create(:collaboration, project: @project,
                                                          user: FactoryBot.create(:user))
     end
 
-    let(:update_params) do
-      {
-        collaboration: {
-          project_id: @new_project.id
-        }
-      }
-    end
-
-    context "author is signed in" do
-      it "updates the collaboration" do
-        sign_in @author
-        put collaboration_path(@collaboration), params: update_params
-        @collaboration.reload
-        expect(@collaboration.project_id).to eq(@new_project.id)
-      end
-    end
-
-    context "user other than author is signed_in" do
-      it "throws unauthorized error" do
-        sign_in_random_user
-        put collaboration_path(@collaboration), params: update_params
-        check_not_authorized(response)
-      end
+    it "is not routable" do
+      expect do
+        Rails.application.routes.recognize_path(
+          collaboration_path(@collaboration), method: :patch
+        )
+      end.to raise_error(ActionController::RoutingError)
     end
   end
 end
