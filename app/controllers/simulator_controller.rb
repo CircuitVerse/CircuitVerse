@@ -4,9 +4,9 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
-  skip_after_action :verify_authorized, only: %i[new create post_issue verilog_cv]
+  skip_after_action :verify_authorized, only: %i[new create post_issue verilog_cv circuit_images]
 
-  before_action :authenticate_user!, only: %i[create update edit]
+  before_action :authenticate_user!, only: %i[create update edit circuit_images]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
@@ -138,6 +138,40 @@ class SimulatorController < ApplicationController
     end
 
     compile_with_local_gem
+  end
+
+ def circuit_images
+    image = params[:image]
+
+    unless image.respond_to?(:tempfile) && image.respond_to?(:original_filename)
+      return render json: { error: "No Image Provided" }, status: :unprocessable_entity
+    end
+
+    # file size limit
+    if image.size > 5.megabytes
+      return render json: { error: "File exceeds the 5MB limit." }, status: :unprocessable_entity
+    end
+
+    # mime sniffing(using marcel)
+
+    detected_content_type = Marcel::MimeType.for(image.tempfile)
+
+    image.tempfile.rewind if image.tempfile.respond_to?(:rewind)
+
+    allowed_types = %w[image/png image/jpeg image/gif]
+    
+    unless allowed_types.include?(detected_content_type)
+      return render json: { error: "Invalid file type. Only PNG, JPEG, and GIF are allowed." }, status: :unprocessable_entity
+    end
+
+    # blob creation
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: image.tempfile,
+      filename: image.original_filename,
+      content_type: detected_content_type
+    )
+
+    render json: { url: url_for(blob) }
   end
 
   def allow_iframe_lti
