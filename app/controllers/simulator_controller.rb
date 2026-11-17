@@ -141,7 +141,7 @@ class SimulatorController < ApplicationController
   end
 
   def allow_iframe_lti
-    return unless session[:is_lti]
+    return unless session[:is_lti] && session[:lms_domain].present?
 
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
   end
