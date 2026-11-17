@@ -68,6 +68,32 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
         expect(response.parsed_body["existing"]).to eq(["existing@test.com"])
         expect(response.parsed_body["invalid"]).to eq(["invalid", author.email])
       end
+
+      it "does not notify because the project has no assignment" do
+        expect(NoticedNotification.where(type: "AssignmentCollaboratorNotification")).to be_empty
+      end
+    end
+
+    context "when authorized and the project belongs to an assignment" do
+      let!(:group) { FactoryBot.create(:group, primary_mentor: author) }
+      let!(:assignment) do
+        FactoryBot.create(:assignment, group: group, name: "Lab 1", deadline: 3.days.from_now)
+      end
+
+      before do
+        project.update!(assignment: assignment)
+        token = get_auth_token(author)
+        post "/api/v1/projects/#{project.id}/collaborators/",
+             headers: { Authorization: "Token #{token}" },
+             params: { emails: user.email }, as: :json
+      end
+
+      it "notifies the added collaborator about the assignment" do
+        notification = NoticedNotification.order(:created_at).last
+        expect(notification.type).to eq("AssignmentCollaboratorNotification")
+        expect(notification.recipient).to eq(user)
+        expect(notification.params[:assignment]).to eq(assignment)
+      end
     end
 
     def create_params
