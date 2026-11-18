@@ -3,7 +3,6 @@ import { Controller } from 'stimulus';
 export default class extends Controller {
     connect() {
         this.setShowModals();
-        this.setAdminModals();
     }
 
     enableSubmitButton() {
@@ -11,19 +10,6 @@ export default class extends Controller {
         if (button) {
             button.disabled = false;
         }
-    }
-
-    setAdminModals() {
-        const updateContestModal = this.element.querySelector('#update-contest-modal');
-        if (!updateContestModal) return;
-        $(updateContestModal).on('show.bs.modal', function handleUpdateContestModal(e) {
-            const contestId = $(e.relatedTarget).data('contest').id;
-            const currentDeadline = $(e.relatedTarget).data('deadline');
-            const form = $(this).find('#update-contest-form');
-            const action = form.attr('action').replace(':contest_id', contestId);
-            form.attr('action', action);
-            form.find('#contest_deadline').val(currentDeadline);
-        });
     }
 
     setShowModals() {
