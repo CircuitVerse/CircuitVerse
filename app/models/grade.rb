@@ -12,28 +12,7 @@ class Grade < ApplicationRecord
   validate :grading_scale, :assignment_project
   validates :project_id, uniqueness: { scope: :assignment_id }
 
-  private
-
-    def grading_scale
-      valid = case assignment.grading_scale
-              when "no_scale"
-                false
-              when "letter"
-                grade&.match(LETTER_MATCH).present?
-              when "percent"
-                grade&.match(PERCENT_MATCH).present?
-              when "custom"
-                true
-      end
-
-      errors.add(:grade, "Grade does not match scale or assignment cannot be graded") unless valid
-    end
-
-    def assignment_project
-      errors.add(:project, "is not a part of the assignment") if project&.assignment_id != assignment&.id
-    end
-
-    def self.to_csv(assignment_id)
+def self.to_csv(assignment_id)
       attributes = %w[email name grade remarks]
       group_members = User.joins(group_members: :assignments)
                           .where(group_members: { assignments: { id: assignment_id } })
@@ -56,3 +35,26 @@ class Grade < ApplicationRecord
       end
     end
 end
+
+  private
+
+    def grading_scale
+      valid = case assignment.grading_scale
+              when "no_scale"
+                false
+              when "letter"
+                grade&.match(LETTER_MATCH).present?
+              when "percent"
+                grade&.match(PERCENT_MATCH).present?
+              when "custom"
+                true
+      end
+
+      errors.add(:grade, "Grade does not match scale or assignment cannot be graded") unless valid
+    end
+
+    def assignment_project
+      errors.add(:project, "is not a part of the assignment") if project&.assignment_id != assignment&.id
+    end
+
+    
