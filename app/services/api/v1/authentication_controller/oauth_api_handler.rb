@@ -38,8 +38,9 @@ class Api::V1::AuthenticationController
 
       def facebook_user
         # @type [HTTP::Response]
-        @response = HTTP.get("https://graph.facebook.com/v2.12/me" \
-                             "?fields=name,email&access_token=#{@access_token}")
+        @response = HTTP.auth("Bearer #{@access_token}")
+                        .get("https://graph.facebook.com/v19.0/me",
+                             params: { fields: "id,name,email" })
       end
 
       def github_user
