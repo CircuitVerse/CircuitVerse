@@ -23,7 +23,12 @@ SitemapGenerator::Sitemap.create do
   #
 
   User.find_each do |user|
-    add user_projects_path(user), lastmod: user.current_sign_in_at
+    lastmod = user.projects.open.maximum(:updated_at)
+    if lastmod.present?
+      add user_projects_path(user), lastmod: lastmod
+    else
+      add user_projects_path(user)
+    end
   end
 
   Project.open.find_each do |project|
