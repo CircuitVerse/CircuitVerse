@@ -41,7 +41,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: "yarn"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Install Dependencies for canvas
         run: |
@@ -53,12 +57,12 @@ jobs:
         with:
           reviewdog_version: latest
 
-      - run: yarn install
+      - run: bun install --frozen-lockfile
 
       - name: Install Playwright and browsers
         run: |
           export PLAYWRIGHT_CLI_VERSION=$(bundle exec ruby -e 'require "playwright"; puts Playwright::COMPATIBLE_PLAYWRIGHT_VERSION.strip')
-          yarn add -D "playwright@$PLAYWRIGHT_CLI_VERSION"
+          bun add -d "playwright@$PLAYWRIGHT_CLI_VERSION"
           npx playwright install --with-deps
 
       - name: Copy the sample ENV Config
@@ -72,7 +76,7 @@ jobs:
 
       - name: Build assets
         run: |
-          yarn run build
+          bun run build
           bin/rails assets:clobber
           bin/rails assets:precompile
 
