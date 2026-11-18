@@ -13,7 +13,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
     # options for serializing collaborators
     @options = {
       params: { only_name: true },
-      links: link_attrs(@collaborators, api_v1_project_collaborators_url)
+      links: link_attrs(api_v1_project_collaborators_url)
     }
     render json: Api::V1::UserSerializer.new(@collaborators, @options)
   end

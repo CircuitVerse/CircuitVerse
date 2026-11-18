@@ -5,6 +5,7 @@ class Api::V1::BaseController < ActionController::API
   include CustomErrors
   include ActionController::RequestForgeryProtection
   include ActiveStorage::SetCurrent
+  include Pagy::Backend
 
   protect_from_forgery with: :exception, if: lambda {
     request.headers["Authorization"].blank? && current_user
@@ -13,6 +14,7 @@ class Api::V1::BaseController < ActionController::API
   after_action :verify_authorized
 
   DEFAULT_PER_PAGE = 9
+  MAX_PER_PAGE = 100
 
   rescue_from ActionController::ParameterMissing do
     api_error(status: 400, errors: "invalid parameters")
@@ -66,20 +68,28 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "invalid resource")
   end
 
+  # Reads page[number] and page[size]. Invalid or out-of-range values are
+  # clamped (page >= 1, 1 <= size <= MAX_PER_PAGE) so they never reach Pagy,
+  # which raises on zero or negative values.
   def paginate(resource)
-    resource.paginate(
-      page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
-      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
-    )
+    page_params = params.to_unsafe_h.fetch("page", {})
+    page_params = {} unless page_params.is_a?(Hash)
+
+    page = [scalar_page_param(page_params["number"]), 1].max
+    limit = scalar_page_param(page_params["size"])
+    limit = limit.positive? ? [limit, MAX_PER_PAGE].min : DEFAULT_PER_PAGE
+
+    @pagy, records = pagy(resource, page: page, limit: limit, overflow: :empty_page)
+    records
   end
 
-  def link_attrs(resource, base_url)
+  def link_attrs(base_url)
     {
-      self: paginated_url(base_url, resource.current_page),
+      self: paginated_url(base_url, @pagy.page),
       first: paginated_url(base_url, 1),
-      prev: paginated_url(base_url, resource.previous_page),
-      next: paginated_url(base_url, resource.next_page),
-      last: paginated_url(base_url, resource.total_pages)
+      prev: paginated_url(base_url, @pagy.prev),
+      next: paginated_url(base_url, @pagy.next),
+      last: paginated_url(base_url, @pagy.last)
     }
   end
 
@@ -89,6 +99,12 @@ class Api::V1::BaseController < ActionController::API
   end
 
   private
+
+    # Only plain values count; arrays or hashes such as page[number][]=1 are
+    # treated as missing instead of raising NoMethodError on #to_i.
+    def scalar_page_param(value)
+      value.is_a?(String) || value.is_a?(Integer) ? value.to_i : 0
+    end
 
     def paginated_url(base_url, page)
       separator = base_url.index("?").nil? ? "?" : "&"

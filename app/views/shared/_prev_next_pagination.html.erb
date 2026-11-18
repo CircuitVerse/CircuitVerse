@@ -1,0 +1,19 @@
+<%# Previous/Next-only pagination for search results (no numbered page links). %>
+<% if pagy.pages > 1 %>
+  <ul class="pagination">
+    <li class="page-item<%= ' disabled' unless pagy.prev %>">
+      <% if pagy.prev %>
+        <%= link_to t("pagination.previous_label_html"), pagy_url_for(pagy, pagy.prev), class: "page-link", rel: "prev" %>
+      <% else %>
+        <span class="page-link"><%= t("pagination.previous_label_html") %></span>
+      <% end %>
+    </li>
+    <li class="page-item<%= ' disabled' unless pagy.next %>">
+      <% if pagy.next %>
+        <%= link_to t("pagination.next_label_html"), pagy_url_for(pagy, pagy.next), class: "page-link", rel: "next" %>
+      <% else %>
+        <span class="page-link"><%= t("pagination.next_label_html") %></span>
+      <% end %>
+    </li>
+  </ul>
+<% end %>

@@ -29,7 +29,11 @@
   </div>
 
   <div class="container pagination-cont">
-    <%= helpers.will_paginate contests, renderer: PaginateRenderer %>
+    <% if pagy.pages > 1 %>
+      <div class="d-flex justify-content-center">
+        <%== helpers.pagy_bootstrap_nav(pagy) %>
+      </div>
+    <% end %>
   </div>
 
   <% if contests.empty? %>

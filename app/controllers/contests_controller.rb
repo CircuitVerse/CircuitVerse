@@ -8,9 +8,7 @@ class ContestsController < ApplicationController
   before_action :set_user_count, only: :show
 
   def index
-    @contests = Contest.order(id: :desc)
-                       .paginate(page: params[:page])
-                       .limit(Contest.per_page)
+    @pagy, @contests = pagy(Contest.order(id: :desc), limit: Contest::PER_PAGE)
 
     respond_to do |format|
       format.html
@@ -21,10 +19,8 @@ class ContestsController < ApplicationController
 
   def show
     @user_submission = @contest.submissions.where(user_id: current_user&.id)
-    @submissions     = @contest.submissions
-                               .where.not(user_id: current_user&.id)
-                               .paginate(page: params[:page])
-                               .limit(6)
+    submissions = @contest.submissions.where.not(user_id: current_user&.id)
+    @pagy, @submissions = pagy(submissions, limit: 6)
 
     return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
 

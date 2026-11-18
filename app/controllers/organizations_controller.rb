@@ -18,12 +18,12 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   def index
     organizations = current_user.organizations
-    @organizations = organizations
-                     .left_joins(:organization_members)
-                     .select("organizations.*, COUNT(organization_members.id) AS members_count")
-                     .group("organizations.id")
-                     .order(created_at: :desc)
-                     .paginate(page: params[:page], per_page: PER_PAGE, total_entries: organizations.count)
+    scope = organizations
+            .left_joins(:organization_members)
+            .select("organizations.*, COUNT(organization_members.id) AS members_count")
+            .group("organizations.id")
+            .order(created_at: :desc)
+    @pagy, @organizations = pagy(scope, limit: PER_PAGE, count: organizations.count)
   end
 
   # GET /organizations/1  → redirect to overview tab
@@ -34,16 +34,17 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1/overview
   def overview
     @active_tab = "overview"
-    @groups = visible_groups
-              .left_joins(:group_members)
-              .select("groups.*, COUNT(group_members.id) AS group_members_count")
-              .group("groups.id")
-              .order(created_at: :desc)
-              .paginate(
-                page: params[:groups_page],
-                per_page: PER_PAGE,
-                total_entries: visible_groups.count
-              )
+    scope = visible_groups
+            .left_joins(:group_members)
+            .select("groups.*, COUNT(group_members.id) AS group_members_count")
+            .group("groups.id")
+            .order(created_at: :desc)
+    @groups_pagy, @groups = pagy(
+      scope,
+      limit: PER_PAGE,
+      count: visible_groups.count,
+      page_param: :groups_page
+    )
   end
 
   # GET /organizations/1/members
