@@ -50,10 +50,9 @@ class Api::V1::AuthenticationController
         app_secret = ENV["FACEBOOK_CLIENT_SECRET"]
         app_access_token = "#{app_id}|#{app_secret}"
 
-        debug_response = HTTP.get(
-          "https://graph.facebook.com/debug_token",
-          params: { input_token: @access_token, access_token: app_access_token }
-        )
+        debug_response = HTTP.auth("Bearer #{app_access_token}")
+                            .get("https://graph.facebook.com/debug_token",
+                                 params: { input_token: @access_token })
 
         raise InvalidOAuthToken unless debug_response.status.success?
 
