@@ -37,10 +37,28 @@ class Api::V1::AuthenticationController
       end
 
       def facebook_user
+        validate_facebook_token!
+
         # @type [HTTP::Response]
         @response = HTTP.auth("Bearer #{@access_token}")
                         .get("https://graph.facebook.com/v19.0/me",
                              params: { fields: "id,name,email" })
+      end
+
+      def validate_facebook_token!
+        app_id = ENV["FACEBOOK_CLIENT_ID"]
+        app_secret = ENV["FACEBOOK_CLIENT_SECRET"]
+        app_access_token = "#{app_id}|#{app_secret}"
+
+        debug_response = HTTP.get(
+          "https://graph.facebook.com/debug_token",
+          params: { input_token: @access_token, access_token: app_access_token }
+        )
+
+        raise InvalidOAuthToken unless debug_response.status.success?
+
+        data = JSON.parse(debug_response.body.to_s).dig("data")
+        raise InvalidOAuthToken unless data&.fetch("is_valid", false) && data["app_id"] == app_id
       end
 
       def github_user
