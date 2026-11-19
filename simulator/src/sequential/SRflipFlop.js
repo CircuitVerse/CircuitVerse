@@ -2,6 +2,8 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText } from '../canvasApi';
+import { showWarning } from '../utils';
+
 /**
  * @class
  * SRflipFlop
@@ -51,6 +53,12 @@ export default class SRflipFlop extends CircuitElement {
      * always resolvable
      */
     isResolvable() {
+        if ((this.reset.value === 1 && this.preset.value === 1)) {
+            showWarning('Reset and Preset are both active. Avoid this state.');
+        }
+        if ((this.S.value === 1 && this.R.value === 1)) {
+            showWarning('S and R inputs are high simultaneously, avoid this state.');
+        }
         return true;
         if (this.reset.value == 1) return true;
         if (this.S.value != undefined && this.R.value != undefined) return true;
