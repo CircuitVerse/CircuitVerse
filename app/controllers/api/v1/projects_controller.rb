@@ -251,7 +251,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def search_projects
-      query_params = { q: params[:q], page: params[:page][:number], per_page: params[:page][:size] }
+      query_params = {
+        q: params[:q],
+        page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
+        per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
+      }
+
       @projects = ProjectsQuery.new(query_params, Project.public_and_not_forked).results
     end
 

@@ -49,5 +49,47 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
         expect(response.parsed_body["data"].length).to eq(0)
       end
     end
+
+    # Regression tests for issue #7995
+
+    context "when pagination parameters are omitted" do
+      before do
+        get "/api/v1/projects/search",
+            params: { q: "full" },
+            as: :json
+      end
+
+      it "returns matching projects using default pagination" do
+        expect(response).to have_http_status(:ok)
+        expect(response).to match_response_schema("projects")
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
+
+    context "when page size is omitted" do
+      before do
+        get "/api/v1/projects/search",
+            params: { q: "full", page: { number: 1 } },
+            as: :json
+      end
+
+      it "returns matching projects using the default page size" do
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
+
+    context "when page number is omitted" do
+      before do
+        get "/api/v1/projects/search",
+            params: { q: "full", page: { size: 9 } },
+            as: :json
+      end
+
+      it "returns matching projects using the first page" do
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
   end
 end
