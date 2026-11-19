@@ -63,6 +63,25 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       end
     end
 
+    context "when authorized and emails have mixed case and whitespace" do
+      let!(:mixed_case_user) { FactoryBot.create(:user, email: "mixedcase@example.com") }
+
+      before do
+        token = get_auth_token(primary_mentor)
+        post "/api/v1/groups/#{group.id}/members",
+             headers: { Authorization: "Token #{token}" },
+             params: { emails: "  MixedCase@Example.com ,  PENDING_USER@EXAMPLE.COM  ,  invalid_email  " },
+             as: :json
+      end
+
+      it "normalizes emails, adds existing user, and queues pending invitation" do
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["added"]).to eq(["mixedcase@example.com"])
+        expect(response.parsed_body["pending"]).to eq(["pending_user@example.com"])
+        expect(response.parsed_body["invalid"]).to eq(["invalid_email"])
+      end
+    end
+
     def create_params
       {
         emails: "test@test.com, newuser@test.com, invalid"
