@@ -152,6 +152,14 @@ class Project < ApplicationRecord
     %w[v0 v1].include?(sim_version)
   end
 
+  # Path to the preview image. Prefers the ActiveStorage attachment and falls
+  # back to the CarrierWave upload, which returns the default image when empty.
+  def preview_path
+    return image_preview.url unless circuit_preview.attached?
+
+    Rails.application.routes.url_helpers.rails_blob_path(circuit_preview, only_path: true)
+  end
+
   private
 
     def check_validity

@@ -104,5 +104,28 @@ RSpec.describe Project, type: :model do
         end.to change(FeaturedCircuit, :count).by(-1)
       end
     end
+
+    describe "#preview_path" do
+      let(:project) { FactoryBot.create(:project, author: @user) }
+      let(:fixture) { Rails.root.join("spec/fixtures/files/profile.png") }
+
+      it "returns the ActiveStorage blob path when circuit_preview is attached" do
+        project.circuit_preview.attach(io: fixture.open, filename: "preview.png", content_type: "image/png")
+
+        expect(project.preview_path).to start_with("/rails/active_storage/blobs/")
+      end
+
+      it "falls back to the CarrierWave upload when circuit_preview is missing" do
+        project.image_preview = fixture.open
+        project.save!
+
+        expect(project.preview_path).to eq(project.image_preview.url)
+        expect(project.preview_path).to end_with("profile.png")
+      end
+
+      it "returns the default image when no preview exists" do
+        expect(project.preview_path).to eq("/images/default.png")
+      end
+    end
   end
 end
