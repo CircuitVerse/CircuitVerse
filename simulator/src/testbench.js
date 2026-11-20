@@ -780,7 +780,11 @@ function validateOutputs(data, scope) {
     const invalids = [];
 
     data.groups[0].outputs.forEach((dataOutput) => {
-        const matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        let matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+
+        if (matchOutput === undefined && scope.DigitalLed) {
+            matchOutput = scope.DigitalLed.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        }
 
         if (matchOutput === undefined) {
             invalids.push({
@@ -820,7 +824,12 @@ function bindIO(data, scope) {
     });
 
     data.groups[0].outputs.forEach((dataOutput) => {
-        outputs[dataOutput.label.trim()] = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        let matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+
+        if (matchOutput === undefined && scope.DigitalLed) {
+            matchOutput = scope.DigitalLed.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        }
+    outputs[dataOutput.label.trim()] = matchOutput;
     });
 
     if (data.type === 'seq') {
