@@ -62,11 +62,15 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it "returns the added, already_existing & invalid mails (author being invalid)" do
-        expect(response.parsed_body["added"]).to eq([user.email])
-
-        expect(response.parsed_body["existing"]).to eq(["existing@test.com"])
-        expect(response.parsed_body["invalid"]).to eq(["invalid", author.email])
+      it "returns the added, already_existing & not_added mails with reasons" do
+        parsed = response.parsed_body
+        expect(parsed["message"]).to eq("1 collaborator added")
+        expect(parsed["added"]).to eq([user.email])
+        expect(parsed["existing"]).to eq(["existing@test.com"])
+        expect(parsed["not_added"]).to contain_exactly(
+          { "email" => "invalid", "reason" => "Invalid email" },
+          { "email" => author.email, "reason" => "Cannot add yourself" }
+        )
       end
     end
 
