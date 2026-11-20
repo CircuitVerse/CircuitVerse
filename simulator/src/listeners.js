@@ -155,7 +155,7 @@ export function pinchZoom(e, globalScope) {
     updatePositionSet(true);
     updateCanvasSet(true);
     // Calculating distance between touch to see if its pinchIN or pinchOut
-    distance = Math.sqrt((e.touches[1].clientX - e.touches[0].clientX) ** 2, (e.touches[1].clientY - e.touches[0].clientY) ** 2);
+    distance = Math.sqrt((e.touches[1].clientX - e.touches[0].clientX) ** 2 + (e.touches[1].clientY - e.touches[0].clientY) ** 2);
     if (distance >= currDistance) {
         pinchZ += 0.02;
         currDistance = distance;
@@ -172,18 +172,18 @@ export function pinchZoom(e, globalScope) {
     const oldScale = globalScope.scale;
     globalScope.scale = Math.max(0.5, Math.min(4 * DPR, pinchZ * 3));
     globalScope.scale = Math.round(globalScope.scale * 10) / 10;
-    // This is not working as expected
+
     centreX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
     centreY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
     const rect = simulationArea.canvas.getBoundingClientRect();
     const RawX = (centreX - rect.left) * DPR;
     const RawY = (centreY - rect.top) * DPR;
-    const Xf = Math.round(((RawX - globalScope.ox) / globalScope.scale) / unit);
-    const Yf = Math.round(((RawY - globalScope.ox) / globalScope.scale) / unit);
-    const currCentreX = Math.round(Xf / unit) * unit;
-    const currCentreY = Math.round(Yf / unit) * unit;
-    globalScope.ox = Math.round(currCentreX * (globalScope.scale - oldScale));
-    globalScope.oy = Math.round(currCentreY * (globalScope.scale - oldScale));
+
+    const xx = (RawX - globalScope.ox) / oldScale;
+    const yy = (RawY - globalScope.oy) / oldScale;
+
+    globalScope.ox -= Math.round(xx * (globalScope.scale - oldScale));
+    globalScope.oy -= Math.round(yy * (globalScope.scale - oldScale));
     gridUpdateSet(true);
     scheduleUpdate(1);
 }
@@ -415,6 +415,13 @@ export default function startListeners() {
     //
     document.getElementById('simulationArea').addEventListener('touchstart', (e) => {
         simulationArea.touch = true;
+        if (e.touches.length === 2) {
+            pinchZ = globalScope.scale / 3;
+            currDistance = Math.sqrt(
+                (e.touches[1].clientX - e.touches[0].clientX) ** 2 +
+                (e.touches[1].clientY - e.touches[0].clientY) ** 2
+            );
+        }
         panStart(e);
     });
     document.getElementById('simulationArea').addEventListener('touchmove', (e) => {
