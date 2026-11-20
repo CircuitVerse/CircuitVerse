@@ -24,6 +24,7 @@ RSpec.describe AssignmentMailer, type: :mailer do
     it "sends update assignment link" do
       expect(mail.to).to eq([@user.email])
       expect(mail.subject).to eq("Assignment Updated in #{@group.name}")
+      expect(mail.body.encoded).to include(@group.primary_mentor.name)
     end
   end
 end
