@@ -46,21 +46,21 @@ class AssignmentsController < ApplicationController
     authorize @assignment
   end
 
+  # Reopens a closed assignment and restores student projects.
   def reopen
     authorize @assignment
     @assignment.status = "open"
     @assignment.deadline = 1.day.from_now
     @assignment.save
+    @assignment.check_reopening_status
 
     redirect_to edit_group_assignment_redirect_path(@group, @assignment)
   end
 
-  # Close assignment
+  # Closes the assignment manually and freezes student submissions.
   def close
     authorize @assignment
-    @assignment.status = "closed"
-    @assignment.deadline = Time.zone.now
-    @assignment.save
+    @assignment.close!
 
     redirect_to group_assignment_redirect_path(@group, @assignment)
   end

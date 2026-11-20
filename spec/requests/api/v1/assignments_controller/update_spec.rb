@@ -79,6 +79,25 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
     end
 
+    context "when updating a closed assignment" do
+      let!(:project) { FactoryBot.create(:project, assignment: assignment, author: FactoryBot.create(:user)) }
+
+      before do
+        assignment.close!
+        token = get_auth_token(primary_mentor)
+        patch "/api/v1/assignments/#{assignment.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: update_params, as: :json
+      end
+
+      it "keeps submissions frozen" do
+        expect(response).to have_http_status(:accepted)
+        expect(assignment.reload.status).to eq("closed")
+        expect(project.reload.assignment_id).to be_nil
+        expect(assignment.projects.where(project_submission: true).count).to eq(1)
+      end
+    end
+
     def update_params
       {
         name: "test updated", deadline: Time.zone.now,

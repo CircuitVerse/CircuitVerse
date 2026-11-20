@@ -73,16 +73,47 @@ class Assignment < ApplicationRecord
                                       .map { |project| ProjectDecorator.new(project) }
   end
 
-  def check_reopening_status
+  # Snapshots all student projects into assignment submissions and detaches
+  # the editable originals so further edits are not reflected in submissions.
+  def freeze_submissions
     projects.each do |proj|
-      next unless proj.project_submission == true
+      next unless proj.project_submission == false
 
-      old_project = Project.find_by(id: proj.forked_project_id)
-      if old_project.nil?
-        proj.update(project_submission: false)
-      else
-        old_project.update(assignment_id: proj.assignment_id)
-        proj.destroy
+      submission = proj.fork(proj.author)
+      submission.project_submission = true
+      proj.assignment_id = nil
+      proj.save!
+      submission.save!
+    end
+  end
+
+  # Atomically freezes submissions and updates status to closed.
+  # Returns false if the assignment was already closed.
+  def close!(deadline: Time.zone.now)
+    with_lock do
+      next false if status == "closed"
+
+      freeze_submissions
+      update!(status: "closed", deadline: deadline)
+    end
+  end
+
+  # Moves submissions back to the original projects unless the assignment is closed.
+  # Status comes from the locked row since this object may be stale if close! just ran.
+  def check_reopening_status
+    transaction do
+      next if Assignment.lock.find(id).status == "closed"
+
+      projects.reload.each do |proj|
+        next unless proj.project_submission == true
+
+        old_project = Project.find_by(id: proj.forked_project_id)
+        if old_project.nil?
+          proj.update(project_submission: false)
+        else
+          old_project.update(assignment_id: proj.assignment_id)
+          proj.destroy
+        end
       end
     end
   end
