@@ -63,6 +63,20 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       end
     end
 
+    context "when authorized but emails param is missing or blank" do
+      before do
+        token = get_auth_token(primary_mentor)
+        post "/api/v1/groups/#{group.id}/members",
+             headers: { Authorization: "Token #{token}" },
+             params: {}, as: :json
+      end
+
+      it "returns status unprocessable_entity" do
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     def create_params
       {
         emails: "test@test.com, newuser@test.com, invalid"
