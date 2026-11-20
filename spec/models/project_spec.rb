@@ -104,5 +104,24 @@ RSpec.describe Project, type: :model do
         end.to change(FeaturedCircuit, :count).by(-1)
       end
     end
+
+    describe "#fork" do
+      before do
+        @original_project = FactoryBot.create(
+          :project,
+          author: @user,
+          project_access_type: "Public",
+          stars_count: 5
+        )
+        @forking_user = FactoryBot.create(:user)
+      end
+
+      it "resets stars_count to 0 on the forked project" do
+        forked = @original_project.fork(@forking_user)
+        expect(forked.stars_count).to eq(0)
+        expect(forked.author).to eq(@forking_user)
+        expect(forked.forked_project).to eq(@original_project)
+      end
+    end
   end
 end
