@@ -10,6 +10,10 @@ class Api::V1::ProjectSerializer
   attributes :is_starred do |project, params|
     if params[:current_user].nil?
       nil
+    elsif params[:starred_project_ids]
+      params[:starred_project_ids].include?(project.id)
+    elsif project.association(:stars).loaded?
+      project.stars.any? { |star| star.user_id == params[:current_user].id }
     else
       Star.exists?(user_id: params[:current_user].id, project_id: project.id)
     end
