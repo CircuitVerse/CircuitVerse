@@ -14,6 +14,13 @@ en:
   errors:
     messages:
       double_posted: "is a duplicate of another comment."
+    not_found:
+      title: "OOPS, THE PAGE YOU ARE LOOKING FOR CAN'T BE FOUND!"
+    unacceptable:
+      title: "UNPROCESSABLE ENTITY! REQUEST COULD NOT BE PROCESSED :("
+    internal_error:
+      title: "SERVER ERRORED! IT'S ME NOT YOU, LET'S TRY AGAIN :)"
+    return_to_homepage: "Return To Homepage"
   edit: "Edit"
   show: "Show"
   delete: "Delete"

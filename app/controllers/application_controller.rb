@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render "errors/not_found", status: :not_found
+    switch_locale { render "errors/not_found", status: :not_found }
   end
 
   def switch_locale(&)
