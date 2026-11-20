@@ -175,7 +175,7 @@
                     <%= link_to user.name, user, class: "anchor-text" %>
                   </div>
                 </div>
-                <% if policy(@project).author_access? || user == current_user %>
+                <% if policy(@project).author_access? %>
                   <div class="col-8 col-sm-8 col-md-5 col-lg-5">
                     <div class="projects-collaborators-data">
                       <%= user.email %>
@@ -183,11 +183,15 @@
                   </div>
                   <div class="col-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
-                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id, leaving: user == current_user }, class: "btn primary-delete-button" do %>
+                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
                         <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Collaboration") %>
-                        <span><%= user == current_user ? t("projects.show.leave_project") : t("remove") %></span>
+                        <span><%= t("remove") %></span>
                       <% end %>
                     </div>
+                  </div>
+                <% elsif user == current_user %>
+                  <div class="col-12 d-grid">
+                    <%= link_to t("projects.show.leave_project"), "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id, leaving: true }, class: "btn primary-delete-button" %>
                   </div>
                 <% end %>
                 <hr class="w-75">

@@ -57,7 +57,7 @@ describe ProjectsController, type: :request do
     end
 
     context "project has collaborators" do
-      let(:leave_button) { "<span>#{I18n.t('projects.show.leave_project')}</span>" }
+      let(:leave_button) { ">#{I18n.t('projects.show.leave_project')}</a>" }
 
       before do
         @project = FactoryBot.create(:project, author: @author, project_access_type: "Private")
@@ -77,7 +77,7 @@ describe ProjectsController, type: :request do
       it "shows the author Remove buttons, not Leave" do
         sign_in @author
         get user_project_path(@author, @project)
-        expect(response.body).to include("data-currentcollaboration=\"#{@own.id}\" data-leaving=\"false\"")
+        expect(response.body).to include("data-currentcollaboration=\"#{@own.id}\"")
         expect(response.body).not_to include(leave_button)
       end
     end
