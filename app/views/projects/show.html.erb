@@ -183,9 +183,9 @@
                   </div>
                   <div class="col-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
-                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
+                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id, leaving: user == current_user }, class: "btn primary-delete-button" do %>
                         <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Collaboration") %>
-                        <span><%= t("remove") %></span>
+                        <span><%= user == current_user ? t("projects.show.leave_project") : t("remove") %></span>
                       <% end %>
                     </div>
                   </div>
@@ -227,6 +227,11 @@
     });
     $("#deletecollaborationModal").on("show.bs.modal", function(e) {
         let collaboration = $(e.relatedTarget).data('currentcollaboration');
+        let leaving = $(e.relatedTarget).data('leaving') === true;
+        // Switch the title, message and button between "remove collaborator" and "leave project"
+        $(e.currentTarget).find('[data-leave-text]').each(function() {
+            $(this).text(leaving ? $(this).data('leave-text') : $(this).data('remove-text'));
+        });
         $(e.currentTarget).find('#projects-collaboration-delete-button').attr("href",
         "/collaborations/" + collaboration.toString());
     });
