@@ -123,7 +123,7 @@ class User < ApplicationRecord
   private
 
     def send_welcome_mail
-      UserMailer.welcome_email(self).deliver_later
+      UserMailer.welcome_email(id).deliver_later
     end
 
     def purge_profile_picture

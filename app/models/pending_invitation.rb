@@ -9,7 +9,7 @@ class PendingInvitation < ApplicationRecord
   after_commit :send_pending_invitation_mail, on: :create
 
   def send_pending_invitation_mail
-    PendingInvitationMailer.new_pending_email(self).deliver_later
+    PendingInvitationMailer.new_pending_email(id).deliver_later
   end
 
   private

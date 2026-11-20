@@ -72,10 +72,12 @@ RSpec.describe User, type: :model do
       FactoryBot.create(:pending_invitation, group: group, email: @user.email)
     end
 
-    it "sends welcome mail" do
+    it "sends welcome mail with scalar ID" do
       expect do
         @user.send(:send_welcome_mail)
-      end.to have_enqueued_job.on_queue("mailers")
+      end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+        .with("UserMailer", "welcome_email", "deliver_now", { args: [@user.id] })
+        .on_queue("mailers")
     end
 
     it "Create member records from invitations" do

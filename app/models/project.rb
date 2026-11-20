@@ -102,9 +102,9 @@ class Project < ApplicationRecord
 
   def send_mail
     if forked_project_id.nil?
-      UserMailer.new_project_email(author, self).deliver_later if project_submission == false
+      UserMailer.new_project_email(author_id, id).deliver_later if project_submission == false
     elsif project_submission == false
-      UserMailer.forked_project_email(author, forked_project, self).deliver_later
+      UserMailer.forked_project_email(author_id, forked_project_id, id).deliver_later
     end
   end
 
