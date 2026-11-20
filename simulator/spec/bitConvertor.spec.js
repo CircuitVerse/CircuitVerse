@@ -32,7 +32,7 @@ describe('data dir working', () => {
             expected: {
                 bin: '0b1010',
                 oct: '012',
-                bcd: '10000',
+                bcd: '00010000',
                 hex: '0xa',
             },
         }, {
@@ -40,7 +40,7 @@ describe('data dir working', () => {
             expected: {
                 bin: '0b10101',
                 oct: '025',
-                bcd: '100001',
+                bcd: '00100001',
                 hex: '0x15',
             },
         }, {
@@ -48,7 +48,7 @@ describe('data dir working', () => {
             expected: {
                 bin: '0b100010',
                 oct: '042',
-                bcd: '110100',
+                bcd: '00110100',
                 hex: '0x22',
             },
         }, {
@@ -56,7 +56,7 @@ describe('data dir working', () => {
             expected: {
                 bin: '0b111000',
                 oct: '070',
-                bcd: '1010110',
+                bcd: '01010110',
                 hex: '0x38',
             },
         }, {
