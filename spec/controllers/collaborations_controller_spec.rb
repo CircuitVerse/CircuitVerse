@@ -65,6 +65,7 @@ describe CollaborationsController, type: :request do
           delete collaboration_path(@collaboration)
         end.to change(Collaboration, :count).by(-1)
         expect(response).to redirect_to(user_path(@collaborator))
+        expect(flash[:notice]).to eq(I18n.t("projects.left_project_notice"))
       end
 
       it "does not let them remove another collaborator" do
