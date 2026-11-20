@@ -92,3 +92,19 @@ If you required to restart the server
 - Run `./bin/dev` to start the server again
 
 ---
+
+### Production Deployment (Kamal 2.0)
+
+For production deployments, CircuitVerse uses [Kamal 2.0](https://kamal-deploy.org/) for container-based deployments with Docker.
+
+See the full deployment guide: [`.kamal/kamal_deployment.md`](../.kamal/kamal_deployment.md)
+
+**Quick start:**
+
+```bash
+gem install kamal
+kamal setup    # First-time server setup
+kamal deploy   # Deploy the application
+```
+
+---

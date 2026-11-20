@@ -1,12 +1,15 @@
+# Kamal 2.0 Deployment Configuration for CircuitVerse
+# ====================================================
+# Documentation: https://kamal-deploy.org/docs/configuration/
+
 service: circuitverse
 image: circuitverse/circuitverse
+
 servers:
   web:
     hosts:
       - <%= ENV["SERVER_IP"] %>
     cmd: ./bin/rails server -b 0.0.0.0 -p 3000
-    labels:
-      traefik.http.routers.circuitverse-web.rule: Host(`staging.circuitverse.org`)
     options:
       "add-host": host.docker.internal:host-gateway
   sidekiq:
@@ -25,6 +28,7 @@ registry:
 env:
   clear:
     RAILS_SERVE_STATIC_FILES: true
+    RAILS_LOG_TO_STDOUT: true
     REDIS_URL: 'redis://172.17.0.1:6379/0'
     AWS_REGION: 'ap-south-1'
     AWS_REGION_SES: 'ap-south-1'
@@ -45,6 +49,7 @@ ssh:
 
 builder:
   dockerfile: Dockerfile.production
+  arch: amd64
 
 accessories:
   yosys2digitaljs-server:
@@ -52,7 +57,10 @@ accessories:
     host: <%= ENV["SERVER_IP"] %>
     port: 2812
 
+proxy:
+  app_port: 3000
+  healthcheck:
+    path: /up
+    interval: 3
+    timeout: 5
 
-healthcheck:
-  port: 3000
-  max_attempts: 8
