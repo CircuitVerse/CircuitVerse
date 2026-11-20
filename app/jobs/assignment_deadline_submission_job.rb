@@ -3,6 +3,12 @@
 class AssignmentDeadlineSubmissionJob < ApplicationJob
   queue_as :default
 
+  # Snapshots the projects of an expired assignment as submissions, detaches the
+  # originals from it, and marks the assignment as closed. Assignments that are
+  # already closed are left untouched.
+  #
+  # @param [Integer] assignment_id
+  # @return [void]
   def perform(assignment_id)
     assignment = Assignment.find_by(id: assignment_id)
 
@@ -11,7 +17,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
     assignment.with_lock do
       next if assignment.nil? || (assignment.status == "closed")
 
-      if Time.zone.now - assignment.deadline >= -10 && (assignment.status == "open")
+      if Time.zone.now - assignment.deadline >= -10 && %w[open reopening].include?(assignment.status)
         assignment.projects.each do |proj|
           next unless proj.project_submission == false
 
