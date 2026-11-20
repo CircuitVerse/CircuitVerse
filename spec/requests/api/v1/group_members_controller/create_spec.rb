@@ -47,6 +47,22 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       end
     end
 
+    context "when emails are missing" do
+      it "returns empty mail lists without crashing" do
+        token = get_auth_token(primary_mentor)
+
+        post "/api/v1/groups/#{group.id}/members",
+             headers: { Authorization: "Token #{token}" },
+             as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["added"]).to eq([])
+        expect(response.parsed_body["pending"]).to eq([])
+        expect(response.parsed_body["invalid"]).to eq([])
+      end
+    end
+
+
     context "when authorized and has access to add group members" do
       before do
         token = get_auth_token(primary_mentor)
