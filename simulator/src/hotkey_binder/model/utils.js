@@ -1,18 +1,8 @@
-Storage.prototype.set = function (key, obj) {
-    return this.setItem(key, JSON.stringify(obj));
-};
+export const storageSet = (storage, key, obj) => storage.setItem(key, JSON.stringify(obj));
 
-Storage.prototype.get = function (key) {
-    return JSON.parse(this.getItem(key));
-};
+export const storageGet = (storage, key) => JSON.parse(storage.getItem(key));
 
-Object.size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-    return size;
-};
+export const objectSize = (obj) => Object.keys(obj).length;
 
 export const getKey = (obj, val) => Object.keys(obj).find((key) => obj[key] === val);
 
@@ -52,11 +42,10 @@ export const checkRestricted = (key) => {
         "Ctrl + Num.",
         "Ctrl + Num0",
     ];
-    if (getOS == "macOS") {
+    if (getOS() === "MacOS") {
         restrictedKeys.forEach((value, i) => {
-            if (value.split(" + ")[0] == "Ctrl");
             restrictedKeys[i] =
-                value.split(" + ")[0] == "Ctrl"
+                value.split(" + ")[0] === "Ctrl"
                     ? value.replace("Ctrl", "Meta")
                     : value;
         });
