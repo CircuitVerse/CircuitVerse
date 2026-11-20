@@ -61,5 +61,13 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       expect(user1.profile_picture.attached?).to be false
       expect(user_profile_picture(user1.profile_picture)).to eq("/images/thumb/Default.jpg")
     end
+
+    it "returns the default image if attachment has an unpersisted new record blob" do
+      user = FactoryBot.create(:user)
+      blob = ActiveStorage::Blob.new(filename: "new.png", content_type: "image/png")
+      attachment = ActiveStorage::Attachment.new(record: user, name: "profile_picture", blob: blob)
+      allow(attachment).to receive(:attached?).and_return(true)
+      expect(user_profile_picture(attachment)).to eq("/images/thumb/Default.jpg")
+    end
   end
 end
