@@ -175,8 +175,9 @@ export function copyToClipboard(text) {
     textarea.value = text;
 
     // Check if there is any content selected previously.
-    const selected = document.getSelection().rangeCount > 0 ?
-        document.getSelection().getRangeAt(0) : false;
+    const selection = document.getSelection();
+    const selected = ((selection?.rangeCount ?? 0) > 0) ?
+        selection.getRangeAt(0) : false;
 
     // iOS Safari blocks programmatic execCommand copying normally, without this hack.
     // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
@@ -199,9 +200,9 @@ export function copyToClipboard(text) {
         const result = document.execCommand('copy');
 
         // Restore previous selection.
-        if (selected) {
-            document.getSelection().removeAllRanges();
-            document.getSelection().addRange(selected);
+        if (selected && selection) {
+            selection.removeAllRanges();
+            selection.addRange(selected);
         }
         textarea.remove();
         return result;
