@@ -260,6 +260,116 @@
   max-width: 420px;
 }
 
+.org-switcher-btn.btn {
+  font-size: 13px;
+  border-color: var(--bs-gray-400);
+}
+
+.org-switcher-btn.btn::after {
+  display: none;
+}
+
+.org-switcher-load-more {
+  border: 1px dashed var(--bs-gray-400);
+  border-radius: 8px;
+  color: $black;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.org-switcher-load-more:hover,
+.org-switcher-load-more:focus {
+  background-color: $light-green-bg;
+  border-color: $primary-green;
+  color: $primary-green;
+  text-decoration: none;
+}
+
+.org-switcher-load-more:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+}
+
+.org-switcher-load-more[aria-disabled="true"] {
+  cursor: default;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.org-switcher-menu.dropdown-menu {
+  min-width: 300px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.org-switcher-menu .dropdown-header {
+  font-size: 14px;
+  color: $black;
+  letter-spacing: 0.4px;
+}
+
+.org-switcher-item.dropdown-item {
+  padding: 9px 10px;
+  white-space: normal;
+}
+
+.org-switcher-item.dropdown-item.is-current {
+  background: $light-green-bg;
+}
+
+.org-switcher-meta {
+  font-size: 11px;
+  color: var(--bs-gray-600);
+}
+
+.org-switcher-item.dropdown-item.is-current .org-switcher-meta {
+  color: $secondary-green;
+}
+
+.org-switcher-item.dropdown-item:hover,
+.org-switcher-item.dropdown-item:focus,
+.org-switcher-item.dropdown-item.is-current:hover,
+.org-switcher-item.dropdown-item.is-current:focus {
+  background-color: var(--bs-gray-100);
+}
+
+.org-switcher-badge {
+  width: 32px;
+  height: 32px;
+  background: $primary-green;
+  font-size: 12px;
+}
+
+.org-switcher-info {
+  min-width: 0;
+}
+
+.org-switcher-name {
+  font-size: 13px;
+  color: var(--bs-gray-900);
+}
+
+.org-switcher-check {
+  color: $primary-green;
+  font-size: 15px;
+}
+
+.org-switcher-create.dropdown-item {
+  padding: 9px 10px;
+  color: $primary-green;
+  font-size: 13px;
+}
+
+.org-switcher-create.dropdown-item:hover,
+.org-switcher-create.dropdown-item:focus {
+  background-color: var(--bs-gray-100);
+  color: $primary-green;
+}
+
 @media (max-width: 600px) {
   .org-dash-logo {
     width: 96px;
