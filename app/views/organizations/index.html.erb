@@ -1,5 +1,16 @@
 <% content_for :title, t("organizations.index.page_title") %>
 <div class="container org-index">
+  <% if flash[:notice].present? %>
+    <%= render "shared/notice", message: flash[:notice] %>
+  <% end %>
+  <% if flash[:alert].present? %>
+    <div class="row">
+      <div class="alert alert-danger alert-dismissible container text-center">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <h6><%= flash[:alert] %></h6>
+      </div>
+    </div>
+  <% end %>
   <div class="d-flex flex-column align-items-center text-center pt-4">
     <h2 class="org-index-header-title"><%= t("organizations.index.heading") %></h2>
     <p class="org-index-header-description text-body-secondary"><%= t("organizations.index.subtitle") %></p>
