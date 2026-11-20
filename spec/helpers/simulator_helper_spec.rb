@@ -91,5 +91,20 @@ describe SimulatorHelper do
       expect(JSON.parse(sanitized_data)["scopes"][0]["restrictedCircuitElementsUsed"])
         .to eq(["Element"])
     end
+
+    it "returns raw data without raising when the JSON contains an invalid escape sequence" do
+      # Simulate a label like "C:\path" which produces \p — an invalid JSON escape.
+      invalid_json = '{"scopes":[{"Element":[{"label":"C:\\path\\to\\nowhere"}]}]}'
+      expect { sanitize_data(@project, invalid_json) }.not_to raise_error
+      result = sanitize_data(@project, invalid_json)
+      # Should return a string (either re-serialised or the raw payload), never nil/exception.
+      expect(result).to be_a(String)
+    end
+
+    it "returns raw data without raising when given completely malformed JSON" do
+      malformed = "not json at all }{{"
+      expect { sanitize_data(@project, malformed) }.not_to raise_error
+      expect(sanitize_data(@project, malformed)).to eq(malformed)
+    end
   end
 end
