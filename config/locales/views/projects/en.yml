@@ -5,6 +5,17 @@ en:
       Note that collaboration is not real time as of now. Every save overwrites the previous data."
     remove_collaborator_message: "Are you sure you want to remove this collaborator?"
     delete_project_message: "Are you sure you want to delete this project?"
+    grading_result:
+      heading: "Grading Result"
+      none: "This submission has not been graded yet."
+      score: "Score: %{score}"
+      failed: "grading failed"
+      test_case: "Test Case"
+      inputs: "Inputs"
+      outputs: "Expected Outputs"
+      result: "Result"
+      passed: "Passed"
+      not_passed: "Not Passed"
     form:
       feature_circuit_checkpoint: "Featured (Administrator Only)"
       tag_list_description: "(Enter your Project Tags divided by comma[,])"

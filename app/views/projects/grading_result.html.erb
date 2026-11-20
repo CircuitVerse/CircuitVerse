@@ -1,0 +1,30 @@
+<% content_for :title, "#{@project.name} - Grading Result" %>
+
+<div class="container">
+  <h4><%= t("projects.grading_result.heading") %></h4>
+  <% if @result.nil? %>
+    <p><%= t("projects.grading_result.none") %></p>
+  <% else %>
+    <p><%= t("projects.grading_result.score", score: @result.score || t("projects.grading_result.failed")) %></p>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th><%= t("projects.grading_result.test_case") %></th>
+          <th><%= t("projects.grading_result.inputs") %></th>
+          <th><%= t("projects.grading_result.outputs") %></th>
+          <th><%= t("projects.grading_result.result") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% visible_test_groups(@result, @project.assignment&.reveal_test_cases).each do |group| %>
+          <tr>
+            <td><%= group["label"] %></td>
+            <td><%= group["inputs"]&.map { |p| "#{p['label']}=#{p['values'].join(',')}" }&.join(", ") %></td>
+            <td><%= group["outputs"]&.map { |p| "#{p['label']}=#{p['values'].join(',')}" }&.join(", ") %></td>
+            <td><%= group["passed"] ? t("projects.grading_result.passed") : t("projects.grading_result.not_passed") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

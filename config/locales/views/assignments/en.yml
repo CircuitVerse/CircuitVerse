@@ -13,6 +13,9 @@ en:
       letter: "Letter(A-F)"
       percent: "Percent(1-100)"
       custom: "Custom"
+      partial_credit: "Allow partial credit"
+      max_attempts: "Max attempts (blank = unlimited)"
+      reveal_test_cases: "Reveal test cases before submission"
     edit:
       edit_assignment: "Edit Assignment"
     new:

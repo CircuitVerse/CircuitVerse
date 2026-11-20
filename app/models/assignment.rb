@@ -6,6 +6,7 @@ class Assignment < ApplicationRecord
     in: %w[percent],
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"
   }, if: :lti_integrated?
+  validates :max_attempts, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
   belongs_to :group
   has_many :projects, class_name: "Project", dependent: :nullify
 

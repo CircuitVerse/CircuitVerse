@@ -13,6 +13,18 @@ RSpec.describe Assignment, type: :model do
     it { is_expected.to have_many(:projects) }
   end
 
+  describe "#max_attempts" do
+    it "rejects zero or negative values" do
+      assignment = FactoryBot.build(:assignment, group: @group, max_attempts: 0)
+      expect(assignment).not_to be_valid
+    end
+
+    it "allows a blank value for unlimited attempts" do
+      assignment = FactoryBot.build(:assignment, group: @group, max_attempts: nil)
+      expect(assignment).to be_valid
+    end
+  end
+
   describe "callbacks" do
     it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_new_assignment_mail)

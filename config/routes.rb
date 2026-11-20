@@ -187,6 +187,7 @@ Rails.application.routes.draw do
         get "simulator", to: "simulator#show", as: "simulator"
         get "simulator/edit", to: "simulator#edit", as: "simulator_edit"
         get "simulator/embed", to: "simulator#embed", as: "simulator_embed"
+        get "grading_result", to: "projects#grading_result", as: "grading_result"
       end
     end
   end
