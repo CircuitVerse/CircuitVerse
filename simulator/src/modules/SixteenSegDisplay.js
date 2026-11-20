@@ -15,7 +15,7 @@ import { changeInputSize } from '../modules';
  * @category modules
  */
 export default class SixteenSegDisplay extends CircuitElement {
-    constructor(x, y, scope = globalScope, color = "Red") {
+    constructor(x, y, scope = globalScope, color = "#ff0000") {
         super(x, y, scope, 'RIGHT', 16);
         /* this is done in this.baseSetup() now
         this.scope['SixteenSegDisplay'].push(this);
