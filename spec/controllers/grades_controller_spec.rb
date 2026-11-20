@@ -235,6 +235,29 @@ describe GradesController, type: :request do
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
     end
+
+    context "when grade does not exist" do
+      before do
+        @grade.destroy
+      end
+
+      context "when primary_mentor is logged in" do
+        it "responds ok without authorization error" do
+          sign_in @primary_mentor
+          delete grades_path, params: destroy_params
+          expect(response).to have_http_status(:ok)
+          expect(response.parsed_body["project_id"]).to be_nil
+        end
+      end
+
+      context "when a user other than mentor is logged in" do
+        it "throws unauthorized error" do
+          sign_in FactoryBot.create(:user)
+          delete grades_path, params: destroy_params
+          expect(response.body).to eq("You are not authorized to do the requested operation")
+        end
+      end
+    end
   end
 
   describe "#to_csv" do

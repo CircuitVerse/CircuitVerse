@@ -34,11 +34,11 @@ class GradesController < ApplicationController
   end
 
   def destroy
-    project_id = @grade&.project_id
-    if @grade.present?
-      authorize @grade, :mentor?
-      @grade.destroy
-    end
+    @grade = @grade.presence || Grade.new(assignment_id: grade_params[:assignment_id])
+    authorize @grade, :mentor?
+
+    project_id = @grade.persisted? ? @grade.project_id : nil
+    @grade.destroy if @grade.persisted?
 
     render json: { project_id: project_id }, status: :ok
   end
