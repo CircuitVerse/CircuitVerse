@@ -1077,6 +1077,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  ruby-lsp
   ruby-lsp-refactor (~> 0.1.2)
   sentry-rails
   sentry-ruby
