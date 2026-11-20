@@ -3,7 +3,7 @@
 class Avo::Resources::Group < Avo::BaseResource
   self.model_class = ::Group
   self.title = :name
-  self.includes = %i[primary_mentor group_members users assignments pending_invitations]
+  self.includes = %i[primary_mentor lti_resource_link group_members users assignments pending_invitations]
   # rubocop:disable Metrics/MethodLength
   def fields
     field :id, as: :id, link_to_record: true
@@ -16,6 +16,11 @@ class Avo::Resources::Group < Avo::BaseResource
                            required: true,
                            sortable: true,
                            help: "The mentor who created this group"
+
+    # No launch flow writes this yet (the LTI 1.3 launch PR isn't merged), so
+    # this is the only way to link an existing LMS group until it lands.
+    field :lti_resource_link, as: :belongs_to,
+                              help: "The LMS course this group's roster syncs from"
 
     field :group_token, as: :text,
                         readonly: true,
