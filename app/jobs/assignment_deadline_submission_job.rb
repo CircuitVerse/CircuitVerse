@@ -20,6 +20,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
           proj.assignment_id = nil
           proj.save!
           submission.save!
+          AutogradeJob.perform_later(submission.id) if assignment.testbench
         end
         assignment.status = "closed"
         assignment.save!
