@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_28_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -296,6 +296,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.index ["project_id", "assignment_id"], name: "index_grades_on_project_id_and_assignment_id", unique: true
     t.index ["project_id"], name: "index_grades_on_project_id"
     t.index ["user_id"], name: "index_grades_on_user_id"
+  end
+
+  create_table "grading_results", force: :cascade do |t|
+    t.jsonb "breakdown", default: [], null: false
+    t.datetime "created_at", null: false
+    t.bigint "project_id", null: false
+    t.decimal "score", precision: 5, scale: 2
+    t.jsonb "suite_snapshot", default: {}, null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_grading_results_on_project_id"
   end
 
   create_table "group_members", force: :cascade do |t|
@@ -651,6 +661,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   add_foreign_key "grades", "assignments"
   add_foreign_key "grades", "projects"
   add_foreign_key "grades", "users"
+  add_foreign_key "grading_results", "projects"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "organizations", on_delete: :nullify
