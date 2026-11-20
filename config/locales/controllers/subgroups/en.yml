@@ -1,0 +1,7 @@
+en:
+  subgroups:
+    not_available: "Subgroups are not available yet."
+    create:
+      success: "Subgroup created."
+    destroy:
+      success: "Subgroup removed."
