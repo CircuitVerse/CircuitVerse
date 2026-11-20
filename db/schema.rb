@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_20_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -481,6 +481,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.text "description"
     t.bigint "forked_project_id"
     t.string "image_preview"
+    t.boolean "is_template", default: false, null: false
     t.string "lis_result_sourced_id"
     t.string "name"
     t.string "project_access_type", default: "Public"
@@ -488,6 +489,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))", stored: true
     t.string "slug"
     t.integer "stars_count", default: 0, null: false
+    t.integer "template_visibility", default: 0, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "version", default: "1.0", null: false
     t.bigint "view", default: 1
