@@ -98,6 +98,7 @@ jobs:
 
       - name: Build and push Docker image
         id: build-and-push
+        continue-on-error: true
         uses: docker/build-push-action@v3
         with:
           file: Dockerfile.production
@@ -106,5 +107,18 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:${{ github.sha }},${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:latest
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64, linux/arm64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=circuitverse-docker-v2
+          cache-to: type=gha,mode=max,scope=circuitverse-docker-v2
+
+      - name: Retry build without cache
+        if: steps.build-and-push.outcome == 'failure'
+        uses: docker/build-push-action@v3
+        with:
+          file: Dockerfile.production
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:${{ github.sha }},${{ env.REGISTRY }}/${{ env.IMAGE_REPOSITORY }}:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64, linux/arm64
+          no-cache: true
+          cache-to: type=gha,mode=max,scope=circuitverse-docker-v2,ignore-error=true
