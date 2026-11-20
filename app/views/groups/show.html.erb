@@ -21,6 +21,16 @@
       </div>
     </div>
   <% end %>
+  <% if @group.subgroup? %>
+    <div class="row">
+      <div class="col">
+        <%= link_to group_path(@group.parent_group), class: "d-inline-flex align-items-center gap-2 text-decoration-none mb-3 fw-semibold fs-5" do %>
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          <%= t("groups.show.back_to_parent", group: @group.parent_group.name) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
   <div class="row center-row">
     <div class="col col-sm col-md col-lg">
       <h1 class="submain-heading">
@@ -80,6 +90,10 @@
   <%= render partial: "group_members", locals: { group: @group } %>
 </div>
 <hr>
+
+<% if !@group.subgroup? && policy(@group).manage_subgroups? %>
+  <%= render partial: "subgroups", locals: { group: @group } %>
+<% end %>
 
 <!-- Assignments Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
