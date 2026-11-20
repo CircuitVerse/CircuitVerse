@@ -21,4 +21,10 @@ class GroupPolicy < ApplicationPolicy
   def mentor_access?
     admin_access? || group.group_members.exists?(user_id: user.id, mentor: true)
   end
+
+  # Only an instructor (primary or co-mentor) or a site admin may create a
+  # subgroup under this group or manage who belongs to one.
+  def manage_subgroups?
+    mentor_access?
+  end
 end
