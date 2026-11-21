@@ -1,36 +1,51 @@
+# Kamal 2 Deployment Configuration for CircuitVerse
+# See https://kamal-deploy.org/docs/configuration for full options reference.
+
+<% begin; require "dotenv"; Dotenv.load; rescue LoadError, StandardError; nil; end %>
+
 service: circuitverse
 image: circuitverse/circuitverse
+
 servers:
   web:
     hosts:
-      - <%= ENV["SERVER_IP"] %>
+      - <%= ENV.fetch("SERVER_IP", "13.127.94.74") %>
     cmd: ./bin/rails server -b 0.0.0.0 -p 3000
-    labels:
-      traefik.http.routers.circuitverse-web.rule: Host(`staging.circuitverse.org`)
     options:
-      "add-host": host.docker.internal:host-gateway
+      add-host: host.docker.internal:host-gateway
   sidekiq:
     hosts:
-      - <%= ENV["SERVER_IP"] %>
-    options:
-      "add-host": host.docker.internal:host-gateway
+      - <%= ENV.fetch("SERVER_IP", "13.127.94.74") %>
     cmd: bundle exec sidekiq -e production -q default -q mailers
+    options:
+      add-host: host.docker.internal:host-gateway
+
+# Proxy configuration (kamal-proxy replaces Traefik in Kamal 2)
+proxy:
+  ssl: true
+  host: <%= ENV.fetch("APP_HOST", "staging.circuitverse.org") %>
+  app_port: 3000
+  forward_headers: true
+  healthcheck:
+    path: /up
+    interval: 2
+    timeout: 5
 
 registry:
   server: ghcr.io
   username: circuitverse
   password:
-    - KAMAL_GHCR_REGISTRY_PASSWORD
+    - KAMAL_REGISTRY_PASSWORD
 
 env:
   clear:
     RAILS_SERVE_STATIC_FILES: true
-    REDIS_URL: 'redis://172.17.0.1:6379/0'
+    REDIS_URL: <%= ENV.fetch("REDIS_URL", "redis://circuitverse-redis:6379/0") %>
     AWS_REGION: 'ap-south-1'
     AWS_REGION_SES: 'ap-south-1'
     CIRCUITVERSE_EMAIL_ID: 'support@circuitverse.org'
     AWS_S3_REGION: 'ap-south-1'
-    AWS_S3_BUCKET_NAME: 'circuitverse-images-dev'
+    AWS_S3_BUCKET_NAME: <%= ENV.fetch("AWS_S3_BUCKET_NAME", "circuitverse-images-dev") %>
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_URL
@@ -39,20 +54,44 @@ env:
     - SECRET_KEY_BASE
     - RECAPTCHA_SITE_KEY
     - RECAPTCHA_SECRET_KEY
+    - BUGSNAG_API_KEY
 
 ssh:
   user: ubuntu
+<% if File.exist?(ENV.fetch("SSH_KEY_PATH", "circuitverse-production-2026.pem")) %>
+  keys:
+    - <%= ENV.fetch("SSH_KEY_PATH", "circuitverse-production-2026.pem") %>
+<% end %>
 
 builder:
+  arch: amd64
   dockerfile: Dockerfile.production
 
+# Retain old assets for seamless zero-downtime rolling deploys
+asset_path: /usr/src/app/public/assets
+
 accessories:
-  yosys2digitaljs-server:
-    image: ghcr.io/circuitverse/yosys2digitaljs-server:master
-    host: <%= ENV["SERVER_IP"] %>
-    port: 2812
+  database:
+    image: postgres:19-alpine
+    host: <%= ENV.fetch("SERVER_IP", "13.127.94.74") %>
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+        POSTGRES_DB: <%= ENV.fetch("POSTGRES_DB", "circuitverse_production") %>
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql
+    options:
+      network-alias: database
 
+  redis:
+    image: redis:7.2-alpine
+    host: <%= ENV.fetch("SERVER_IP", "13.127.94.74") %>
+    port: "127.0.0.1:6379:6379"
+    directories:
+      - data:/data
+    options:
+      network-alias: redis
 
-healthcheck:
-  port: 3000
-  max_attempts: 8

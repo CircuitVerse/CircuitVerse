@@ -1,0 +1,10 @@
+# Staging destination overrides (`kamal <command> -d staging`)
+# Merged on top of config/deploy.yml
+
+proxy:
+  ssl: true
+  host: <%= ENV.fetch("STAGING_APP_HOST", "staging.circuitverse.org") %>
+
+env:
+  clear:
+    AWS_S3_BUCKET_NAME: <%= ENV.fetch("STAGING_AWS_S3_BUCKET_NAME", "circuitverse-images-dev") %>
