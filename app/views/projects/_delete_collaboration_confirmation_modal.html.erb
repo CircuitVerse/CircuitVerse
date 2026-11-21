@@ -2,16 +2,18 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header secondary-modal-header">
-        <h4 class="modal-title"><%= t("delete") %></h4>
+        <h4 class="modal-title"
+            data-remove-text="<%= t("delete") %>"
+            data-leave-text="<%= t("projects.show.leave_project") %>"><%= t("delete") %></h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
       </div>
       <div class="modal-body">
-        <p><%= t("projects.remove_collaborator_message") %></p>
+        <p data-remove-text="<%= t("projects.remove_collaborator_message") %>"
+           data-leave-text="<%= t("projects.leave_project_message") %>"><%= t("projects.remove_collaborator_message") %></p>
       </div>
       <div class="modal-footer">
-        <%= link_to "#", method: :delete, class: "btn primary-delete-button", id: "projects-collaboration-delete-button" do %>
-        <%= t("delete") %>
-        <% end %>
+        <%= link_to t("delete"), "#", method: :delete, class: "btn primary-delete-button", id: "projects-collaboration-delete-button",
+                                      data: { remove_text: t("delete"), leave_text: t("projects.show.leave_project") } %>
       </div>
     </div>
   </div>

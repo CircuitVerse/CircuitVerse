@@ -45,8 +45,8 @@ describe CollaborationsController, type: :request do
 
   describe "#destroy" do
     before do
-      user = FactoryBot.create(:user)
-      @collaboration = FactoryBot.create(:collaboration, project: @project, user: user)
+      @collaborator = FactoryBot.create(:user)
+      @collaboration = FactoryBot.create(:collaboration, project: @project, user: @collaborator)
     end
 
     context "author of project is logged in" do
@@ -55,6 +55,34 @@ describe CollaborationsController, type: :request do
         expect do
           delete collaboration_path(@collaboration)
         end.to change(Collaboration, :count).by(-1)
+      end
+    end
+
+    context "collaborator is logged in" do
+      it "lets them leave the project" do
+        sign_in @collaborator
+        expect do
+          delete collaboration_path(@collaboration)
+        end.to change(Collaboration, :count).by(-1)
+        expect(response).to redirect_to(user_path(@collaborator))
+        expect(flash[:notice]).to eq(I18n.t("projects.left_project_notice"))
+      end
+
+      it "does not let them remove another collaborator" do
+        other = FactoryBot.create(:collaboration, project: @project, user: FactoryBot.create(:user))
+        sign_in @collaborator
+        expect do
+          delete collaboration_path(other)
+        end.not_to change(Collaboration, :count)
+        check_not_authorized(response)
+      end
+    end
+
+    context "user is not logged in" do
+      it "does not destroy the collaboration" do
+        expect do
+          delete collaboration_path(@collaboration)
+        end.not_to change(Collaboration, :count)
       end
     end
 

@@ -55,6 +55,32 @@ describe ProjectsController, type: :request do
         check_project_access_error(response)
       end
     end
+
+    context "project has collaborators" do
+      let(:leave_button) { ">#{I18n.t('projects.show.leave_project')}</a>" }
+
+      before do
+        @project = FactoryBot.create(:project, author: @author, project_access_type: "Private")
+        @collaborator = FactoryBot.create(:user)
+        @own = FactoryBot.create(:collaboration, project: @project, user: @collaborator)
+        @other = FactoryBot.create(:collaboration, project: @project, user: FactoryBot.create(:user))
+      end
+
+      it "shows a collaborator a Leave button for their own row only" do
+        sign_in @collaborator
+        get user_project_path(@author, @project)
+        expect(response.body).to include("data-currentcollaboration=\"#{@own.id}\" data-leaving=\"true\"")
+        expect(response.body).not_to include("data-currentcollaboration=\"#{@other.id}\"")
+        expect(response.body).to include(leave_button)
+      end
+
+      it "shows the author Remove buttons, not Leave" do
+        sign_in @author
+        get user_project_path(@author, @project)
+        expect(response.body).to include("data-currentcollaboration=\"#{@own.id}\"")
+        expect(response.body).not_to include(leave_button)
+      end
+    end
   end
 
   describe "#change_stars" do
