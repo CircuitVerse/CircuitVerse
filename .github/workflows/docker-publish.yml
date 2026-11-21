@@ -60,8 +60,6 @@ jobs:
             ${{ steps.meta.outputs.labels }}
             service=circuitverse
           platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       - name: Install cosign
         if: github.event_name != 'pull_request'
