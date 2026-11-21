@@ -49,15 +49,12 @@ Rails.application.configure do
 
   # Log configuration
   config.log_tags = [:request_id]
-  config.log_level = :debug  # Keep debug level as per original config
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # If logging to STDOUT
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     config.logger = ActiveSupport::TaggedLogging.logger(STDOUT)
   end
-
-  # Change to "info" in production for less verbose logging
-  # config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prevent health checks from clogging up the logs (Rails 8 feature)
   config.silence_healthcheck_path = "/up"
