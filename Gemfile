@@ -24,7 +24,7 @@ gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 8.1.3"
 # Use Puma as the app server
-gem "puma", "~> 8.0.2"
+gem "puma", "~> 8.0.3"
 # Use SCSS for stylesheets (compiled via cssbundling-rails + dart-sass, see package.json build:css)
 gem "cssbundling-rails", "~> 1.0"
 # Static asset server (fingerprints + serves app/assets). Replaces sprockets-rails.
