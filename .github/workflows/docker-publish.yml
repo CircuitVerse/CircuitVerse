@@ -55,7 +55,7 @@ jobs:
           file: Dockerfile.production
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
           labels: |
             ${{ steps.meta.outputs.labels }}
             service=circuitverse
@@ -66,4 +66,4 @@ jobs:
       - name: Sign the image with cosign
         if: github.event_name != 'pull_request'
         run: |
-          cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+          cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_REPO }}@${{ steps.build-and-push.outputs.digest }}
