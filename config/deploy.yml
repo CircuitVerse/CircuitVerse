@@ -22,7 +22,7 @@ servers:
 
 # Proxy configuration (kamal-proxy replaces Traefik in Kamal 2)
 proxy:
-  ssl: true
+  ssl: false
   host: <%= ENV.fetch("APP_HOST", "staging.circuitverse.org") %>
   app_port: 3000
   forward_headers: true
@@ -95,3 +95,29 @@ accessories:
     options:
       network-alias: redis
 
+  backup:
+    image: docker:24-alpine
+    host: <%= ENV.fetch("SERVER_IP", "13.127.94.74") %>
+    env:
+      clear:
+        POSTGRES_HOST: database
+        POSTGRES_USER: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+        POSTGRES_DB: <%= ENV.fetch("POSTGRES_DB", "circuitverse_production") %>
+        S3_BUCKET: <%= ENV.fetch("BACKUP_S3_BUCKET", "circuitverse-backups") %>
+        S3_REGION: <%= ENV.fetch("AWS_REGION", "ap-south-1") %>
+        S3_PREFIX: "daily/"
+      secret:
+        - POSTGRES_PASSWORD
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
+    directories:
+      - backup-scripts:/scripts
+      - /var/run/docker.sock:/var/run/docker.sock
+    options:
+      network-alias: backup
+    cmd: |
+      sh -c "
+        apk add --no-cache postgresql-client redis aws-cli > /dev/null &&
+        echo '0 2 * * * /scripts/backup.sh >> /var/log/backup.log 2>&1' > /etc/crontabs/root &&
+        crond -f -l 8
+      "
