@@ -101,6 +101,61 @@ describe LtiController, type: :request do
       end
     end
 
+    context "when the launch presentation return url is not absolute" do
+      it "returns success and renders the breakout page for a relative url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "launch_presentation_return_url" => "/courses/1")
+        expect(response.code).to eq("200")
+        expect(session[:lms_domain]).to be_nil
+        expect(response.headers["X-FRAME-OPTIONS"]).to be_nil
+        expect(response.body).to include(group_path(group))
+        expect(response.body).to include('target="_blank"')
+      end
+
+      it "returns success and renders the breakout page for a malformed url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "launch_presentation_return_url" => "http://[invalid")
+        expect(response.code).to eq("200")
+        expect(session[:lms_domain]).to be_nil
+        expect(response.headers["X-FRAME-OPTIONS"]).to be_nil
+        expect(response.body).to include(group_path(group))
+        expect(response.body).to include('target="_blank"')
+      end
+
+      it "renders the breakout page for a teacher when the url is relative" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, primary_mentor.email,
+                    "launch_presentation_return_url" => "/courses/1")
+        expect(response.code).to eq("200")
+        expect(session[:lms_domain]).to be_nil
+        expect(response.headers["X-FRAME-OPTIONS"]).to be_nil
+        expect(response.body).to include(group_assignment_path(group, assignment))
+        expect(response.body).to include('target="_blank"')
+      end
+
+      it "keeps the default frame header on a launch error" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, not_member.email,
+                    "launch_presentation_return_url" => "/courses/1")
+        expect(response.code).to eq("401")
+        expect(response.headers["X-FRAME-OPTIONS"]).to eq("SAMEORIGIN")
+      end
+
+      it "stores the origin of an absolute url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email)
+        expected_origin = URI.join(launch_uri.to_s, "/").to_s
+        expect(session[:lms_domain]).to eq(expected_origin)
+        expect(response.headers["X-FRAME-OPTIONS"]).to eq("ALLOW-FROM #{expected_origin}")
+      end
+
+      it "clears the stored origin when a later launch omits the return url" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email)
+        expect(session[:lms_domain]).to be_present
+
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "launch_presentation_return_url" => nil)
+        expect(session[:lms_domain]).to be_nil
+      end
+    end
+
     def launch_uri
       # required for generation of LTI parameters
       launch_url = "http://#{host}:#{port}/lti/launch"
