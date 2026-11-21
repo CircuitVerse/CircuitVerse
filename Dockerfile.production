@@ -18,6 +18,7 @@ RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
 
 COPY Gemfile* ./
 COPY vendor/gems/ vendor/gems/
+COPY config/database.example.yml config/database.yml
 ENV BUNDLE_DEPLOYMENT=true
 # ENV BUNDLE_JOBS=4
 ENV BUNDLE_WITHOUT=development:test
