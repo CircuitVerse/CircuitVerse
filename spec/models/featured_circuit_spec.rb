@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe FeaturedCircuit, type: :model do
+  include ActiveJob::TestHelper
+
   before do
     @user = FactoryBot.create(:user)
   end
@@ -29,11 +31,13 @@ RSpec.describe FeaturedCircuit, type: :model do
       expect(featured_circuit).not_to be_valid
     end
 
-    it "sends featured circuit email" do
+    it "sends featured circuit email with scalar IDs" do
       project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
       expect do
         FactoryBot.create(:featured_circuit, project: project)
-      end.to have_enqueued_job.on_queue("mailers")
+      end.to have_enqueued_job(ActionMailer::MailDeliveryJob)
+        .with("UserMailer", "featured_circuit_email", "deliver_now", { args: [@user.id, project.id] })
+        .on_queue("mailers")
     end
   end
 end

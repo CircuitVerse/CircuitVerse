@@ -4,12 +4,17 @@ module CustomMailsHelper
   BATCH_SIZE = 1000
 
   def send_mail_in_batches(mail)
-    User.subscribed.find_each(batch_size: BATCH_SIZE) do |user|
-      UserMailer.custom_email(user, mail).deliver_later
+    mail_id = mail.is_a?(CustomMail) ? mail.id : mail
+    User.subscribed.in_batches(of: BATCH_SIZE) do |batch|
+      batch.pluck(:id).each do |user_id|
+        UserMailer.custom_email(user_id, mail_id).deliver_later
+      end
     end
   end
 
   def send_mail_to_self(user, mail)
-    UserMailer.custom_email(user, mail).deliver_later
+    user_id = user.is_a?(User) ? user.id : user
+    mail_id = mail.is_a?(CustomMail) ? mail.id : mail
+    UserMailer.custom_email(user_id, mail_id).deliver_later
   end
 end
