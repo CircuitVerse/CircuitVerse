@@ -26,6 +26,8 @@ export default class extends Controller {
 
     updateOptionsForResource(event) {
         const { resource } = event.detail;
+        if (resource === this.currentResourceValue) return;
+
         this.currentResourceValue = resource;
         this.buildSortingOptions();
         this.resetToFirstOption();
