@@ -30,4 +30,31 @@ RSpec.describe "Contests::Submissions::Votes#create edge cases", type: :request 
     post contest_submission_votes_path(live_contest, other_sub)
     expect(flash[:notice]).to eq("You have used all your votes!")
   end
+
+  it "rejects when user tries to vote for their own submission" do
+    live_contest = Contest.find_by(status: :live) || create(:contest, status: :live)
+    own_proj     = create(:project, author: user)
+    own_sub      = create(:submission, contest: live_contest, project: own_proj, user: user)
+
+    expect do
+      post contest_submission_votes_path(live_contest, own_sub)
+    end.not_to change(SubmissionVote, :count)
+
+    expect(response).to redirect_to(contest_path(live_contest))
+    expect(flash[:alert]).to eq(I18n.t("contests.submissions.votes.create.cannot_vote_own"))
+  end
+
+  it "rejects when the project author tries to vote for a submission" do
+    live_contest = Contest.find_by(status: :live) || create(:contest, status: :live)
+    submission_owner = create(:user)
+    own_proj = create(:project, author: user)
+    own_sub = create(:submission, contest: live_contest, project: own_proj, user: submission_owner)
+
+    expect do
+      post contest_submission_votes_path(live_contest, own_sub)
+    end.not_to change(SubmissionVote, :count)
+
+    expect(response).to redirect_to(contest_path(live_contest))
+    expect(flash[:alert]).to eq(I18n.t("contests.submissions.votes.create.cannot_vote_own"))
+  end
 end
