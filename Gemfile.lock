@@ -193,13 +193,6 @@ GEM
       addressable
       capybara
       playwright-ruby-client (>= 1.16.0)
-    carrierwave (3.1.3)
-      activemodel (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      addressable (~> 2.6)
-      image_processing (~> 1.1)
-      marcel (~> 1.0.0)
-      ssrf_filter (~> 1.0)
     cgi (0.5.1)
     choice (0.2.0)
     coderay (1.1.3)
@@ -993,7 +986,6 @@ DEPENDENCIES
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
   capybara-playwright-driver
-  carrierwave (~> 3.1)
   concurrent-ruby (>= 1.3.7)
   country_select (~> 8.0)
   coveralls_reborn (~> 0.29.1)

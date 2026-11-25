@@ -46,7 +46,7 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
 
         expect(response).to have_http_status(:created)
         created_project = Project.order(:created_at).last
-        expect(created_project.image_preview.path.split("/")[-1]).to eq("default.png")
+        expect(created_project.circuit_preview.attached?).to be false
       end
     end
 
@@ -61,7 +61,8 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         end.to change(Project, :count).by(1)
 
         created_project = Project.order(:created_at).last
-        expect(created_project.image_preview.path.split("/")[-1]).to start_with("preview_")
+        expect(created_project.circuit_preview.attached?).to be true
+        expect(created_project.circuit_preview.blob.filename.to_s).to start_with("preview_")
       end
     end
 
