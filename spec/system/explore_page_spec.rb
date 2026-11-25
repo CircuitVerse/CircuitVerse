@@ -8,7 +8,7 @@ RSpec.describe "Explore page", :js, type: :system do
     Array.new(25) do
       project = FactoryBot.create(:project, author: author, project_access_type: "Public")
       project.circuit_preview.attach(
-        io: File.open(Rails.root.join("spec/fixtures/files/default.png")),
+        io: Rails.root.join("spec/fixtures/files/default.png").open,
         filename: "default.png",
         content_type: "image/png"
       )

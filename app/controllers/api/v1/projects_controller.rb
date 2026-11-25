@@ -126,11 +126,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   def update_circuit
     authorize @project, :check_edit_access?
 
-    build_project_datum
-    @project.circuit_preview.purge if @project.circuit_preview.attached?
-    io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(@project, io_image_file)
-    @project.name = sanitize(params[:name])
+    prepare_project_update
+    return if performed?
+
+    attach_new_preview_if_provided
 
     if @project.save && @project.project_datum.save
       render json: { status: "success", project: @project }, status: :ok
@@ -176,6 +175,24 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   private
 
+    def prepare_project_update
+      build_project_datum
+      @project.name = sanitize(params[:name])
+
+      return if @project.valid? && @project.project_datum.valid?
+
+      render json: {
+        status: "error",
+        errors: @project.errors.full_messages + @project.project_datum.errors.full_messages
+      }, status: :unprocessable_content
+    end
+
+    def attach_new_preview_if_provided
+      @project.circuit_preview.purge if @project.circuit_preview.attached?
+      io_image_file = parse_image_data_url(params[:image])
+      attach_circuit_preview(@project, io_image_file)
+    end
+
     def set_project
       if params[:user_id]
         @author = User.find(params.expect(:user_id))
@@ -198,8 +215,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @project.project_datum.data = sanitize_data(@project, params[:data])
     end
 
+    DATA_URL_PREFIX = "data:image/jpeg;base64,"
+    private_constant :DATA_URL_PREFIX
+
     def parse_image_data_url(data_url)
-      str = data_url[("data:image/jpeg;base64,".length)..]
+      str = data_url[DATA_URL_PREFIX.length..]
       return nil if str.to_s.empty?
 
       jpeg = Base64.decode64(str)

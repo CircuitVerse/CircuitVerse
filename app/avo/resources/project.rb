@@ -28,7 +28,7 @@ class Avo::Resources::Project < Avo::BaseResource
     field :project_submission, as: :boolean
 
     field :circuit_preview, as: :external_image, hide_on: %i[edit new] do
-      record.circuit_preview.attached? ? rails_blob_url(record.circuit_preview) : nil
+      record.circuit_preview.attached? ? main_app.rails_blob_url(record.circuit_preview) : nil
     end
     field :description, as: :textarea
     field :view, as: :number, sortable: true

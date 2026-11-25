@@ -84,10 +84,19 @@ class SimulatorController < ApplicationController
   def update
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
+    @project.name = sanitize(params[:name])
+
+    # Validate first
+    unless @project.valid? && @project.project_datum.valid?
+      render plain: "error", status: :unprocessable_content
+      return
+    end
+
+    # Only now purge old preview and attach new one
     @project.circuit_preview.purge if @project.circuit_preview.attached?
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
-    @project.name = sanitize(params[:name])
+
     @project.save
     @project.project_datum.save
     render plain: "success"
