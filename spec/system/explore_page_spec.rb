@@ -6,7 +6,13 @@ RSpec.describe "Explore page", :js, type: :system do
   it "renders sections and paginates Recent" do
     author = FactoryBot.create(:user)
     Array.new(25) do
-      FactoryBot.create(:project, author: author, project_access_type: "Public", image_preview: "x.png")
+      project = FactoryBot.create(:project, author: author, project_access_type: "Public")
+      project.circuit_preview.attach(
+        io: File.open(Rails.root.join("spec/fixtures/files/default.png")),
+        filename: "default.png",
+        content_type: "image/png"
+      )
+      project
     end
 
     visit "/explore"

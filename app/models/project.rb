@@ -24,7 +24,6 @@ class Project < ApplicationRecord
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
   has_many :tags, -> { where.not(name: "") }, through: :taggings
-  mount_uploader :image_preview, ImagePreviewUploader
   has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
@@ -89,7 +88,6 @@ class Project < ApplicationRecord
     forked_project = dup
     forked_project.build_project_datum.data = project_datum&.data
     forked_project.circuit_preview.attach(circuit_preview.blob)
-    forked_project.image_preview = image_preview
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
