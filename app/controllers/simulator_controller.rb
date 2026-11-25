@@ -25,30 +25,42 @@ class SimulatorController < ApplicationController
   def show
     @logix_project_id = params[:id]
     @external_embed = false
-    if Flipper.enabled?(:vuesim, current_user)
-      render "embed_vue", layout: false
-    else
-      render "embed"
+    respond_to do |format|
+      format.html do
+        if Flipper.enabled?(:vuesim, current_user)
+          render "embed_vue", layout: false
+        else
+          render "embed"
+        end
+      end
     end
   end
 
   def new
     @logix_project_id = 0
     @projectName = ""
-    if Flipper.enabled?(:vuesim, current_user)
-      render "edit_vue", layout: false
-    else
-      render "edit"
+    respond_to do |format|
+      format.html do
+        if Flipper.enabled?(:vuesim, current_user)
+          render "edit_vue", layout: false
+        else
+          render "edit"
+        end
+      end
     end
   end
 
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
-    if Flipper.enabled?(:vuesim, current_user)
-      render :edit_vue, layout: false
-    else
-      render :edit
+    respond_to do |format|
+      format.html do
+        if Flipper.enabled?(:vuesim, current_user)
+          render :edit_vue, layout: false
+        else
+          render :edit
+        end
+      end
     end
   end
 
@@ -58,10 +70,14 @@ class SimulatorController < ApplicationController
     @project = Project.friendly.find(params.expect(:id))
     @author = @project.author_id
     @external_embed = true
-    if Flipper.enabled?(:vuesim, current_user)
-      render :embed_vue, layout: false
-    else
-      render :embed
+    respond_to do |format|
+      format.html do
+        if Flipper.enabled?(:vuesim, current_user)
+          render :embed_vue, layout: false
+        else
+          render :embed
+        end
+      end
     end
   end
 
