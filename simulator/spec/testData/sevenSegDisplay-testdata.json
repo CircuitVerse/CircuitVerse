@@ -1,0 +1,54 @@
+{
+  "digit0": {
+    "title": "Digit 0",
+    "segments": {
+      "in_a": 1,
+      "in_b": 1,
+      "in_c": 1,
+      "in_d": 1,
+      "in_e": 1,
+      "in_f": 1,
+      "in_g": 0,
+      "in_dot": 0
+    }
+  },
+  "digit1": {
+    "title": "Digit 1",
+    "segments": {
+      "in_a": 0,
+      "in_b": 1,
+      "in_c": 1,
+      "in_d": 0,
+      "in_e": 0,
+      "in_f": 0,
+      "in_g": 0,
+      "in_dot": 0
+    }
+  },
+  "digit8": {
+    "title": "Digit 8",
+    "segments": {
+      "in_a": 1,
+      "in_b": 1,
+      "in_c": 1,
+      "in_d": 1,
+      "in_e": 1,
+      "in_f": 1,
+      "in_g": 1,
+      "in_dot": 0
+    }
+  },
+  "allOff": {
+    "title": "All Off",
+    "segments": {
+      "in_a": 0,
+      "in_b": 0,
+      "in_c": 0,
+      "in_d": 0,
+      "in_e": 0,
+      "in_f": 0,
+      "in_g": 0,
+      "in_dot": 0
+    }
+  }
+}
