@@ -1,37 +1,33 @@
-name: vet OSS Components
+name: vet
 
 on:
   pull_request:
+  # A push run scans the whole checkout. It finds a change that reaches master
+  # with no pull request, such as a push from a compromised account.
   push:
-    branches:
-      - main
-      - master
+    branches: [master]
+  # A weekly run finds malware that SafeDep Threat Intel reports after a merge.
+  schedule:
+    - cron: "17 3 * * 1"
 
-permissions:
-  # Required for actions/checkout@v4
-  contents: read
+permissions: {}
 
-  # Required for writing pull request comment
-  issues: write
-  pull-requests: write
+concurrency:
+  group: vet-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   vet:
-    name: vet
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
-
-      - name: Run vet
-        id: vet
-        uses: safedep/vet-action@v1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: safedep/vet@f9e8e249dfbe17327897b2e8d88faea372618163 # v2.0.0-alpha.20261124143912
         with:
           policy: .github/vet/policy.yml
-          enable-comments-proxy: true
-        env:
-          # Required for writing pull request comment
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          package-cooldown: "3"

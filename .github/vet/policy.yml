@@ -1,24 +1,30 @@
-name: General Purpose OSS Best Practices
-description: |
-  This filter suite contains rules for implementing minimum
-  security guardrails against risky OSS components.
-tags:
-  - general
-  - circuitverse
-filters:
-  - name: critical-or-high-vulns
-    check_type: CheckTypeVulnerability
-    summary: Critical or high risk vulnerabilities were found
-    value: |
-      vulns.critical.exists(p, true) || vulns.high.exists(p, true)
-  - name: low-popularity
-    check_type: CheckTypePopularity
-    summary: Component popularity is low by Github stars count
-    value: |
-      projects.exists(p, (p.type == "GITHUB") && (p.stars < 10))
-  - name: osv-malware
-    check_type: CheckTypeMalware
-    summary: Malicious (malware) component detected
-    value: |
-      vulns.all.exists(v, v.id.startsWith("MAL-"))
-
+# The vet gate always fails on an attack, such as malware, a loader hidden
+# after a run of spaces, or a script disguised as a font. These rules add to
+# it. They read the change of a finding, which is empty in a full scan, so
+# the push and weekly runs fail only on an attack. In a pull request, vet
+# reads this file at the base commit.
+version: 2
+rules:
+  - id: new-critical-or-high-vulnerability
+    description: The pull request adds, upgrades or downgrades to a package version with a critical or high vulnerability.
+    when: >-
+      finding.control_id == "vulnerability" &&
+      finding.severity in ["critical", "high"] &&
+      finding.change in ["ADDED", "UPGRADED", "DOWNGRADED"]
+    action: fail
+    help: Pick a version that fixes the vulnerability.
+  - id: new-version-in-cooldown
+    description: The pull request adds a package version that is younger than the cooldown.
+    when: finding.control_id == "dependency-cooldown" && finding.change != ""
+    action: fail
+    help: Wait until the version is older than the cooldown, or pick an older version.
+  - id: workflow-injection
+    description: A workflow runs the code or the text of a pull request with the write token or the secrets of the repository.
+    when: >-
+      finding.control_id in ["dangerous-trigger", "template-injection", "artifact-poisoning", "github-env-injection"]
+    action: fail
+    help: Do not check out or interpolate pull request content in a privileged workflow.
+suppressions:
+  - purl: pkg:npm/dargs
+    control: typosquat
+    reason: dargs is a popular package by sindresorhus that conventional-changelog uses. It is not a typo of yargs.
