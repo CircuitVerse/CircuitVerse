@@ -193,13 +193,6 @@ GEM
       addressable
       capybara
       playwright-ruby-client (>= 1.16.0)
-    carrierwave (3.1.3)
-      activemodel (>= 6.0.0)
-      activesupport (>= 6.0.0)
-      addressable (~> 2.6)
-      image_processing (~> 1.1)
-      marcel (~> 1.0.0)
-      ssrf_filter (~> 1.0)
     cgi (0.5.1)
     choice (0.2.0)
     coderay (1.1.3)
@@ -273,6 +266,7 @@ GEM
       faraday (>= 1, < 3)
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
+    ffi (1.17.4-aarch64-linux-gnu)
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x64-mingw-ucrt)
     ffi (1.17.4-x86_64-darwin)
@@ -301,6 +295,9 @@ GEM
     glob (0.4.1)
     globalid (1.4.0)
       activesupport (>= 6.1)
+    google-protobuf (4.35.1-aarch64-linux-gnu)
+      bigdecimal
+      rake (~> 13.3)
     google-protobuf (4.35.1-arm64-darwin)
       bigdecimal
       rake (~> 13.3)
@@ -441,7 +438,7 @@ GEM
       drb (~> 2.0)
       prism (~> 1.5)
     mize (0.6.1)
-    msgpack (1.8.3)
+    msgpack (1.8.7)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
@@ -457,6 +454,8 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
+    nokogiri (1.19.7-aarch64-linux-gnu)
+      racc (~> 1.4)
     nokogiri (1.19.7-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.7-x64-mingw-ucrt)
@@ -492,11 +491,11 @@ GEM
     oj (3.17.5)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
-    omniauth (2.1.4)
-      hashie (>= 3.4.6)
+    omniauth (2.4.2)
+      hashie (>= 3.5.2)
       logger
-      rack (>= 2.2.3)
-      rack-protection
+      rack (>= 2.2.8)
+      rack-protection (>= 2.2.0)
     omniauth-facebook (10.0.0)
       bigdecimal
       omniauth-oauth2 (>= 1.2, < 3)
@@ -605,6 +604,7 @@ GEM
       racc
     percy-capybara (5.0.1)
       capybara (>= 3)
+    pg (1.6.3-aarch64-linux)
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x64-mingw-ucrt)
     pg (1.6.3-x86_64-darwin)
@@ -644,15 +644,15 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (8.0.2)
+    puma (8.0.4)
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
     racc (1.8.1)
-    rack (3.2.8)
+    rack (3.2.9)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
-    rack-protection (4.2.1)
+    rack-protection (4.2.2)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
@@ -803,9 +803,9 @@ GEM
       logger
     rugged (1.9.0)
     safely_block (1.0.0)
-    sanitize (7.0.1)
+    sanitize (7.0.2)
       crass (~> 1.0.8)
-      nokogiri (>= 1.16.8)
+      nokogiri (>= 1.19.7)
     securerandom (0.4.1)
     sentry-rails (5.26.0)
       railties (>= 5.0)
@@ -909,7 +909,7 @@ GEM
       turbo-rails (>= 1.3.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2025.3)
+    tzinfo-data (1.2026.6)
       tzinfo (>= 1.0.0)
     unaccent (0.4.0)
     undercover (0.8.5)
@@ -963,11 +963,13 @@ GEM
     zeitwerk (2.8.2)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
   arm64-darwin-24
   arm64-darwin-25
+  arm64-darwin-27
   x64-mingw-ucrt
   x86_64-darwin-21
   x86_64-linux
@@ -984,7 +986,6 @@ DEPENDENCIES
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
   capybara-playwright-driver
-  carrierwave (~> 3.1)
   concurrent-ruby (>= 1.3.7)
   country_select (~> 8.0)
   coveralls_reborn (~> 0.29.1)
