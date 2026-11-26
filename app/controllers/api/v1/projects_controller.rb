@@ -10,7 +10,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     user_projects
     user_favourites
     featured_circuits
-    image_preview
     create
   ]
 
@@ -37,7 +36,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     create_fork
   ]
   before_action :set_user_project, only: %i[update_circuit]
-  before_action :set_options, except: %i[destroy toggle_star image_preview]
+  before_action :set_options, except: %i[destroy toggle_star]
   before_action :filter, only: %i[index user_projects featured_circuits user_favourites]
   before_action :sort, only: %i[index user_projects featured_circuits user_favourites]
 
@@ -94,11 +93,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
   end
 
-  def image_preview
-    @project = Project.open.friendly.find(params.expect(:id))
-    render json: { project_preview: request.base_url + @project.image_preview.url }
-  end
-
   # POST api/v1/projects
   def create
     @project = Project.new
@@ -106,12 +100,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     @project.name = sanitize(params[:name])
     @project.author = current_user
 
-    image_file = return_image_file(params[:image])
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(@project, io_image_file)
 
-    @project.image_preview = image_file
     if @project.save
-      image_file.close
-      File.delete(image_file) if check_to_delete(params[:image])
       render json: { status: "success", project: @project }, status: :created
     else
       render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
@@ -134,11 +126,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   def update_circuit
     authorize @project, :check_edit_access?
 
-    build_project_datum
-    update_project_params
+    prepare_project_update
+    return if performed?
+
+    attach_new_preview_if_provided
 
     if @project.save && @project.project_datum.save
-      handle_image_file_cleanup
       render json: { status: "success", project: @project }, status: :ok
     else
       render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
@@ -158,7 +151,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
-  # GET /api/v1/projects/:id/toggle-star
+  # POST /api/v1/projects/:id/toggle-star
   def toggle_star
     authorize @project, :check_view_access?
     if @project.toggle_star(current_user)
@@ -182,6 +175,24 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   private
 
+    def prepare_project_update
+      build_project_datum
+      @project.name = sanitize(params[:name])
+
+      return if @project.valid? && @project.project_datum.valid?
+
+      render json: {
+        status: "error",
+        errors: @project.errors.full_messages + @project.project_datum.errors.full_messages
+      }, status: :unprocessable_content
+    end
+
+    def attach_new_preview_if_provided
+      @project.circuit_preview.purge if @project.circuit_preview.attached?
+      io_image_file = parse_image_data_url(params[:image])
+      attach_circuit_preview(@project, io_image_file)
+    end
+
     def set_project
       if params[:user_id]
         @author = User.find(params.expect(:user_id))
@@ -204,15 +215,25 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @project.project_datum.data = sanitize_data(@project, params[:data])
     end
 
-    def update_project_params
-      @image_file = return_image_file(params[:image])
-      @project.image_preview = @image_file
-      @project.name = sanitize(params[:name])
+    DATA_URL_PREFIX = "data:image/jpeg;base64,"
+    private_constant :DATA_URL_PREFIX
+
+    def parse_image_data_url(data_url)
+      str = data_url[DATA_URL_PREFIX.length..]
+      return nil if str.to_s.empty?
+
+      jpeg = Base64.decode64(str)
+      StringIO.new(jpeg)
     end
 
-    def handle_image_file_cleanup
-      @image_file.close
-      File.delete(@image_file) if check_to_delete(params[:image])
+    def attach_circuit_preview(project, image_file)
+      return unless image_file
+
+      project.circuit_preview.attach(
+        io: image_file,
+        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
+        content_type: "image/jpeg"
+      )
     end
 
     def load_index_projects

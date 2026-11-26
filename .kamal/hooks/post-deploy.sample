@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# A sample post-deploy hook.
+# Kamal passes these environment variables to the hook:
+#   KAMAL_RECORDED_AT, KAMAL_PERFORMER, KAMAL_VERSION, KAMAL_HOSTS, KAMAL_ROLE, KAMAL_DESTINATION
+#
+# To activate, rename this file to post-deploy and make it executable:
+#   mv .kamal/hooks/post-deploy.sample .kamal/hooks/post-deploy
+#   chmod +x .kamal/hooks/post-deploy
+
+echo "Successfully deployed CircuitVerse version $KAMAL_VERSION by $KAMAL_PERFORMER"
+
+# Example: Notify a webhook (e.g. Slack or Discord)
+# if [ -n "$SLACK_WEBHOOK_URL" ]; then
+#   curl -X POST -H 'Content-type: application/json' \
+#     --data "{\"text\":\"CircuitVerse version ${KAMAL_VERSION} deployed to ${KAMAL_DESTINATION:-production}\"}" \
+#     "$SLACK_WEBHOOK_URL"
+# fi

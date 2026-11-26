@@ -1,5 +1,5 @@
 # Pragmatic: small slim base, single apt layer, Node via copy (no nodesource GPG dance).
-FROM ruby:4.0.2-slim
+FROM ruby:4.0.10-slim
 
 RUN apt-get update -qq \
   && apt-get install --no-install-recommends -y \
