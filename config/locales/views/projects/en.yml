@@ -4,6 +4,8 @@ en:
       "Enter Email IDs separated by commas, spaces or enter. Users need to be registered already on the platform.
       Note that collaboration is not real time as of now. Every save overwrites the previous data."
     remove_collaborator_message: "Are you sure you want to remove this collaborator?"
+    leave_project_message: "Are you sure you want to leave this project?"
+    left_project_notice: "You have left the project."
     delete_project_message: "Are you sure you want to delete this project?"
     form:
       feature_circuit_checkpoint: "Featured (Administrator Only)"
@@ -34,6 +36,7 @@ en:
       project_collaborator_add: "+ Add a Collaborator"
       copied_to_clipboard: "Copied to Clipboard!"
       collaborators: "Collaborators"
+      leave_project: "Leave project"
     search:
       no_result_found: "No Results Found"
     modal:

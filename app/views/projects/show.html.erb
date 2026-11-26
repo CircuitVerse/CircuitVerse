@@ -190,6 +190,10 @@
                       <% end %>
                     </div>
                   </div>
+                <% elsif user == current_user %>
+                  <div class="col-12 d-grid">
+                    <%= link_to t("projects.show.leave_project"), "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id, leaving: true }, class: "btn primary-delete-button" %>
+                  </div>
                 <% end %>
                 <hr class="w-75">
               </div>
@@ -228,6 +232,11 @@
     });
     $("#deletecollaborationModal").on("show.bs.modal", function(e) {
         let collaboration = $(e.relatedTarget).data('currentcollaboration');
+        let leaving = $(e.relatedTarget).data('leaving') === true;
+        // Switch the title, message and button between "remove collaborator" and "leave project"
+        $(e.currentTarget).find('[data-leave-text]').each(function() {
+            $(this).text(leaving ? $(this).data('leave-text') : $(this).data('remove-text'));
+        });
         $(e.currentTarget).find('#projects-collaboration-delete-button').attr("href",
         "/collaborations/" + collaboration.toString());
     });
