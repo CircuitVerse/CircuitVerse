@@ -1,0 +1,10 @@
+# Production destination overrides (`kamal <command> -d production`)
+# Merged on top of config/deploy.yml
+
+proxy:
+  ssl: true
+  host: <%= ENV.fetch("PRODUCTION_APP_HOST", "circuitverse.org") %>
+
+env:
+  clear:
+    AWS_S3_BUCKET_NAME: <%= ENV.fetch("PRODUCTION_AWS_S3_BUCKET_NAME", "circuitverse-images-prod") %>

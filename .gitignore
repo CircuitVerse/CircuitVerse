@@ -99,3 +99,9 @@ config/credentials.yml.enc
 .vscode/settings.json
 
 vendor
+
+# Kamal
+.kamal/secrets
+.kamal/secrets.*
+!.kamal/secrets.example
+

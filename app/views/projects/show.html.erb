@@ -1,17 +1,18 @@
 <% content_for :title, "CircuitVerse - #{@project.name}" %>
 <% content_for :description, @project.description %>
 <% set_meta_tags author: @project.author.name %>
+<% preview_url = @project.circuit_preview.attached? ? rails_blob_url(@project.circuit_preview) : "#{Rails.configuration.site_url}#{asset_path('empty_project/default.png')}" %>
 <% set_meta_tags twitter: {
      card: "summary_large_image",
      title: yield(:title),
      description: @project.description,
      image: {
-       src: "#{Rails.configuration.site_url}#{@project.image_preview}"
+       src: preview_url
      }
    } %>
 <% set_meta_tags og: {
      title: yield(:title),
-     image: "#{Rails.configuration.site_url}#{@project.image_preview}",
+     image: preview_url,
      description: @project.description,
      type: "article",
      site_name: Rails.configuration.site_name

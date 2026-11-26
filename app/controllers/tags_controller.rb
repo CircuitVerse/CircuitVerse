@@ -59,7 +59,7 @@ class TagsController < ApplicationController
 
     def tag_base_scope
       Project
-        .select(:id, :author_id, :image_preview, :name, :slug, :view, :description, :stars_count)
+        .select(:id, :author_id, :name, :slug, :view, :description, :stars_count)
         .public_and_not_forked
         .joins(:tags)
         .where(tags: { id: @tag.id })
