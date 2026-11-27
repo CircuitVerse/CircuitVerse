@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# A sample pre-deploy hook.
+# Kamal passes these environment variables to the hook:
+#   KAMAL_RECORDED_AT, KAMAL_PERFORMER, KAMAL_VERSION, KAMAL_HOSTS, KAMAL_ROLE, KAMAL_DESTINATION
+#
+# To activate, rename this file to pre-deploy and make it executable:
+#   mv .kamal/hooks/pre-deploy.sample .kamal/hooks/pre-deploy
+#   chmod +x .kamal/hooks/pre-deploy
+
+echo "Preparing to deploy CircuitVerse version $KAMAL_VERSION..."
