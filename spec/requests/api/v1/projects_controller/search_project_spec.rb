@@ -49,5 +49,28 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
         expect(response.parsed_body["data"].length).to eq(0)
       end
     end
+
+    # Every example above sends page[number], which is why the omission below
+    # went unnoticed: params[:page] was nil and the controller raised on it.
+    context "when pagination parameters are omitted" do
+      before do
+        get "/api/v1/projects/search?q=full", as: :json
+      end
+
+      it "falls back to the first page" do
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
+
+    context "when page is a scalar instead of the page object" do
+      before do
+        get "/api/v1/projects/search?q=full&page=2", as: :json
+      end
+
+      it "ignores it instead of raising" do
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end
