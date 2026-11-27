@@ -66,14 +66,6 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "invalid resource")
   end
 
-  # page is optional, and anything that is not the documented
-  # page[number]/page[size] object is ignored - a bare ?page=2 would otherwise
-  # blow up on dig, and every paginated endpoint would 500 with it.
-  def page_params
-    page = params[:page]
-    page.is_a?(ActionController::Parameters) ? page : {}
-  end
-
   def paginate(resource)
     resource.paginate(
       page: (page_params[:number] || 1).to_i,
@@ -98,8 +90,17 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
-    def paginated_url(base_url, page)
-      separator = base_url.index("?").nil? ? "?" : "&"
-      "#{base_url}#{separator}page[number]=#{page}" if page
-    end
+  # A missing `page`, or one sent as a plain value rather than the
+  # page[number]/page[size] object, is treated as no pagination at all. Reading
+  # it with dig would raise instead, which is what took every paginated
+  # endpoint down on a bare ?page=2.
+  def page_params
+    page = params[:page]
+    page.is_a?(ActionController::Parameters) ? page : {}
+  end
+
+  def paginated_url(base_url, page)
+    separator = base_url.index("?").nil? ? "?" : "&"
+    "#{base_url}#{separator}page[number]=#{page}" if page
+  end
 end
