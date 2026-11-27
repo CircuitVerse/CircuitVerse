@@ -8,9 +8,11 @@
       </div>
     </div>
     <div class="card-body users-card-body">
-      <%= helpers.image_tag @submission.project.image_preview.url,
-                    class: "users-card-image",
-                    alt:   @submission.project.name %>
+      <%= helpers.image_tag(
+            @submission.project.circuit_preview.attached? ? @submission.project.circuit_preview : helpers.image_path("empty_project/default.png"),
+            class: "users-card-image",
+            alt:   @submission.project.name
+          ) %>
     </div>
     <div class="card-footer users-card-footer d-flex justify-content-between align-items-center">
       <span class="fw-bold"><%= t("contest.votes_count", count: @submission.submission_votes_count) %></span>

@@ -28,7 +28,7 @@ describe CommentsController, type: :request do
 
       it "rejects blank bodies" do
         post comment_thread_comments_path(thread), params: { comment: { body: "" } }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it "rejects comments on closed threads" do
