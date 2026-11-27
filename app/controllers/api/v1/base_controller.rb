@@ -90,17 +90,17 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
-  # A missing `page`, or one sent as a plain value rather than the
-  # page[number]/page[size] object, is treated as no pagination at all. Reading
-  # it with dig would raise instead, which is what took every paginated
-  # endpoint down on a bare ?page=2.
-  def page_params
-    page = params[:page]
-    page.is_a?(ActionController::Parameters) ? page : {}
-  end
+    # A missing `page`, or one sent as a plain value rather than the
+    # page[number]/page[size] object, is treated as no pagination at all. Reading
+    # it with dig would raise instead, which is what took every paginated
+    # endpoint down on a bare ?page=2.
+    def page_params
+      page = params[:page]
+      page.is_a?(ActionController::Parameters) ? page : {}
+    end
 
-  def paginated_url(base_url, page)
-    separator = base_url.index("?").nil? ? "?" : "&"
-    "#{base_url}#{separator}page[number]=#{page}" if page
-  end
+    def paginated_url(base_url, page)
+      separator = base_url.index("?").nil? ? "?" : "&"
+      "#{base_url}#{separator}page[number]=#{page}" if page
+    end
 end
