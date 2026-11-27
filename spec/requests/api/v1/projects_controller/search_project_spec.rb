@@ -68,8 +68,11 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
         get "/api/v1/projects/search?q=full&page=2", as: :json
       end
 
-      it "ignores it instead of raising" do
+      it "ignores it and stays on the first page" do
         expect(response).to have_http_status(:ok)
+        # page 1 returns both matches; honouring the scalar as page 2 would
+        # return none, so this pins "ignored" rather than merely "did not raise".
+        expect(response.parsed_body["data"].length).to eq(2)
       end
     end
   end

@@ -91,5 +91,19 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         expect(response.parsed_body["data"].length).to eq(2)
       end
     end
+
+    # paginate() is shared by every paginated endpoint, so the scalar case is
+    # pinned on a second action - otherwise the breadth claim rests on one spec.
+    context "when page is a scalar instead of the page object" do
+      before do
+        FactoryBot.create_list(:project, 2, project_access_type: "Public")
+        get "/api/v1/projects?page=2", as: :json
+      end
+
+      it "ignores it and returns the first page" do
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["data"].length).to eq(2)
+      end
+    end
   end
 end
