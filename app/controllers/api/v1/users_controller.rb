@@ -12,7 +12,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def index
     @users = paginate(User.all)
     @options = { params: { only_name: true } }
-    @options[:links] = link_attrs(@users, api_v1_users_url)
+    @options[:links] = link_attrs(api_v1_users_url)
     render json: Api::V1::UserSerializer.new(@users, @options)
   end
 

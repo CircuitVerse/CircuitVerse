@@ -2,8 +2,6 @@
 
 module Adapters
   class PgAdapter < BaseAdapter
-    MAX_RESULTS_PER_PAGE = 9
-
     # Mapping of sort fields to actual database columns
     SORT_MAPPINGS = {
       project: {
@@ -43,9 +41,7 @@ module Adapters
         results = base_results
         results = results.includes(*includes) if includes
         results = apply_filters(results, query_params, type)
-        results = apply_sorting(results, query_params, type)
-
-        results.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
+        apply_sorting(results, query_params, type)
       end
 
       def base_project_results(relation, query_params)

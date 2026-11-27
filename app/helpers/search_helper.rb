@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module SearchHelper
-  MAX_RESULTS_PER_PAGE = 9
   DEFAULT_PRIORITY_COUNTRY_CODES = ["IN"].freeze
 
   def query(resource, query_params)

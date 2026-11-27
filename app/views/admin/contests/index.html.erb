@@ -81,7 +81,11 @@
     <% end %>
   </div>
   <div class="container pagination-cont">
-    <%= will_paginate @contests, renderer: PaginateRenderer %>
+    <% if @pagy.pages > 1 %>
+      <div class="d-flex justify-content-center">
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </div>
+    <% end %>
   </div>
   <% if @contests.empty? %>
     <div class="col-12 row center-row d-flex justify-content-center">
