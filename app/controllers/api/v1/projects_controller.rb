@@ -272,12 +272,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def search_projects
-      # `page` is optional - omitting it used to raise NoMethodError on nil.
-      # Anything that is not the documented page[number]/page[size] object is
-      # treated as "no pagination given", so a bare `?page=2` cannot crash either.
-      page = params[:page]
-      page = {} unless page.is_a?(ActionController::Parameters)
-      query_params = { q: params[:q], page: page[:number], per_page: page[:size] }
+      query_params = { q: params[:q], page: page_params[:number], per_page: page_params[:size] }
       @projects = ProjectsQuery.new(query_params, Project.public_and_not_forked).results
     end
 

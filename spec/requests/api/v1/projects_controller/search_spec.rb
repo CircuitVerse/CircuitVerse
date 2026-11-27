@@ -6,7 +6,7 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
   describe "project search pagination" do
     before do
       @author = FactoryBot.create(:user)
-      FactoryBot.create(:project, author: @author, name: "Adder circuit")
+      FactoryBot.create(:project, :public, author: @author, name: "Adder circuit")
     end
 
     context "when pagination parameters are omitted" do
@@ -14,7 +14,7 @@ RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
         get "/api/v1/projects/search", params: { q: "adder" }, as: :json
 
         expect(response).to have_http_status(:ok)
-        expect(response.parsed_body["data"]).to be_an(Array)
+        expect(response.parsed_body["data"].length).to eq(1)
       end
     end
 

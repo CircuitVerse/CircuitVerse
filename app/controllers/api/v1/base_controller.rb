@@ -66,10 +66,18 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "invalid resource")
   end
 
+  # page is optional, and anything that is not the documented
+  # page[number]/page[size] object is ignored - a bare ?page=2 would otherwise
+  # blow up on dig, and every paginated endpoint would 500 with it.
+  def page_params
+    page = params[:page]
+    page.is_a?(ActionController::Parameters) ? page : {}
+  end
+
   def paginate(resource)
     resource.paginate(
-      page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
-      per_page: (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
+      page: (page_params[:number] || 1).to_i,
+      per_page: (page_params[:size] || DEFAULT_PER_PAGE).to_i
     )
   end
 
