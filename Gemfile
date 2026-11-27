@@ -46,8 +46,6 @@ gem "sitemap_generator"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 3.1"
-
 # gem 'cancancan', '~>2.0'
 
 gem "pg_search"
