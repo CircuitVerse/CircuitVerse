@@ -78,6 +78,7 @@ class Api::V1::BaseController < ActionController::API
     page = [scalar_page_param(page_params["number"]), 1].max
     limit = scalar_page_param(page_params["size"])
     limit = limit.positive? ? [limit, MAX_PER_PAGE].min : DEFAULT_PER_PAGE
+    @per_page = limit
 
     @pagy, records = pagy(resource, page: page, limit: limit, overflow: :empty_page)
     records
@@ -108,6 +109,6 @@ class Api::V1::BaseController < ActionController::API
 
     def paginated_url(base_url, page)
       separator = base_url.index("?").nil? ? "?" : "&"
-      "#{base_url}#{separator}page[number]=#{page}" if page
+      "#{base_url}#{separator}page[number]=#{page}&page[size]=#{@per_page}" if page
     end
 end

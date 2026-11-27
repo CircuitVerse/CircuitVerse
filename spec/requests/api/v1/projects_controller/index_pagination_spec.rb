@@ -38,6 +38,13 @@ RSpec.describe Api::V1::ProjectsController, "#index pagination", type: :request 
     expect(body["links"]["next"]).to include("page[number]=2")
   end
 
+  it "keeps the requested page[size] in the pagination links" do
+    body = request_projects("page[size]=2")
+
+    expect(body["links"]["self"]).to include("page[size]=2")
+    expect(body["links"]["next"]).to include("page[size]=2")
+  end
+
   it "caps page[size] at MAX_PER_PAGE" do
     get "/api/v1/projects?page[size]=100000", as: :json
 
