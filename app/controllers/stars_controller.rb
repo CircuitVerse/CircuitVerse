@@ -47,7 +47,7 @@ class StarsController < ApplicationController
   #       format.json { render :show, status: :ok, location: @star }
   #     else
   #       format.html { render :edit }
-  #       format.json { render json: @star.errors, status: :unprocessable_entity }
+  #       format.json { render json: @star.errors, status: :unprocessable_content }
   #     end
   #   end
   # end

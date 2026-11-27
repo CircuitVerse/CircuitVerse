@@ -99,6 +99,7 @@ jobs:
           noReply: "true"
 
       - name: Static type checking
+        timeout-minutes: 10
         run: |
           bundle exec rbs collection install
           bundle exec steep check

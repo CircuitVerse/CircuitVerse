@@ -90,18 +90,21 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
       context "when project saving fails" do
         before do
           token = get_auth_token(user)
-          friendly_finder = class_double(Project, find: project)
+          friendly_finder = class_double(Project)
+          allow(friendly_finder).to receive(:find).and_return(project)
           allow(Project).to receive(:friendly).and_return(friendly_finder)
-          allow(project).to receive(:save).and_return(false)
+          project_datum = instance_double(ProjectDatum, valid?: true, save: false, data: nil, "data=": nil)
+          allow(project).to receive_messages(valid?: true, save: false, errors: double(full_messages: ["Save failed"]),
+                                             project_datum: project_datum, build_project_datum: project_datum)
           patch "/api/v1/projects/update_circuit",
                 headers: { Authorization: "Token #{token}" },
                 params: update_params, as: :json
         end
 
         it "returns status unprocessable entity" do
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           expect(response.parsed_body["status"]).to eq("error")
-          expect(response.parsed_body["status"]["error"]).not_to be_empty
+          expect(response.parsed_body["errors"]).not_to be_empty
         end
       end
     end

@@ -75,7 +75,7 @@ class GroupMembersController < ApplicationController
     #     format.json { render :show, status: :created, location: @group_member }
     #   else
     #     format.html { render :new }
-    #     format.json { render json: @group_member.errors, status: :unprocessable_entity }
+    #     format.json { render json: @group_member.errors, status: :unprocessable_content }
     #   end
     # end
   end
