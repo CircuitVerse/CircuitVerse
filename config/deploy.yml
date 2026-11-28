@@ -40,6 +40,7 @@ registry:
 env:
   clear:
     RAILS_SERVE_STATIC_FILES: true
+    RAILS_LOG_LEVEL: <%= ENV.fetch("RAILS_LOG_LEVEL", "info") %>
     REDIS_URL: <%= ENV.fetch("REDIS_URL", "redis://circuitverse-redis:6379/0") %>
     AWS_REGION: 'ap-south-1'
     AWS_REGION_SES: 'ap-south-1'
