@@ -175,7 +175,7 @@ gem "oj", "~> 3.17"
 # Used for rate limiting
 gem "rack-attack"
 
-gem "noticed", "~> 1.6"
+gem "noticed", "~> 3.2"
 
 # ActiveStorage AWS S3 + Variant Processing
 gem "aws-sdk-s3", "~> 1.228"
