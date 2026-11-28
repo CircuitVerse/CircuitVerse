@@ -24,6 +24,7 @@ import { setupBitConvertor} from './utils';
 import { currentScreen } from './listeners';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
+import { attachNumberSpinners } from './numberSpinner';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -456,7 +457,7 @@ export function showProperties(obj) {
             }
     });
 
-    $(".moduleProperty input[type='number']").inputSpinner();
+    attachNumberSpinners(".moduleProperty input[type='number']");
 }
 
 /**
