@@ -9,10 +9,24 @@ module UsersCircuitverseHelper
   end
 
   def user_profile_picture(attachment)
-    if attachment.attached?
+    if profile_picture_attached?(attachment)
       attachment
     else
       image_path("/images/thumb/Default.jpg")
     end
   end
+
+  private
+
+    def profile_picture_attached?(attachment)
+      return false if attachment.blank?
+
+      if attachment.respond_to?(:attached?)
+        attachment.attached? && attachment.attachment&.persisted?
+      elsif attachment.respond_to?(:persisted?)
+        attachment.persisted?
+      else
+        false
+      end
+    end
 end

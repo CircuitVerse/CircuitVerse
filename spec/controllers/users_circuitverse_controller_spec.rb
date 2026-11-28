@@ -65,6 +65,17 @@ describe Users::CircuitverseController, type: :request do
     expect(@user.educational_institute).to eq("MAIT")
   end
 
+  it "renders edit when profile update fails with an attached picture" do
+    patch profile_update_path(@user), params: {
+      id: @user.id,
+      user: {
+        name: "",
+        profile_picture: fixture_file_upload("profile.png", "image/png")
+      }
+    }
+    expect(response).to render_template(:edit)
+  end
+
   it "remembers session redirect for short URLs" do
     get contribute_path
     expect(session[:user_return_to]).to eq("/contribute")
