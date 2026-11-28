@@ -67,10 +67,10 @@
     "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.3",
     "sass": "^1.83.4",
-    "select2": "4.0.13",
     "stimulus": "^3.2.2",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",
+    "tom-select": "^2.6.2",
     "trumbowyg": "^2.28.0",
     "turbolinks": "^5.2.0"
   },

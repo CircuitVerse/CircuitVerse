@@ -37,8 +37,8 @@ describe "Group management", type: :system do
   it "adds a member to the group" do
     visit "/groups/#{group.id}"
     click_button "+ Add Members"
-    fill_in_input "#group_email_input", with: "example@gmail.com"
-    fill_in_input "#group_email_input", with: :enter
+    fill_in_input "#group_member_emails-ts-control", with: "example@gmail.com"
+    fill_in_input "#group_member_emails-ts-control", with: :enter
     click_button "Add members"
 
     expect(page).to have_text(
@@ -78,8 +78,8 @@ describe "Group management", type: :system do
   it "adds mentor" do
     visit "/groups/#{group.id}"
     click_button "+ Add Mentors"
-    fill_in_input "#group_email_input_mentor", with: user.email
-    fill_in_input "#group_email_input_mentor", with: :enter
+    fill_in_input "#group_mentor_emails-ts-control", with: user.email
+    fill_in_input "#group_mentor_emails-ts-control", with: :enter
     click_button "Add mentors"
 
     expect(page).to have_text(
