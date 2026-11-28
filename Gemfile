@@ -24,7 +24,7 @@ gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 8.1.3"
 # Use Puma as the app server
-gem "puma", "~> 8.0.2"
+gem "puma", "~> 8.1.3"
 # Use SCSS for stylesheets (compiled via cssbundling-rails + dart-sass, see package.json build:css)
 gem "cssbundling-rails", "~> 1.0"
 # Static asset server (fingerprints + serves app/assets). Replaces sprockets-rails.
@@ -83,7 +83,7 @@ gem "http", "~> 4.4"
 
 # Database
 
-gem "pg", "~> 1.6.3"
+gem "pg", "~> 1.7.0"
 
 gem "meta-tags"
 
@@ -101,7 +101,7 @@ gem "flipper-ui"
 gem "friendly_id", "~> 5.7.0"
 gem "inline_svg"
 gem "jsonapi-serializer"
-gem "jwt", "~> 3.2.0"
+gem "jwt", "~> 3.3.1"
 gem "rails-i18n", "~> 8.1.0"
 gem "recaptcha"
 # NOTE: sprockets-rails is gone. App JS/CSS is bundled with
@@ -116,12 +116,12 @@ gem "stimulus-rails", "~> 1.0"
 group :development, :test do
   # Adds support for debug
   gem "debug"
-  gem "coveralls_reborn", "~> 0.29.1", require: false
+  gem "coveralls_reborn", "~> 1.0.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails", "~> 8.0"
+  gem "rspec-rails", "~> 8.1"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
@@ -178,11 +178,11 @@ gem "rack-attack"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.228"
+gem "aws-sdk-s3", "~> 1.245"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.13"
-gem "opentelemetry-exporter-otlp", "~> 0.34.1"
+gem "opentelemetry-exporter-otlp", "~> 0.37.0"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
