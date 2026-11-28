@@ -2,6 +2,9 @@ version: 2
 updates:
 - package-ecosystem: npm
   directory: "/"
+  # vet fails a pull request that adds a version younger than 3 days.
+  cooldown:
+    default-days: 3
   groups:
     minor-and-patch:
       update-types:
@@ -13,6 +16,8 @@ updates:
   
 - package-ecosystem: bundler
   directory: "/"
+  cooldown:
+    default-days: 3
   schedule:
     interval: daily
   groups:
