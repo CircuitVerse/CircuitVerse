@@ -22,6 +22,10 @@ export default class extends Controller {
         };
     }
 
+    static splitTags(value) {
+        return value ? value.split(',').map((tag) => tag.trim()).filter((tag) => tag) : [];
+    }
+
     connect() {
         this.boundOutside = this.handleOutsideClick.bind(this);
         document.addEventListener('click', this.boundOutside);
@@ -103,14 +107,14 @@ export default class extends Controller {
     addTag() {
         if (!this.hasTagInputTarget || !this.hasTagHiddenTarget || !this.hasTagsDisplayTarget) return;
 
-        const tagText = this.tagInputTarget.value.trim();
-        if (!tagText) return;
-
         const currentTags = this.getCurrentTags();
-        if (currentTags.includes(tagText)) return;
+        const tags = [...currentTags];
+        this.constructor.splitTags(this.tagInputTarget.value).forEach((tag) => {
+            if (!tags.includes(tag)) tags.push(tag);
+        });
+        if (tags.length === currentTags.length) return;
 
-        currentTags.push(tagText);
-        this.updateTags(currentTags);
+        this.updateTags(tags);
         this.tagInputTarget.value = '';
     }
 
@@ -125,8 +129,7 @@ export default class extends Controller {
     getCurrentTags() {
         if (!this.hasTagHiddenTarget) return [];
 
-        const { value } = this.tagHiddenTarget;
-        return value ? value.split(',').map((tag) => tag.trim()).filter((tag) => tag) : [];
+        return this.constructor.splitTags(this.tagHiddenTarget.value);
     }
 
     updateTags(tags) {
