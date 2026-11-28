@@ -32,7 +32,7 @@ def check_dependencies
     'ruby' => 'Ruby programming language',
     'bundle' => 'Ruby Bundler',
     'node' => 'Node.js runtime',
-    'yarn' => 'Yarn package manager',
+    'bun' => 'Bun package manager',
     'psql' => 'PostgreSQL client',
     'redis-cli' => 'Redis client',
     # 'convert' => 'ImageMagick (convert command)',
@@ -52,15 +52,15 @@ def check_dependencies
     end
   end
 
-  # Check Yarn version specifically
-  if check_command('yarn')
-    yarn_version = `yarn --version`.strip
-    required_yarn = "1.22.19"
-    print_substep "Yarn version: #{yarn_version} (required: #{required_yarn})"
+  # Check Bun version specifically
+  if check_command('bun')
+    bun_version = `bun --version`.strip
+    required_bun = "1.3.14"
+    print_substep "Bun version: #{bun_version} (required: #{required_bun})"
 
-    if yarn_version != required_yarn
-      puts "\n⚠️  Consider updating Yarn to version #{required_yarn}"
-      puts "Current version #{yarn_version} may work but #{required_yarn} is recommended"
+    if bun_version != required_bun
+      puts "\n⚠️  Consider updating Bun to version #{required_bun}"
+      puts "Current version #{bun_version} may work but #{required_bun} is recommended"
     end
   end
 
@@ -199,10 +199,10 @@ chdir APP_ROOT do
 
   # Main project dependencies
   if File.exist?('package.json')
-    print_substep "Installing main project Node.js packages with Yarn..."
-    system! 'yarn install'
+    print_substep "Installing main project Node.js packages with Bun..."
+    system! 'bun install'
   else
-    print_substep "No package.json found in root, skipping main Yarn installation"
+    print_substep "No package.json found in root, skipping main Bun installation"
   end
 
   # Frontend Vue project dependencies
@@ -216,7 +216,7 @@ chdir APP_ROOT do
   end
 
   # Frontend assets are bundled with esbuild (JS) and dart-sass (CSS);
-  # run `yarn build` or use Procfile.dev (`js`/`css` processes) to rebuild.
+  # run `bun run build` or use Procfile.dev (`js`/`css` processes) to rebuild.
 
   print_section "Setting Up Configuration Files"
 
@@ -343,7 +343,7 @@ system! 'gem install mailcatcher'
     puts "   foreman start -f Procfile.dev"
     puts "\nOr start services individually:"
     puts "   bundle exec rails server    # Backend"
-    puts "   yarn dev                     # Frontend assets"
+    puts "   bun run dev                     # Frontend assets"
     puts "   bundle exec sidekiq          # Background jobs"
     puts "\nThen navigate to http://localhost:3000 in your browser."
   else
@@ -351,14 +351,14 @@ system! 'gem install mailcatcher'
     puts "\nTo start the development server, run:"
     puts "   bundle exec rails server"
     puts "\nFor asset compilation, also run:"
-    puts "   yarn dev"
+    puts "   bun run dev"
     puts "\nThen navigate to http://localhost:3000 in your browser."
   end
 
   puts "\n🔧 Additional development tools:"
   puts "   • Test suite: bundle exec rspec"
-  puts "   • Code linting: yarn lint (if configured)"
-  puts "   • Type checking: yarn type-check (if configured)"
+  puts "   • Code linting: bun run lint (if configured)"
+  puts "   • Type checking: bun run type-check (if configured)"
   puts "   • API documentation: available in apidoc/v1/"
   puts "   • Frontend Vue app: cd cv-frontend-vue && npm run dev"
 
