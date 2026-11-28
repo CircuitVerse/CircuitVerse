@@ -12,7 +12,7 @@ gem "aws-actionmailer-ses"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "language_filter"
-gem "mailkick", "~> 0.4.3"
+gem "mailkick", "~> 3.0.0"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-github"
